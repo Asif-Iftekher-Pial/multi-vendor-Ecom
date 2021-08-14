@@ -1,0 +1,13 @@
+<!-- Javascript -->
+<script src="{{ asset('backend/additional/assets/bundles/libscripts.bundle.js') }}"></script>
+<script src="{{ asset('backend/additional/assets/bundles/vendorscripts.bundle.js') }}"></script>
+
+<script src="{{ asset('backend/additional/assets/bundles/jvectormap.bundle.js') }}"></script>
+<!-- JVectorMap Plugin Js -->
+<script src="{{ asset('backend/additional/assets/bundles/morrisscripts.bundle.js') }}"></script>
+<!-- Morris Plugin Js -->
+<script src="{{ asset('backend/additional/assets/bundles/knob.bundle.js') }}"></script>
+<!-- Jquery Knob-->
+
+<script src="{{ asset('backend/additional/assets/bundles/mainscripts.bundle.js') }}"></script>
+<script src="{{ asset('backend/additional/assets/js/index8.js') }}"></script>
