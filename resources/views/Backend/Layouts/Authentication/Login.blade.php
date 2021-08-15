@@ -54,12 +54,12 @@
                                 <div class="form-group">
                                     <label for="signin-email" class="control-label sr-only">Email</label>
                                     <input type="email" class="form-control" name="email" id="signin-email" value=""
-                                        placeholder="Email">
+                                        placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="signin-password" class="control-label sr-only">Password</label>
                                     <input type="password"  class="form-control" name="password" id="signin-password"
-                                        value="" placeholder="Password">
+                                        value="" placeholder="Password" required>
                                 </div>
                                 <div class="form-group clearfix">
                                     <label class="fancy-checkbox element-left">

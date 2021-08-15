@@ -48,35 +48,38 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <li class="active">
-                            <a href="#Dashboard" class="has-arrow"><i class="icon-home"></i>
+                            <a href="{{ route('dashboard') }}" class="has-arrow"><i class="icon-home"></i>
                                 <span>Dashboard</span></a>
+                           
+                        </li>
+                        <li>
+                            <a href="#Widgets" class="has-arrow"><i class="icon-puzzle"></i>
+                                <span>Widgets</span></a>
                             <ul>
-                                <li><a href="index.html">Analytical</a></li>
-                                <li><a href="index2.html">Demographic</a></li>
-                                <li><a href="index3.html">Hospital</a></li>
-                                <li><a href="index4.html">University</a></li>
-                                <li><a href="index5.html">Real Estate</a></li>
-                                <li><a href="index6.html">Project</a></li>
-                                <li><a href="index7.html">Cryptocurrency</a></li>
-                                <li class="active"><a href="index8.html">eCommerce</a></li>
-                                <li><a href="index9.html">IoT</a></li>
+                                <li><a href="">Banner</a></li>
+                               
                             </ul>
                         </li>
                         <li>
-                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>App</span></a>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Depertment</span></a>
                             <ul>
-                                <li><a href="app-inbox.html">Inbox</a></li>
-                                <li><a href="app-chat.html">Chat</a></li>
-                                <li><a href="app-calendar.html">Calendar</a></li>
-                                <li><a href="app-contact.html">Contact list</a></li>
-                                <li><a href="app-contact-grid.html">Contact Card <span
-                                            class="badge badge-warning float-right">New</span></a></li>
-                                <li><a href="app-taskboard.html">Taskboard</a></li>
+                                <li><a href="">Category Management</a></li>
+                                <li><a href="">Product Management</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>File
-                                    Manager</span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>Vendor Management
+                                    </span></a>
+                            <ul>
+                                <li><a href="file-dashboard.html">Dashboard</a></li>
+                                <li><a href="file-documents.html">Documents</a></li>
+                                <li><a href="file-media.html">Media</a></li>
+                                <li><a href="file-images.html">Images</a></li>
+                            </ul>
+                        </li> 
+                        <li>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>Customer Management
+                                    </span></a>
                             <ul>
                                 <li><a href="file-dashboard.html">Dashboard</a></li>
                                 <li><a href="file-documents.html">Documents</a></li>
@@ -85,12 +88,31 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i> <span>Blog</span></a>
+                            <a href="#FileManager" class=" has-arrow"><i class="icon-basket-loaded"></i> <span>Order Management
+                                    </span></a>
+                            <ul>
+                                <li><a href="file-dashboard.html">Dashboard</a></li>
+                                <li><a href="file-documents.html">Documents</a></li>
+                                <li><a href="file-media.html">Media</a></li>
+                                <li><a href="file-images.html">Images</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i> <span>Review Management</span></a>
                             <ul>
                                 <li><a href="blog-dashboard.html">Dashboard</a></li>
                                 <li><a href="blog-post.html">New Post</a></li>
                                 <li><a href="blog-list.html">Blog List</a></li>
                                 <li><a href="blog-details.html">Blog Detail</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#charts" class="has-arrow"><i class="icon-bar-chart"></i>
+                                <span>Report Management</span></a>
+                            <ul>
+                                <li><a href="chart-morris.html"> <i class="fa fa-dollar"></i> Sell Report</a> </li>
+                                <li><a href="chart-flot.html">Order Report</a> </li>
+                                <li><a href="chart-chartjs.html">Vendor Products</a> </li>
                             </ul>
                         </li>
                         <li>
@@ -114,19 +136,7 @@
                                 <li><a href="ui-treeview.html">Treeview</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#Widgets" class="has-arrow"><i class="icon-puzzle"></i>
-                                <span>Widgets</span></a>
-                            <ul>
-                                <li><a href="widgets-statistics.html">Statistics</a></li>
-                                <li><a href="widgets-data.html">Data</a></li>
-                                <li><a href="widgets-chart.html">Chart</a></li>
-                                <li><a href="widgets-weather.html">Weather</a></li>
-                                <li><a href="widgets-social.html">Social</a></li>
-                                <li><a href="widgets-blog.html">Blog</a></li>
-                                <li><a href="widgets-ecommerce.html">eCommerce</a></li>
-                            </ul>
-                        </li>
+                       
                         <li>
                             <a href="#Authentication" class="has-arrow"><i class="icon-lock"></i>
                                 <span>Authentication</span></a>
@@ -200,21 +210,7 @@
                                             class="badge badge-info float-right">New</span></a> </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#charts" class="has-arrow"><i class="icon-bar-chart"></i>
-                                <span>Charts</span></a>
-                            <ul>
-                                <li><a href="chart-morris.html">Morris</a> </li>
-                                <li><a href="chart-flot.html">Flot</a> </li>
-                                <li><a href="chart-chartjs.html">ChartJS</a> </li>
-                                <li><a href="chart-jquery-knob.html">Jquery Knob</a> </li>
-
-                                <li><a href="chart-sparkline.html">Sparkline Chart</a></li>
-                                <li><a href="chart-peity.html">Peity</a></li>
-                                <li><a href="chart-c3.html">C3 Charts</a></li>
-                                <li><a href="chart-gauges.html">Gauges</a></li>
-                            </ul>
-                        </li>
+                       
                         <li>
                             <a href="#Maps" class="has-arrow"><i class="icon-map"></i> <span>Maps</span></a>
                             <ul>

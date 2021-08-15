@@ -41,19 +41,19 @@ class LoginController extends Controller
                 ]);
                 return redirect()->route('dashboard');
             }
-            // elseif(auth()->user()->role=='vendor')
-            // {
-            //     $status=User::where('id','=',auth()->user()->id);
-            //     $status->update([
-            //         'status'=> 'active'
-            //     ]);
-            //     return redirect()->intended('dashboard');
-            // }
+            elseif(auth()->user()->role=='vendor')
+            {
+                $status=User::where('id','=',auth()->user()->id);
+                $status->update([
+                    'status'=> 'active'
+                ]);
+                return redirect()->route('dashboard');
+            }
             
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'The provided credentials does not match our records.',
         ]);
 
     }
@@ -65,6 +65,6 @@ class LoginController extends Controller
         ]);
         Auth::logout();
        
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success','Logout successful');
     }
 }
