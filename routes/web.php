@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\Backend\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('Backend/layouts/home');
-});
+
 
 // Route::get('/index',[TestController::class,'index'])->name('test');
+
+Route::prefix('admin')->group(function () {
+
+
+    Route::get('/',[LoginController::class,'dashboard'])->name('dashboard');
+
+    Route::get('/login', [LoginController::class,'login'])->name('login');
+
+    Route::post('/dologin',[LoginController::class,'dologin'])->name('dologin');
+    Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+
+});
