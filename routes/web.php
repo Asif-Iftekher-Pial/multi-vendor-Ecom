@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,8 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/dologin',[LoginController::class,'dologin'])->name('dologin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+
+    Route::resource('/banner', BannerController::class);
+
 
 });

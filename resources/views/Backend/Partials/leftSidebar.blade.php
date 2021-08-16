@@ -56,7 +56,8 @@
                             <a href="#Widgets" class="has-arrow"><i class="icon-puzzle"></i>
                                 <span>Widgets</span></a>
                             <ul>
-                                <li><a href="">Banner</a></li>
+                                <li><a href="{{ route('banner.index') }}">Show Banner</a></li>
+                                <li><a href="{{ route('banner.create') }}">Add Banner</a></li>
                                
                             </ul>
                         </li>
