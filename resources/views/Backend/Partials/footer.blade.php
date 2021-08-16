@@ -11,18 +11,21 @@
 
 <script src="{{ asset('backend/additional/assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('backend/additional/assets/js/index8.js') }}"></script>
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 <script>
     $('#lfm').filemanager('image');
 </script>
 <script src="{{ asset('backend/assets/summernote/summernote.js') }}"></script>
 <script>
-     $(document).ready
-     (
-         function() 
-         {
-         $('#description').summernote();
-         }
-     );
+    $(document).ready(
+        function() {
+            $('#description').summernote();
+        }
+    );
 </script>
 
+<script>
+setTimeout(function(){
+    $('#alert').slideUp();
+},4000);
+</script>

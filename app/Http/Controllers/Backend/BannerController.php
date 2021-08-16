@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+//use Dotenv\Util\Str;
+use App\Models\Banner;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BannerController extends Controller
 {
@@ -14,7 +17,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return view('Backend.Layouts.Banner.index');
+        $allBanners=Banner::orderBy('id','DESC')->get();
+        //dd($allBanners);
+        return view('Backend.Layouts.Banner.index',compact('allBanners'));
     }
 
     /**
@@ -35,7 +40,39 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $request->validate([
+            'title'         =>  'string|required',
+            'description'   =>  'string|required',
+            'condition'     =>  'required',
+            'photo'         =>  'required',
+            'status'        =>  'required',
+        ]);
+
+        //dd($request->all());
+        $data=$request->all();
+
+        $slug=Str::slug($request->input('title'));
+        $slug_count=Banner::where('slug',$slug)->count();
+        if($slug_count>0)
+        {
+            $slug = time(). '-' .$slug;
+            
+        }
+        $data['slug']=$slug;
+        // return $data;
+        $status=Banner::create($data);  //create or storing data on Banner Table 
+
+
+        if($status){
+            //dd('ok');
+            return redirect()->route('banner.create')->with('success','Banner Created successfully');
+
+        }else{
+            
+            return redirect()->back()->with('error','Something went wrong');
+        }
+
     }
 
     /**
