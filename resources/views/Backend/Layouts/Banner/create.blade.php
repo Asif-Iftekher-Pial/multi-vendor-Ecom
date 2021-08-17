@@ -10,9 +10,28 @@
                         @csrf
 
                         {{-- new error message --}}
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             @include('Backend.Partials.Notification.notification')
-                        </div>
+                        </div> --}}
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @elseif ($errors->any())
+                             @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                {{ $error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @endforeach
+                        @endif
+
                         {{-- @if (session()->has('success'))
                             <div class="alert alert-success">
                                 {{ session()->get('success') }}
@@ -28,16 +47,16 @@
                                 <div class="form-group">
                                     <label for="">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Title" name="title"
-                                        value="{{ old('title') }}" required>
+                                        value="{{ old('title') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Description</label>
                                     <textarea id="description" class="form-control" placeholder="Write about this image"
-                                        name="description" required>{{ old('description') }}</textarea>
+                                        name="description">{{ old('description') }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Condition <span class="text-danger">*</span></label>
-                                    <select name="condition" class="form-control show-tick" required>
+                                    <select name="condition" class="form-control show-tick">
                                         <option value="">-- Condition --</option>
                                         <option value="banner" {{ old('condition') == 'banner' ? 'selected' : '' }}>Banner
                                         </option>
@@ -48,7 +67,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Status <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control show-tick" required>
+                                    <select name="status" class="form-control show-tick">
                                         <option value="">-- Select status --</option>
                                         <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active
                                         </option>
@@ -67,7 +86,7 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="photo" required>
+                                        <input id="thumbnail" class="form-control" type="text" name="photo">
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"> </div>
                                 </div>

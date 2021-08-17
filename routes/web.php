@@ -30,6 +30,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
     Route::resource('/banner', BannerController::class);
+    Route::post('banner_status', [BannerController::class,'bannerStatus'])->name('banner.status');
 
 
 });

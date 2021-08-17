@@ -26,4 +26,6 @@
     <link rel="stylesheet" href="{{ asset('backend/additional/assets/css/color_skins.css') }}">
     {{-- summernote --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/summernote/summernote.css') }}">
+    {{-- bootstrap switch button --}}
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/switch-button-bootstrap/css/bootstrap-switch-button.css') }}">
 </head>
