@@ -5,7 +5,7 @@
         </div>
 
         <div class="navbar-brand">
-            <a href="index.html"><img src="https://www.wrraptheme.com/templates/lucid/html/assets/images/logo.svg"
+            <a href="{{ route('dashboard') }}"><img src="https://www.wrraptheme.com/templates/lucid/html/assets/images/logo.svg"
                     alt="Lucid Logo" class="img-responsive logo"></a>
         </div>
 

@@ -21,11 +21,9 @@
 </script>
 <script src="{{ asset('backend/assets/summernote/summernote.js') }}"></script>
 <script>
-    $(document).ready(
-        function() {
-            $('#description').summernote();
-        }
-    );
+    $(document).ready(function() {
+        $('#description').summernote();
+    });
 </script>
 
 {{-- error notifucation --}}
@@ -42,7 +40,6 @@
         var mode = $(this).prop('checked');
         var id = $(this).val();
         //alert(id); 
-
         $.ajax({
             url: "{{ route('banner.status') }}",
             type: "POST",
@@ -55,7 +52,10 @@
 
                 // console.log(responce.status);
                 if (responce.status) {
-                    alert(responce.msg);
+                    //alert(responce.msg);
+                    swal("Status Updated", {
+                        icon: "success",
+                    });
 
                 } else {
                     alert('please try again');
@@ -78,7 +78,7 @@
         e.preventDefault();
         swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this  file!",
+                text: "Once deleted, you will not be able to recover this file!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -90,9 +90,60 @@
                         icon: "success",
                     });
                 } else {
-                    swal("Your file is safe!");
+                    swal("Your file is safe!", {
+                        icon: "success",
+                    });
                 }
             });
+    });
+</script>
+
+{{-- status active or inactive button page:Category/index.blade.php --}}
+
+<script>
+    $('input[name=toogle]').change(function() {
+        var mode = $(this).prop('checked');
+        var id = $(this).val();
+        //alert(id); 
+        $.ajax({
+            url: "{{ route('category.status') }}",
+            type: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                mode: mode,
+                id: id,
+            },
+            success: function(responce) {
+
+                // console.log(responce.status);
+                if (responce.status) {
+                    //alert(responce.msg);
+                    swal("Status Updated", {
+                        icon: "success",
+                    });
+
+                } else {
+                    alert('please try again');
+                }
+            }
+        });
+    });
+</script>
+
+{{-- script for category IS_parent check box ,checked or not --}}
+<script>
+    $('#is_parent').change(function(e){
+        e.preventDefault();
+        var is_checked=$('#is_parent').prop('checked');
+        //alert(is_checked);
+        if(is_checked)
+        {
+            $('#parent_cat_div').addClass('d-none'); //if box is unchecked  parent category will be appear
+            $('#parent_cat_div').val('');
+
+        }else{
+            $('#parent_cat_div').removeClass('d-none');     //if box is checked  parent category will **NOT** be appear
+        }
 
     });
 </script>

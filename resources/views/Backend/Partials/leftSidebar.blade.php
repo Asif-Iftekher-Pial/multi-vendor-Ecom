@@ -62,9 +62,16 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Depertment</span></a>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Category</span></a>
                             <ul>
-                                <li><a href="">Category Management</a></li>
+                                <li><a href="{{ route('category.index') }}">All Category</a></li>
+                                <li><a href="{{ route('category.create') }}">Add Category</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Product</span></a>
+                            <ul>
+                                <li><a href="">Management</a></li>
                                 <li><a href="">Product Management</a></li>
                             </ul>
                         </li>

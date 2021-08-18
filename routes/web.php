@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/dologin',[LoginController::class,'dologin'])->name('dologin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
+    //banner section
     Route::resource('/banner', BannerController::class);
     Route::post('banner_status', [BannerController::class,'bannerStatus'])->name('banner.status');
+    
+    //category section
+    Route::resource('/category', CategoryController::class);
+    Route::post('category_status', [CategoryController::class,'categoryStatus'])->name('category.status');
 
 
 });
