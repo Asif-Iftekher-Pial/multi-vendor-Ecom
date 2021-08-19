@@ -28,4 +28,5 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/summernote/summernote.css') }}">
     {{-- bootstrap switch button --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/switch-button-bootstrap/css/bootstrap-switch-button.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>

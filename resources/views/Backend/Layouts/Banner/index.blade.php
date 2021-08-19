@@ -32,7 +32,7 @@
         @endif
         <div class="body">
             <div class="table-responsive">
-                <table class="table table-hover m-b-0 c_list">
+                <table id="table_id" class="table table-hover m-b-0 c_list">
                     <thead>
                         <tr>
                             <th>#</th>

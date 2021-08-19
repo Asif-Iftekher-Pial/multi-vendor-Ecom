@@ -44,10 +44,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parent_cat=Categorie::where('is_parent',1)->orderBy('title','ASC')->get();
-        
+        $parent_cat = Categorie::where('is_parent', 1)->orderBy('title', 'ASC')->get();
+
         //dd($parent_cat);
-        return view('Backend.Layouts.Category.create',compact('parent_cat'));
+        return view('Backend.Layouts.Category.create', compact('parent_cat'));
     }
 
     /**
@@ -60,67 +60,32 @@ class CategoryController extends Controller
     {
 
 
-       // dd($request->all());
+        // dd($request->all());
 
         $request->validate([
-            // 'title'         =>  'string|required',
-            // 'summary'       =>  'required',
-            // 'is_parent'     =>  'sometimes|in:1',
-            // 'photo'         =>  'required',
-            // 'parent_id'     =>  'nullable',
-            // 'status'        =>  'nullable|in:active,inactive',
-
-            'title'=>'string|required',
-            'summary'=>'string|nullable',
-            'is_parent'=>'sometimes|in:1',
-            'parent_id'=>'nullable|exists:categories,id',
-            'status'=>'nullable|in:active,inactive'
+            'title' => 'string|required',
+            'summary' => 'string|nullable',
+            'is_parent' => 'sometimes|in:1',
+            'parent_id' => 'nullable|exists:categories,id',
+            'status' => 'nullable|in:active,inactive'
         ]);
 
-        $data=$request->all();
+        $data = $request->all();
         //        return $data;
-                $slug=Str::slug($request->input('title'));
-                $slug_count=Categorie::where('slug',$slug)->count();
-                if($slug_count>0){
-                    $slug = time().'-'.$slug;
-                }
-                $data['slug']=$slug;
-                $data['is_parent']=$request->input('is_parent',0);
+        $slug = Str::slug($request->input('title'));
+        $slug_count = Categorie::where('slug', $slug)->count();
+        if ($slug_count > 0) {
+            $slug = time() . '-' . $slug;
+        }
+        $data['slug'] = $slug;
+        $data['is_parent'] = $request->input('is_parent', 0);
         //        return $data;
-                $status=Categorie::create($data);
-                if($status){
-                    return redirect()->route('category.index')->with('success','Category successfully created');
-                }
-                else{
-                    return back()->with('error','Something went wrong!');
-                }
-
-        //dd($request->all());
-        // $data = $request->all();
-        // //dd($data);
-
-        // $slug = Str::slug($request->input('title'));
-        // $slug_count = Categorie::where('slug', $slug)->count();
-        // if ($slug_count > 0) {
-        //     $slug = time() . '-' . $slug;
-        // }
-        // $data['slug'] = $slug;
-        // // return $data;
-
-        // $data['is_parent'] = $request->input('is_parent', 0);
-        // if($request->is_parent==1) {
-        //     $data['parent_id'] = null;
-        // }
-        // $status = Categorie::create($data);  //create or storing data on category Table 
-
-
-        // if ($status) {
-        //     //dd('ok');
-        //     return redirect()->route('category.index')->with('success', 'Category Created successfully');
-        // } else {
-
-        //     return redirect()->back()->with('error', 'Something went wrong');
-        // }
+        $status = Categorie::create($data);
+        if ($status) {
+            return redirect()->route('category.index')->with('success', 'Category successfully created');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -142,14 +107,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category=Categorie::find($id);
-        $parent_cat=Categorie::where('is_parent',1)->orderBy('title','ASC')->get();
-        if($category){
+        $category = Categorie::find($id);
+        $parent_cat = Categorie::where('is_parent', 1)->orderBy('title', 'ASC')->get();
+        if ($category) {
 
-            return view('Backend.Layouts.Category.edit',compact(['category','parent_cat']));
-
-        }else{
-            return back()->with('error','Category not found');
+            return view('Backend.Layouts.Category.edit', compact(['category', 'parent_cat']));
+        } else {
+            return back()->with('error', 'Category not found');
         }
     }
 
@@ -164,71 +128,31 @@ class CategoryController extends Controller
     {
 
 
-        $category=Categorie::find($id);
-        if($category){
-            $this->validate($request,[
-                'title'=>'string|required',
-                'summary'=>'string|nullable',
-                'is_parent'=>'sometimes|in:1',
-                'parent_id'=>'nullable|exists:categories,id',
+        $category = Categorie::find($id);
+        if ($category) {
+            $this->validate($request, [
+                'title' => 'string|required',
+                'summary' => 'string|nullable',
+                'is_parent' => 'sometimes|in:1',
+                'parent_id' => 'nullable|exists:categories,id',
             ]);
 
-            $data=$request->all();
+            $data = $request->all();
 
-            if($request->is_parent==1){
-                $data['parent_id']=null;
+            if ($request->is_parent == 1) {
+                $data['parent_id'] = null;
             }
 
-            $data['is_parent']=$request->input('is_parent',0);
-            $status=$category->fill($data)->save();
-            if($status){
-                return redirect()->route('category.index')->with('success','Category successfully updated');
+            $data['is_parent'] = $request->input('is_parent', 0);
+            $status = $category->fill($data)->save();
+            if ($status) {
+                return redirect()->route('category.index')->with('success', 'Category successfully updated');
+            } else {
+                return back()->with('error', 'Something went wrong!');
             }
-            else{
-                return back()->with('error','Something went wrong!');
-            }
+        } else {
+            return back()->with('error', 'Category not found');
         }
-        else{
-            return back()->with('error','Category not found');
-        }
-        //dd($request->all());
-        
-        // $category=Categorie::find($id);
-        // if($category){
-
-        //     $request->validate([
-        //         'title'         =>  'string|required',
-        //         'summary'       =>  'required',
-        //         'is_parent'     =>  'sometimes|in:1',
-        //         'photo'         =>  'required',
-        //         'parent_id'     =>  'nullable',
-        //         'status'        =>  'nullable|in:active,inactive',
-        //     ]);
-    
-        //     //dd($request->all());
-        //     $data = $request->all();
-        //     //dd($data);
-           
-        //     // return $data;
-    
-        //     $data['is_parent'] = $request->input('is_parent', 0);
-        // if($request->is_parent==1) {
-        //     $data['parent_id'] = null;
-        // }
-        //     $status = $category->fill($data)->save(); //create or storing data on Banner Table 
-    
-    
-        //     if ($status) {
-        //         //dd('ok');
-        //         return redirect()->route('category.index')->with('success', 'Category Upadted successfully');
-        //     } else {
-    
-        //         return redirect()->back()->with('error', 'Something went wrong');
-        //     }
-
-        // }else{
-        //     return back()->with('error','Category not found');
-        // }
     }
 
     /**
@@ -242,22 +166,21 @@ class CategoryController extends Controller
         $category = Categorie::find($id); //find each data by their id
 
         //যদি প্যারেন্ট ক্যাটাগরি ডিলিট হয় তাহলে সেই প্যারেন্ট এর চাইল্ড আইডী গুলো প্যারেন্ট আইডী হবে যেভাবে-
-        $child_cat_id=Categorie::where('parent_id',$id)->pluck('id'); //ক্যটাগরি টেবিলের যেখানে (where) parent_id হচ্ছে id সেখান থেকে শূধু ID নিতে (pluck) হবে ।
+        $child_cat_id = Categorie::where('parent_id', $id)->pluck('id'); //ক্যটাগরি টেবিলের যেখানে (where) parent_id হচ্ছে id সেখান থেকে শূধু ID নিতে (pluck) হবে ।
 
 
         if ($category) {
-            $status=$category->delete();
+            $status = $category->delete();
             if ($status) {
-                if(count($child_cat_id) > 0){  // প্যারেন্ট ক্যাট  ডিলিট এর পরে যদি তার চাইল্ড ক্যাট থেকে থাকে ...
+                if (count($child_cat_id) > 0) {  // প্যারেন্ট ক্যাট  ডিলিট এর পরে যদি তার চাইল্ড ক্যাট থেকে থাকে ...
                     Categorie::shiftChild($child_cat_id);  //চাইল্ড  ক্যাট এর আইডি অনুযায়ি ক্যাটাগরি টেবিলে চাইল্ড ক্যাট হয়ে যাবে প্যারেন্ট ক্যাট। 
                     //এখানে "shiftChild" মডেল এর রিলেশন মেথড
 
                 }
-                return redirect()->route('category.index')->with('success','Category deleted successfully');
+                return redirect()->route('category.index')->with('success', 'Category deleted successfully');
             } else {
-               return redirect()->back()->with('error','Something went wrong!');
+                return redirect()->back()->with('error', 'Something went wrong!');
             }
-            
         } else {
             return back()->with('error', 'Data not found');
         }

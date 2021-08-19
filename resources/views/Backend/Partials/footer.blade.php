@@ -15,6 +15,17 @@
 <script src="{{ asset('backend/assets/vendor/switch-button-bootstrap/src/bootstrap-switch-button.js') }}"></script>
 {{-- sweetaleart cdn --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+
+{{-- Data Table CDN --}}
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+
 {{-- summernote --}}
 <script>
     $('#lfm').filemanager('image');
