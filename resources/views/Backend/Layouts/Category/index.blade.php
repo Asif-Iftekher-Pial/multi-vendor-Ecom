@@ -9,7 +9,7 @@
             <br>
             <a href="{{ route('category.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new Category</i> </a>
             <h2>
-                <p class="float-right ">Tottal Categories : =</p>
+                <p class="float-right ">Tottal Categories : {{ $total_categories }}</p>
             </h2>
         </div>
 

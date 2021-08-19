@@ -49,7 +49,7 @@
 
                                 <div class="form-group">
                                     <label for="">Add as Parent Category? : </label>
-                                    <input id="is_parent" type="checkbox" name="is_parent" value="1"> Yes
+                                    <input id="is_parent" type="checkbox" name="is_parent" value="1"  {{$category->is_parent==1 ? 'checked' : ''}}> Yes
                                 </div>
 
                                 <div class="form-group {{ $category->is_parent==1 ? 'd-none' : '' }}"  id="parent_cat_div">

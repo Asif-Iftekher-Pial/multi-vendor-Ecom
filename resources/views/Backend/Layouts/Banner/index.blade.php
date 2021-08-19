@@ -9,7 +9,7 @@
             <br>
             <a href="{{ route('banner.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new banner</i> </a>
             <h2>
-                <p class="float-right ">Tottal banners : {{ $total_banners }}</p>
+                <p class="float-right ">Tottal banners : {{ $total_banners }} </p>
             </h2>
         </div>
 
