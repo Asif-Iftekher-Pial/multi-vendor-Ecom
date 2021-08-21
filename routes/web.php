@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\Brand\BrandController;
 use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\LoginController;
+use App\Http\Controllers\Backend\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,12 @@ Route::prefix('admin')->group(function () {
     //category section
     Route::resource('/category', CategoryController::class);
     Route::post('category_status', [CategoryController::class,'categoryStatus'])->name('category.status');
+    //Brand section
+    Route::resource('/brand', BrandController::class);
+    Route::post('brand_status', [BrandController::class,'brandStatus'])->name('brand.status');
+    //product section
+    Route::resource('/product', ProductController::class);
+    Route::post('product_status', [ProductController::class,'productStatus'])->name('product.status');
 
 
 });

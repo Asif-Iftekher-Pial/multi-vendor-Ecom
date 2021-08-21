@@ -69,10 +69,18 @@
                             </ul>
                         </li>
                         <li>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Brand</span></a>
+                            <ul>
+                                <li><a href="{{ route('brand.index') }}">All brand</a></li>
+                                <li><a href="{{ route('brand.create') }}">Create brand</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
                             <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Product</span></a>
                             <ul>
-                                <li><a href="">Management</a></li>
-                                <li><a href="">Product Management</a></li>
+                                <li><a href="{{ route('product.index') }}">All Product</a></li>
+                                <li><a href="{{ route('product.create') }}">Create Product</a></li>
                             </ul>
                         </li>
                         <li>

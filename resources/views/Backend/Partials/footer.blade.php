@@ -26,10 +26,12 @@
 </script>
 
 
-{{-- summernote --}}
+{{-- filemanager --}}
 <script>
     $('#lfm').filemanager('image');
 </script>
+
+{{-- summer note --}}
 <script src="{{ asset('backend/assets/summernote/summernote.js') }}"></script>
 <script>
     $(document).ready(function() {
@@ -44,6 +46,7 @@
     }, 4000);
 </script>
 
+{{--............................ Banner script ..................... --}}
 {{-- status active or inactive button page:Banner/index.blade.php --}}
 
 <script>
@@ -77,7 +80,7 @@
 </script>
 
 {{-- script for deleting button , page:banner/index.blade.php --}}
-<script>
+<script>    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -108,7 +111,16 @@
             });
     });
 </script>
+{{-- .....................Banner script end........................ --}}
 
+
+
+
+
+
+
+
+{{-- ........................Category Script..................... --}}
 {{-- status active or inactive button page:Category/index.blade.php --}}
 
 <script>
@@ -158,3 +170,63 @@
 
     });
 </script>
+{{-- .....................category Scropt end...................... --}}
+
+
+
+
+
+{{-- ........................Brand Script..................... --}}
+{{-- status active or inactive button page:Brand/index.blade.php --}}
+
+<script>
+    $('input[name=toogle]').change(function() {
+        var mode = $(this).prop('checked');
+        var id = $(this).val();
+        //alert(id); 
+        $.ajax({
+            url: "{{ route('brand.status') }}",
+            type: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                mode: mode,
+                id: id,
+            },
+            success: function(responce) {
+
+                // console.log(responce.status);
+                if (responce.status) {
+                    //alert(responce.msg);
+                    swal("Status Updated", {
+                        icon: "success",
+                    });
+
+                } else {
+                    alert('please try again');
+                }
+            }
+        });
+    });
+</script>
+
+{{-- script for brand IS_parent check box ,checked or not --}}
+<script>
+    $('#is_parent').change(function(e){
+        e.preventDefault();
+        var is_checked=$('#is_parent').prop('checked');
+        //alert(is_checked);
+        if(is_checked)
+        {
+            $('#parent_cat_div').addClass('d-none'); //if box is unchecked  parent category will be appear
+            $('#parent_cat_div').val('');
+
+        }else{
+            $('#parent_cat_div').removeClass('d-none');     //if box is checked  parent category will **NOT** be appear
+        }
+
+    });
+</script>
+{{-- .....................category Scropt end...................... --}}
+
+
+
