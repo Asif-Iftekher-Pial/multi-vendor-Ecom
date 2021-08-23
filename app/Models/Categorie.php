@@ -14,4 +14,8 @@ class Categorie extends Model
     public static function shiftChild($cat_id){
         return Categorie::whereIn('id',$cat_id)->update(['is_parent'=>1]); // চাইল্ড আইডি প্যারেন্ট আইডির ভ্যালু 1  তে আপডেট হবে ,তার মানে হচ্ছে চাইল্ড আইডি শিফট করে প্যারেন্ট আইডি হবে
     }
+
+    public static function getChildByParentID($id){
+        return Categorie::where('parent_id',$id)->pluck('title','id'); //প্যারেন্ট আইডির সাথে যেই চাইল্ড আইডী আছে সেটার নাম আর আইডী শূধু রিট্রিভ করবে pluck method এর মাধ্যমে
+    }
 }

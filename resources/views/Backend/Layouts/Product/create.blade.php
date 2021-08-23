@@ -48,20 +48,96 @@
                                     <label for="">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Title" name="title"
                                         value="{{ old('title') }}">
+                                </div> 
+                                
+                                <div class="form-group">
+                                    <label for="">Summary <span class="text-danger">*</span></label>
+                                    <textarea id="summary" class="form-control" placeholder="Some text...." name="summary">{{ old('summary') }}</textarea>
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="">Description</label>
                                     <textarea id="description" class="form-control" placeholder="Write about this image"
                                         name="description">{{ old('description') }}</textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="">Stock <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Stock" name="stock"
+                                        value="{{ old('stock') }}">
+                                </div> 
+
+                                <div class="form-group">
+                                    <label for="">Price <span class="text-danger">*</span></label>
+                                    <input type="number" step="any" class="form-control" placeholder="Price" name="price"
+                                        value="{{ old('price') }}">
+                                </div> 
+                                <div class="form-group">
+                                    <label for="">Discount</label>
+                                    <input type="number" min="0" max="10" step="any" class="form-control" placeholder="Discount" name="discount"
+                                        value="{{ old('discount') }}">
+                                </div> 
+
+                                <div class="form-group">
+                                    <label for="">Brands<span class="text-danger">*</span></label>
+                                    <select name="brand_id" class="form-control show-tick">
+                                        <option value="">-- Brands --</option>
+                                       @foreach (\App\Models\Brand::get() as $brand)
+                                       <option value="{{ $brand->id }} {{ old('brand_id')==$brand->id ? 'selected' : '' }}">{{ $brand->title }}</option>
+                                       @endforeach
+
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="">Category <span class="text-danger">*</span></label>
+                                    <select id="cat_id" name="cat_id" class="form-control show-tick">
+                                        <option value="">-- Category --</option>
+                                        @foreach (\App\Models\Categorie::where('is_parent',1)->get() as $cat)
+                                       <option value="{{ $cat->id }} {{ old('cat_id')==$cat->id ? 'selected' : '' }}">{{ $cat->title }}</option>
+                                       @endforeach
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group d-none" id="child_cat_div">
+                                    <label for="">Child Category<span class="text-danger">*</span></label>
+                                    <select id="child_cat_id" name="child_cat_id" class="form-control show-tick">
+                                        
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Size <span class="text-danger">*</span></label>
+                                    <select name="size" class="form-control show-tick">
+                                        <option value="">-- Select Size --</option>
+                                        <option value="S" {{ old('size') == 'S' ? 'selected' : '' }}>Small</option>
+                                        <option value="M" {{ old('size') == 'M' ? 'selected' : '' }}>Medium</option>
+                                        <option value="L" {{ old('size') == 'L' ? 'selected' : '' }}>Large</option>
+                                        <option value="XL" {{ old('size') == 'XL' ? 'selected' : '' }}>Extra Large</option>
+
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="">Condition <span class="text-danger">*</span></label>
-                                    <select name="condition" class="form-control show-tick">
-                                        <option value="">-- Condition --</option>
-                                        <option value="banner" {{ old('condition') == 'banner' ? 'selected' : '' }}>Banner
-                                        </option>
-                                        <option value="promo" {{ old('condition') == 'promo' ? 'selected' : '' }}>Promote
-                                        </option>
+                                    <select name="conditions" class="form-control show-tick">
+                                        <option value="">-- Select Condition --</option>
+                                        <option value="new" {{ old('conditions') == 'new' ? 'selected' : '' }}>New</option>
+                                        <option value="popular" {{ old('conditions') == 'popular' ? 'selected' : '' }}>Popular</option>
+                                        <option value="winter" {{ old('conditions') == 'winter' ? 'selected' : '' }}>Winter</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Vendors<span class="text-danger">*</span></label>
+                                    <select name="vendor_id" class="form-control show-tick">
+                                        <option value="">-- Vendors --</option>
+                                       @foreach (\App\Models\User::where('role','vendor')->get() as $vendor)
+                                       <option value="{{ $vendor->id }}" {{ old('vendor_id')==$vendor->id ? 'selected' : '' }}>{{ $vendor->full_name }}</option>
+                                       @endforeach
 
                                     </select>
                                 </div>

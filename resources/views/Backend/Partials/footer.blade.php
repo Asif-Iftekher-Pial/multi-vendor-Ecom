@@ -38,7 +38,11 @@
         $('#description').summernote();
     });
 </script>
-
+<script>
+    $(document).ready(function() {
+        $('#summary').summernote();
+    });
+</script>
 {{-- error notifucation --}}
 <script>
     setTimeout(function() {
@@ -176,6 +180,7 @@
 
 
 
+
 {{-- ........................Brand Script..................... --}}
 {{-- status active or inactive button page:Brand/index.blade.php --}}
 
@@ -227,6 +232,86 @@
     });
 </script>
 {{-- .....................category Scropt end...................... --}}
+
+
+{{-- ........................Product Script..................... --}}
+{{-- status active or inactive button page:Product/index.blade.php --}}
+
+<script>
+    $('input[name=toogle]').change(function() {
+        var mode = $(this).prop('checked');
+        var id = $(this).val();
+        //alert(id); 
+        $.ajax({
+            url: "{{ route('product.status') }}",
+            type: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                mode: mode,
+                id: id,
+            },
+            success: function(responce) {
+
+                // console.log(responce.status);
+                if (responce.status) {
+                    //alert(responce.msg);
+                    swal("Status Updated", {
+                        icon: "success",
+                    });
+
+                } else {
+                    alert('please try again');
+                }
+            }
+        });
+    });
+</script>
+
+{{-- .....................category Scropt end...................... --}}
+
+
+
+{{-- ......................Create Product bladefile script --}}
+
+<script>
+    $('#cat_id').change(function(){
+        var cat_id=$(this).val();
+        //alert(cat_id);
+        if(cat_id !=null){
+            $.ajax({
+                url:"/admin/category/"+cat_id+"/child",
+                type:"POST",
+                data:{
+                    _token:"{{ csrf_token() }}",
+                    cat_id:cat_id,
+
+                },
+                success:function(response){
+                    var html_option="<option value=''>-- Child Category --</option>";
+                    //console.log(response);
+                    if(response.status){
+                        $('#child_cat_div').removeClass('d-none');
+                        $.each(response.data,function(id,title){
+
+                            html_option +="<option value='"+id+"'>"+title+"</option>"
+                        });
+                        
+                    }
+                    else{
+                       $('#child_cat_div').addClass('d-none');
+                    }
+                    $('#child_cat_id').html(html_option);
+                }
+            });
+        }
+
+    });
+</script>
+
+
+@yield('script') {{-- this yield is for product edit.blade.php --}}
+{{-- ......................Create Product bladefile script  End--}}
+
 
 
 

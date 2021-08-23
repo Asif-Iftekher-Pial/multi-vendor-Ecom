@@ -39,6 +39,8 @@ Route::prefix('admin')->group(function () {
     //category section
     Route::resource('/category', CategoryController::class);
     Route::post('category_status', [CategoryController::class,'categoryStatus'])->name('category.status');
+    Route::post('category/{id}/child',[CategoryController::class,'getChildByParentID']);
+
     //Brand section
     Route::resource('/brand', BrandController::class);
     Route::post('brand_status', [BrandController::class,'brandStatus'])->name('brand.status');

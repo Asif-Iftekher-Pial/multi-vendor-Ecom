@@ -9,7 +9,7 @@
             <br>
             <a href="{{ route('brand.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new brand</i> </a>
             <h2>
-                <p class="float-right ">Tottal brands : {{ $total_banners }} </p>
+                <p class="float-right ">Tottal brands : {{ $tottal_brands }} </p>
             </h2>
         </div>
 

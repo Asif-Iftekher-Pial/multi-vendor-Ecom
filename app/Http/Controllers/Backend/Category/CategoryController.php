@@ -185,4 +185,23 @@ class CategoryController extends Controller
             return back()->with('error', 'Data not found');
         }
     }
+
+
+    public function getChildByParentID(Request $request, $id)
+    {
+        //dd($id);
+
+        $category = Categorie::find($id);
+        if ($category) {
+
+            $child_id = Categorie::getChildByParentID($id);
+
+            if (count($child_id) <= 0) {
+                return response()->json(['status' => false, 'data' => null, 'msg' => 'Child Category not found in database,create a child category first']);
+            }
+            return response()->json(['status' => true, 'data' => $child_id, 'msg' => '']);
+        } else {
+            return response()->json(['status' => false, 'data' => null, 'msg' => 'Category not found in database,create a child category first']);
+        }
+    }
 }

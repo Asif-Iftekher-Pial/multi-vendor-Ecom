@@ -14,7 +14,6 @@ class Product extends Model
         'summary',
         'description',
         'stock',
-        'brand_id',
         'cat_id',
         'photo',
         'price',
