@@ -130,6 +130,21 @@
                                         
                                     </select>
                                 </div>
+                                {{-- @if (auth()->user()->role=='vendor')
+                                <div class="form-group">
+                                    <label for="">pilu<span class="text-danger">*</span></label>
+                                    <select name="vendor_id" class="form-control show-tick">
+                                       
+                                        <option value="">{{ \App\Models\User::where('role','vendor')->pluck('username','id') }}</option>
+
+                                       @foreach (\App\Models\User::where('role','vendor')->pluck('id'))
+                                       <option value="{{ $vendor->id }}" {{ old('vendor_id')==$vendor->id ? 'selected' : '' }}>{{ $vendor->full_name }}</option>
+                                       @endforeach
+
+                                    </select>
+                                </div>
+                                    
+                                @endif --}}
 
                                 <div class="form-group">
                                     <label for="">Vendors<span class="text-danger">*</span></label>

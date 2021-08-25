@@ -142,7 +142,7 @@ class CategoryController extends Controller
             if ($request->is_parent == 1) {
                 $data['parent_id'] = null;
             }
-
+                
             $data['is_parent'] = $request->input('is_parent', 0);
             $status = $category->fill($data)->save();
             if ($status) {

@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +43,9 @@ class AppServiceProvider extends ServiceProvider
 
         $tottal_products=Product::count();
         View::share('tottal_products',$tottal_products);
+        
+        $tottal_users=User::count();
+        View::share('tottal_users',$tottal_users);
     }
 
 }

@@ -49,6 +49,14 @@ class LoginController extends Controller
                 ]);
                 return redirect()->route('dashboard');
             }
+            else
+            {
+                $status=User::where('id','=',auth()->user()->id);
+                $status->update([
+                    'status'=> 'active'
+                ]);
+                return redirect()->route('dashboard');
+            }
             
         }
 

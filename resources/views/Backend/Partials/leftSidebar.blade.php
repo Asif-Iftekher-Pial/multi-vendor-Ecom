@@ -1,14 +1,13 @@
 <div id="left-sidebar" class="sidebar">
     <div class="sidebar-scroll">
         <div class="user-account">
-            <img src="{{ asset('backend/assets/images/user.png') }}" class="rounded-circle user-photo"
+            <img src="" class="rounded-circle user-photo"
                 alt="User Profile Picture">
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Alizee
-                        Thomas</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ auth()->user()->username }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account">
-                    <li><a href="page-profile2.html"><i class="icon-user"></i>My Profile</a></li>
+                    <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
                     <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
                     <li class="divider"></li>
@@ -81,6 +80,14 @@
                             <ul>
                                 <li><a href="{{ route('product.index') }}">All Product</a></li>
                                 <li><a href="{{ route('product.create') }}">Create Product</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>User Management
+                                    </span></a>
+                            <ul>
+                                <li><a href="{{ route('user.index') }}">All User</a></li>
+                                <li><a href="{{ route('user.create') }}">Create User</a></li>
                             </ul>
                         </li>
                         <li>
