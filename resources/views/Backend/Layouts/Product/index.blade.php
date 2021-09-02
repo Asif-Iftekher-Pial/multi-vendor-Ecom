@@ -63,8 +63,8 @@
 
                                 <td>
                                     <img src="{{ $photo[0] }}" alt="Product photo"
-                                        style="max-height: 90px; max-idth: 120px">
-                                </td>
+                                        style=";max-height: 100px; max-width: 100px">
+                                </td> 
                                 <td>
                                     ${{ number_format($item->price, 2) }}
                                 </td>

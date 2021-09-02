@@ -1,11 +1,11 @@
 <div id="left-sidebar" class="sidebar">
     <div class="sidebar-scroll">
         <div class="user-account">
-            <img src="" class="rounded-circle user-photo"
-                alt="User Profile Picture">
+            <img src="{{ auth()->user()->photo }}" class="rounded-circle user-photo"
+                alt="User Profile Picture"  style="height: 60px;width: 60px"">
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ auth()->user()->username }}</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ auth()->user()->full_name }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account">
                     <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>

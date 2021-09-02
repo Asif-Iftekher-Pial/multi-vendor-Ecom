@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -77,13 +79,105 @@ class UserController extends Controller
         }
     }
 
+
     public function userprofile()
     {
-        
-        $data= User::find(auth()->user()->id);
-        //dd($data);
+        $data=auth()->user();
         return view('Backend.Layouts.Profile.profile',compact('data'));
     }
+
+    public function profilepicture(Request $request)
+    {
+        // $data=User::find(auth()->user()->id);
+        // //dd($data);
+
+        $selectprofile = auth()->user();
+
+        $status=$selectprofile;
+        
+        $request->validate([
+            'password'=>'sometimes|required',
+            'photo'=>'required',
+            // 'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+
+        $status=$selectprofile->update([
+            'photo'=>$request->photo,
+
+        ]);
+
+        if($status){
+            return redirect()->route('profile')->with('success','Profile Picture updated successfully');
+        }else{
+            return redirect()->back()->with('error','Something went wrong');
+        }
+    }
+
+    public function changepassword(Request $request)
+    {
+        
+        if (!Hash::check($request->input('OldPassword'), auth()->user()->password)) {
+            return redirect()->back()->with('error', 'Current Password does not match.');
+        }
+
+
+        $request->validate([
+            'OldPassword' => 'required',
+            'NewPassword' => 'required|min:6',
+            'NewPasswordConfirm' => 'required|same:NewPassword'
+
+        ]);
+
+
+        if (Hash::check($request->input('NewPassword'), auth()->user()->password)) {
+            return redirect()->back()->with('error', 'New password can not be the old password.');
+        }
+
+        
+        $users = User::find(auth()->user()->id);
+        // dd($users);
+        $users->update([
+            'password' => bcrypt($request->NewPassword)
+        ]);
+
+        // $users->password = $request->bcrypt($request->password);
+        // $users->save();
+        return redirect()->back()->with('success', 'Password updated successfully.');
+
+    }
+
+    
+    public function basicinfo(Request $request)
+    {
+        // $selectprofile= Auth::user();
+        $selectprofile=auth()->user();
+
+        $status=$request->validate([
+            'full_name' =>'required|string',
+            'username'  =>'required|string',
+            'gender'    =>'required',
+            'phone'     =>'required|numeric',
+            'address'   =>'required'
+        ]);
+
+        $selectprofile->full_name   = $request->input('full_name');
+        $selectprofile->username    = $request->input('username');
+        $selectprofile->gender      = $request->input('gender');
+        $selectprofile->phone       = $request->input('phone');
+        $selectprofile->address     = $request->input('address');
+        //dd($selectprofile);
+        $status=$selectprofile->save();
+
+        if($status){
+            return redirect()->back()->with('success','Profile info updated successfully');
+        }else{
+            return redirect()->back()->with('error','Something went wrong');
+        }
+        
+    }
+
+
     /**
      * Display the specified resource.
      *
@@ -92,7 +186,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -126,6 +220,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+        $user = User::find($id); //find each data by their id
+        if ($user) {
+            $status = $user->delete();
+            if ($status) {
+                return redirect()->route('user.index')->with('success', 'user deleted successfully');
+            } else {
+                return redirect()->back()->with('error', 'Something went wrong!');
+            }
+        } else {
+            return back()->with('error', 'Data not found');
+        }
     }
+    
 }

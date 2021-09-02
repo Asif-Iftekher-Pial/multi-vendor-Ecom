@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\User\UserController;
+use App\Http\Controllers\Frontend\Index\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
+
+
+
+
+
+// Frontend routes start
+
+route::get('/',[IndexController::class,'home'])->name('home');
+
+
+
+
+
+// Frontend routes end
+
+
+
+
+
+// Backend routes
+
+
 
 
 
@@ -57,29 +84,26 @@ Route::prefix('admin')->group(function () {
         //user add section
         Route::resource('/user', UserController::class);
         Route::post('user_status', [UserController::class, 'userStatus'])->name('user.status');
-       
-
     });
 
     //authenticated users can access
     Route::middleware(['auth'])->group(function () {
 
 
-    //User profile update section
-     Route::get('/user/profile', [UserController::class, 'userprofile'])->name('profile');
+        //User profile update section
+        Route::get('/profile', [UserController::class, 'userprofile'])->name('profile');
+        Route::patch('/profile/picture', [UserController::class, 'profilepicture'])->name('profilepicture');
+        Route::patch('/profile/password', [UserController::class, 'changepassword'])->name('changepassword');
+        Route::patch('/profile/basicinfo', [UserController::class, 'basicinfo'])->name('basicinfo');
 
 
 
-     //Brand section
-     Route::resource('/brand', BrandController::class);
-     Route::post('brand_status', [BrandController::class, 'brandStatus'])->name('brand.status');
- 
-     //product section
-     Route::resource('/product', ProductController::class);
-     Route::post('product_status', [ProductController::class, 'productStatus'])->name('product.status');
- 
+        //Brand section
+        Route::resource('/brand', BrandController::class);
+        Route::post('brand_status', [BrandController::class, 'brandStatus'])->name('brand.status');
+
+        //product section
+        Route::resource('/product', ProductController::class);
+        Route::post('product_status', [ProductController::class, 'productStatus'])->name('product.status');
     });
-
-   
-    
 });

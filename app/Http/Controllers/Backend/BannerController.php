@@ -55,8 +55,9 @@ class BannerController extends Controller
     {
         //dd($request->all());
         $request->validate([
-            'title'         =>  'required',
-            'description'   =>  'required',
+            'title'         =>  'string|required',
+            'slug'          =>  'string|unique:banners,slug',
+            'description'   =>  'string|required',
             'condition'     =>  'required',
             'photo'         =>  'required',
             'status'        =>  'required',
@@ -77,7 +78,7 @@ class BannerController extends Controller
 
         if ($status) {
             //dd('ok');
-            return redirect()->route('banner.create')->with('success', 'Banner Created successfully');
+            return redirect()->route('banner.index')->with('success', 'Banner Created successfully');
         } else {
 
             return redirect()->back()->with('error', 'Something went wrong');
@@ -126,7 +127,8 @@ class BannerController extends Controller
             //dd($request->all());
             $request->validate([
                 'title'         =>  'string|required',
-                'description'   =>  'required',
+                'slug'          =>  'string|exists:banners,slug',
+                'description'   =>  'string|required',
                 'condition'     =>  'required',
                 'photo'         =>  'required',
                 'status'        =>  'required',

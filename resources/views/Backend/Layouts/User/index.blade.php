@@ -57,7 +57,7 @@
                                 </td>
                                 <td>
                                     <img src="{{ $photo[0] }}" alt="Product photo"
-                                        style="border-radius:50%;max-height: 90px; max-idth: 120px">
+                                        style="border-radius: 50%; max-height: 60px; max-width: 100%">
                                 </td>
 
                                 <td>

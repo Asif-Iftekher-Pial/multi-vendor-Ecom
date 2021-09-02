@@ -8,11 +8,14 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card profile-header">
                     <div class="body">
-                        <div class="profile-image"> <img src="../assets/images/user.png" class="rounded-circle" alt="">
-                        </div>
+                        {{-- <div>
+                            <img src="{{ $data->photo }}" class="rounded-circle" alt="profile photo" style="max-height: 90px; max-idth: 120px">
+                        </div> --}}
+                        <div class="profile-image"> <img src="{{ $data->photo }}" class="rounded-circle" style="height: 100px;width: 100px" alt=""> </div>
                         <div>
                             <h4 class="m-b-0"><strong>{{ auth()->user()->full_name }}</strong></h4>
-                            <span>{{ auth()->user()->username }}</span>
+                            <span>{{ auth()->user()->username }}</span> <br>
+                            <span> <b>Position:</b><p class="badge badge-primary">{{ auth()->user()->role }}</p> </span>
                         </div>
                     </div>
                 </div>
@@ -23,6 +26,10 @@
 
                     </div>
                     <div class="body">
+                        <small class="text-muted">Gender: </small>
+                        <p>{{ auth()->user()->gender }}</p>
+                        <hr>
+
                         <small class="text-muted">Address: </small>
                         <p>{{ auth()->user()->address }}</p>
 
@@ -60,17 +67,48 @@
                 <div class="tab-content padding-0">
 
                     <div class="tab-pane active" id="Overview">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @elseif ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                    {{ $error }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="card">
                             <div class="body">
                                 <div class="new_post">
-                                    <div class="form-group">
-                                        <textarea rows="4" class="form-control no-resize"
-                                            placeholder="Please type what you want..."></textarea>
-                                    </div>
+
                                     <div class="post-toolbar-b">
-                                        <button class="btn btn-warning"><i class="icon-link"></i></button>
-                                        <button class="btn btn-warning"><i class="icon-camera"></i></button>
-                                        <button class="btn btn-primary">Post</button>
+                                        <form action="{{ route('profilepicture') }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <div class="form-group">
+                                                <label for="">Upload picture<span class="text-danger">*</span></label>
+
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                            class="btn btn-primary">
+                                                            <i class="fa fa-picture-o"></i> Choose
+                                                        </a>
+                                                    </span>
+                                                    <input id="thumbnail" class="form-control" type="text" name="photo">
+                                                </div>
+                                                <div id="holder" style="margin-top:15px;max-height:100px;"> </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-warning"><i
+                                                    class="icon-camera"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -105,18 +143,19 @@
                         <div class="card">
 
                             <div class="body">
-                                <form action="" method="POST">
+                                <form action="{{ route('basicinfo') }}" method="POST">
                                     @csrf
-                                    <h6>Basic Information</h6>
+                                    @method('patch')
+                                    <h6>Update Basic Information</h6>
                                     <div class="row clearfix">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="full_name" class="form-control"
-                                                    placeholder="Full Name">
+                                                    placeholder="Full Name" value="{{ auth()->user()->full_name }}">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="username" class="form-control"
-                                                    placeholder="User Name">
+                                                    placeholder="User Name" value="{{ auth()->user()->username }}">
                                             </div>
                                             <div class="form-group">
                                                 <div>
@@ -134,220 +173,47 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Address">
+                                                    placeholder="Address" value="{{ auth()->user()->address }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" name="phone" class="form-control"
+                                                    placeholder="phone" value="{{ auth()->user()->phone }}">
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
                                     <button type="button" class="btn btn-default">Cancel</button>
                                 </form>
                             </div>
-
-
                         </div>
 
                         <div class="card">
                             <div class="body">
-                                <div class="row clearfix">
-                                    <div class="col-lg-12 col-md-12">
-                                        <h6>Account Data</h6>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" value="alizeethomas" disabled=""
-                                                placeholder="Username">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" value="alizee.info@yourdomain.com"
-                                                placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Phone Number">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12">
-                                        <h6>Change Password</h6>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Current Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="New Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Confirm New Password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                                <button class="btn btn-default">Cancel</button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="body">
-                                <h6>General Information</h6>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Phone Number">
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>--Select Language</option>
-
-                                                <option value="uk" lang="uk">Українська</option>
-                                                <option value="vi" lang="vi">Tiếng Việt</option>
-                                                <option value="zh_CN" lang="zh">简体中文</option>
-                                                <option value="zh_TW" lang="zh">繁體中文</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>--TimeZone--</option>
-                                                <optgroup label="Africa">
-
-                                                    <option value="Africa/Tripoli">Tripoli</option>
-                                                    <option value="Africa/Tunis">Tunis</option>
-                                                    <option value="Africa/Windhoek">Windhoek</option>
-                                                </optgroup>
-                                                <optgroup label="America">
-
-                                                    <option value="America/Yakutat">Yakutat</option>
-                                                    <option value="America/Yellowknife">Yellowknife</option>
-                                                </optgroup>
-                                                <optgroup label="Antarctica">
-                                                    <option value="Antarctica/Casey">Casey</option>
-                                                    <option value="Antarctica/Davis">Davis</option>
-                                                    <option value="Antarctica/DumontDUrville">DumontDUrville</option>
-                                                    <option value="Antarctica/Macquarie">Macquarie</option>
-                                                    <option value="Antarctica/Mawson">Mawson</option>
-                                                    <option value="Antarctica/McMurdo">McMurdo</option>
-                                                    <option value="Antarctica/Palmer">Palmer</option>
-                                                    <option value="Antarctica/Rothera">Rothera</option>
-                                                    <option value="Antarctica/Syowa">Syowa</option>
-                                                    <option value="Antarctica/Troll">Troll</option>
-                                                    <option value="Antarctica/Vostok">Vostok</option>
-                                                </optgroup>
-                                                <optgroup label="Arctic">
-                                                    <option value="Arctic/Longyearbyen">Longyearbyen</option>
-                                                </optgroup>
-                                                <optgroup label="Asia">
-                                                    <option value="Asia/Aden">Aden</option>
-
-                                                    <option value="Asia/Ust-Nera">Ust-Nera</option>
-                                                    <option value="Asia/Vientiane">Vientiane</option>
-                                                    <option value="Asia/Vladivostok">Vladivostok</option>
-                                                    <option value="Asia/Yakutsk">Yakutsk</option>
-                                                    <option value="Asia/Yekaterinburg">Yekaterinburg</option>
-                                                    <option value="Asia/Yerevan">Yerevan</option>
-                                                </optgroup>
-                                                <optgroup label="Atlantic">
-                                                    <option value="Atlantic/Azores">Azores</option>
-                                                    <option value="Atlantic/Bermuda">Bermuda</option>
-                                                    <option value="Atlantic/Canary">Canary</option>
-                                                    <option value="Atlantic/Cape_Verde">Cape Verde</option>
-                                                    <option value="Atlantic/Faroe">Faroe</option>
-                                                    <option value="Atlantic/Madeira">Madeira</option>
-                                                    <option value="Atlantic/Reykjavik">Reykjavik</option>
-                                                    <option value="Atlantic/South_Georgia">South Georgia</option>
-                                                    <option value="Atlantic/Stanley">Stanley</option>
-                                                    <option value="Atlantic/St_Helena">St Helena</option>
-                                                </optgroup>
-                                                <optgroup label="Australia">
-                                                    <option value="Australia/Adelaide">Adelaide</option>
-                                                    <option value="Australia/Brisbane">Brisbane</option>
-                                                    <option value="Australia/Broken_Hill">Broken Hill</option>
-                                                    <option value="Australia/Currie">Currie</option>
-                                                    <option value="Australia/Darwin">Darwin</option>
-                                                    <option value="Australia/Eucla">Eucla</option>
-                                                    <option value="Australia/Hobart">Hobart</option>
-                                                    <option value="Australia/Lindeman">Lindeman</option>
-                                                    <option value="Australia/Lord_Howe">Lord Howe</option>
-                                                    <option value="Australia/Melbourne">Melbourne</option>
-                                                    <option value="Australia/Perth">Perth</option>
-                                                    <option value="Australia/Sydney">Sydney</option>
-                                                </optgroup>
-                                                <optgroup label="Europe">
-
-                                                    <option value="Europe/Zurich">Zurich</option>
-                                                </optgroup>
-                                                <optgroup label="Indian">
-                                                    <option value="Indian/Antananarivo">Antananarivo</option>
-                                                    <option value="Indian/Chagos">Chagos</option>
-                                                    <option value="Indian/Christmas">Christmas</option>
-                                                    <option value="Indian/Cocos">Cocos</option>
-                                                    <option value="Indian/Comoro">Comoro</option>
-                                                    <option value="Indian/Kerguelen">Kerguelen</option>
-                                                    <option value="Indian/Mahe">Mahe</option>
-                                                    <option value="Indian/Maldives">Maldives</option>
-                                                    <option value="Indian/Mauritius">Mauritius</option>
-                                                    <option value="Indian/Mayotte">Mayotte</option>
-                                                    <option value="Indian/Reunion">Reunion</option>
-                                                </optgroup>
-                                                <optgroup label="Pacific">
-                                                    <option value="Pacific/Apia">Apia</option>
-
-                                                    <option value="Pacific/Tarawa">Tarawa</option>
-                                                    <option value="Pacific/Tongatapu">Tongatapu</option>
-                                                    <option value="Pacific/Wake">Wake</option>
-                                                    <option value="Pacific/Wallis">Wallis</option>
-                                                </optgroup>
-                                                <optgroup label="UTC">
-                                                    <option value="UTC">UTC</option>
-                                                </optgroup>
-                                                <optgroup label="Manual Offsets">
-                                                    <option value="UTC-12">UTC-12</option>
-
-                                                    <option value="UTC+13.75">UTC+13:45</option>
-                                                    <option value="UTC+14">UTC+14</option>
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date Format</label>
-                                            <div class="fancy-radio">
-                                                <label><input name="dateFormat" value="" type="radio"><span><i></i>May 18,
-                                                        2018</span></label>&nbsp;&nbsp;
-                                                <label><input name="dateFormat" value="" type="radio"><span><i></i>2018,
-                                                        May, 18</span></label>&nbsp;&nbsp;
-                                                <label><input name="dateFormat" value="" type="radio"
-                                                        checked=""><span><i></i>2018-03-10</span></label>&nbsp;&nbsp;
-                                                <label><input name="dateFormat" value=""
-                                                        type="radio"><span><i></i>02/09/2018</span></label>&nbsp;&nbsp;
-                                                <label><input name="dateFormat" value=""
-                                                        type="radio"><span><i></i>10/05/2018</span></label>
+                                <form action="{{ route('changepassword') }}" method="POST">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="row clearfix">
+                                      
+                                        <div class="col-lg-12 col-md-12">
+                                            <h6>Change Password</h6>
+                                            <div class="form-group">
+                                                <input type="password" name="OldPassword" class="form-control" placeholder="Current Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" name="NewPassword" class="form-control" placeholder="New Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" name="NewPasswordConfirm" class="form-control" placeholder="Confirm New Password" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
-                                        <h6>Email from Lucid</h6>
-                                        <p>I'd like to receive the following emails:</p>
-                                        <ul class="list-unstyled list-email-received">
-                                            <li>
-                                                <label class="fancy-checkbox">
-                                                    <input type="checkbox" checked=""><span>Weekly account
-                                                        summary</span></label>
-                                            </li>
-                                            <li>
-                                                <label class="fancy-checkbox">
-                                                    <input type="checkbox"><span>Campaign reports</span></label>
-                                            </li>
-                                            <li>
-                                                <label class="fancy-checkbox">
-                                                    <input type="checkbox" checked=""><span>Promotional news such as offers
-                                                        or discounts</span></label>
-                                            </li>
-                                            <li>
-                                                <label class="fancy-checkbox">
-                                                    <input type="checkbox" checked=""><span>Tips for campaign setup, growth
-                                                        and client success stories</span></label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                                <button class="btn btn-default">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                    <button class="btn btn-default">Cancel</button>
+                                </form>
                             </div>
                         </div>
+
+                      
                     </div>
 
                 </div>
