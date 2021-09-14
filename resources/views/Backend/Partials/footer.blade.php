@@ -271,7 +271,7 @@
 
 
 
-{{-- ......................Create Product bladefile script --}}
+{{-- ......................Create Product blade file script --}}
 
 <script>
     $('#cat_id').change(function(){

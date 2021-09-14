@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Categorie extends Model
 {
@@ -17,5 +18,10 @@ class Categorie extends Model
 
     public static function getChildByParentID($id){
         return Categorie::where('parent_id',$id)->pluck('title','id'); //প্যারেন্ট আইডির সাথে যেই চাইল্ড আইডী আছে সেটার নাম আর আইডী শূধু রিট্রিভ করবে pluck method এর মাধ্যমে
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class,'cat_id','id');
     }
 }

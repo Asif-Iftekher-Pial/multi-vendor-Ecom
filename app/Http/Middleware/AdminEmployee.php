@@ -19,7 +19,7 @@ class AdminEmployee
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->role=='admin' || Auth::user()->role=='employee' )
+            if(Auth::user()->role=='admin' || Auth::user()->role=='employee' || Auth::user()->role=='vendor')
             {
                 return $next($request);
             }

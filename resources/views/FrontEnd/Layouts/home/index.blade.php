@@ -41,39 +41,27 @@
   @endif
   
 <!-- Top Catagory Area -->
+@if (count($categories)>0)
 <div class="top_catagory_area mt-50 clearfix">
     <div class="container">
         <div class="row">
             <!-- Single Catagory -->
+            @foreach ( $categories as $cat)
             <div class="col-12 col-md-4">
                 <div class="single_catagory_area mt-50">
-                    <a href="#">
-                        <img src="frontend/img/bg-img/c1.jpg" alt="">
+                    <a href="{{ route('product.category',$cat->slug) }}">
+                        <img src="{{ $cat->photo }}" alt="{{ $cat->title }}">
                     </a>
                 </div>
             </div>
-
-            <!-- Single Catagory -->
-            <div class="col-12 col-md-4">
-                <div class="single_catagory_area mt-50">
-                    <a href="#">
-                        <img src="frontend/img/bg-img/c2.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="col-12 col-md-4">
-                <div class="single_catagory_area mt-50">
-                    <a href="#">
-                        <img src="frontend/img/bg-img/c3.jpg" alt="">
-                    </a>
-                </div>
-            </div>
+            @endforeach
+            
         </div>
     </div>
 </div>
+@endif
 <!-- Top Catagory Area -->
+
 
 <!-- Quick View Modal Area -->
 <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">

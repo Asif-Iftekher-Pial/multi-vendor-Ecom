@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 
 route::get('/',[IndexController::class,'home'])->name('home');
 
+//Product Category
+Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');
+
 
 
 
@@ -62,7 +65,7 @@ Route::prefix('admin')->group(function () {
 
 
 
-    //admin and Employee both can access this group
+    //admin ,Vendor and Employee both can access this group
     Route::group(['middleware' => 'admin.employee'], function () {
 
         //banner section
@@ -106,4 +109,9 @@ Route::prefix('admin')->group(function () {
         Route::resource('/product', ProductController::class);
         Route::post('product_status', [ProductController::class, 'productStatus'])->name('product.status');
     });
+
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 });
+
