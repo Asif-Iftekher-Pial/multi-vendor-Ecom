@@ -2,7 +2,7 @@
 @section('main')
 
     <!-- Quick View Modal Area -->
-    <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
+    {{-- <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
@@ -21,6 +21,7 @@
                                     <div class="col-12 col-lg-5">
                                         <div class="quickview_pro_img">
                                             <img class="first_img" src="{{ $photo[0] }}" alt="">
+                                            <img class="hover_img" src="frontend/img/product-img/new-1.png" alt="">
                                             <!-- Product Badge -->
                                             <div class="product_badge">
                                                 <span class="badge-new">{{ $categories->conditions }}</span>
@@ -41,7 +42,7 @@
                                                     <del class="text-danger">${{ number_format($categories->price, 2) }}
                                                     </del></span></h5>
                                             <p>{!! html_entity_decode($categories->description) !!}</p>
-                                            <a href="#">View Full Product Details</a>
+                                            <a href="{{ route('product.detail',$categories->slug) }}">View Full Product Details</a>
                                         </div>
                                         <!-- Add to Cart Form -->
                                         <form class="cart" method="post">
@@ -81,7 +82,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Quick View Modal Area -->
 
     <div class="breadcumb_area">

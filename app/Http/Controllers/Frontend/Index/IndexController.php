@@ -34,12 +34,12 @@ class IndexController extends Controller
     public function productDetail($slug)
     {
         //dd($slug);
-        $productDetails=Product::where('slug',$slug)->first();
-
+        $productDetails=Product::with('related_products')->where('slug',$slug)->first();
+        //dd($productDetails);
         if ($productDetails) {
             return view('FrontEnd.Layouts.productDetails.productDetails',compact('productDetails'));
         } else {
-            return 'not found';
+            return view('FrontEnd.Layouts.errors.404');
         }
         
     }
