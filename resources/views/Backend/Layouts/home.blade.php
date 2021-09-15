@@ -6,22 +6,33 @@
         <div class="col-lg-3 col-md-6">
             <div class="card overflowhidden">
                 <div class="body">
-                    <h3>109 <i class="icon-basket-loaded float-right"></i></h3>
-                    <span>Products Sold</span>
+                    <h3>{{ $total_products }} <i class="icon-basket-loaded float-right"></i></h3>
+                    <span>Total Products</span>
                 </div>
                 <div class="progress progress-xs progress-transparent custom-color-blue m-b-0">
-                    <div class="progress-bar" data-transitiongoal="64"></div>
+                    <div class="progress-bar" data-transitiongoal={{ $total_products }}></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
             <div class="card overflowhidden">
                 <div class="body">
-                    <h3>235 <i class="icon-user-follow float-right"></i></h3>
-                    <span>New Customers</span>
+                    <h3>{{ $total_categories }} <i class="icon-basket-loaded float-right"></i></h3>
+                    <span>Total Categories</span>
+                </div>
+                <div class="progress progress-xs progress-transparent custom-color-blue m-b-0">
+                    <div class="progress-bar" data-transitiongoal={{ $total_categories }}></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card overflowhidden">
+                <div class="body">
+                    <h3>{{ $total_brands }} <i class="icon-user-follow float-right"></i></h3>
+                    <span>Total Brands</span>
                 </div>
                 <div class="progress progress-xs progress-transparent custom-color-purple m-b-0">
-                    <div class="progress-bar" data-transitiongoal="67"></div>
+                    <div class="progress-bar" data-transitiongoal={{ $total_brands }}></div>
                 </div>
             </div>
         </div>

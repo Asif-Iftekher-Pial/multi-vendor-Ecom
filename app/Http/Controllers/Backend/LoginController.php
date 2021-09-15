@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Categorie;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +14,11 @@ class LoginController extends Controller
 {
     public function dashboard()
     {
-        return view('Backend.Layouts.home');
+        $total_products=Product::count();
+        $total_categories=Categorie::count();
+        $total_brands=Brand::count();
+        //dd($total_products);
+        return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands'));
     }
 
     public function login()

@@ -6,7 +6,7 @@
                 <div class="col-6">
                     <div class="welcome-note">
                         <span class="popover--text" data-toggle="popover" data-content="Welcome to Bigshop ecommerce template."><i class="icofont-info-square"></i></span>
-                        <span class="text">Welcome to Bigshop ecommerce template.</span>
+                        <span class="text">Welcome to E-Buy</span>
                     </div>
                 </div>
                 <div class="col-6">
@@ -49,7 +49,7 @@
                 <nav class="classy-navbar" id="bigshopNav">
 
                     <!-- Nav Brand -->
-                    <a href="index.html" class="nav-brand"><img src="frontend/img/core-img/logo.png" alt="logo"></a>
+                    <a href="{{ route('home') }}" class="nav-brand"><img src="frontend/img/core-img/logo.png" alt="logo"></a>
 
                     <!-- Toggler -->
                     <div class="classy-navbar-toggler">
@@ -66,12 +66,8 @@
                         <!-- Nav -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="#">Home</a>
-                                    <ul class="dropdown">
-                                        <li><a href="index-1.html">Home - 1</a></li>
-                                        <li><a href="index-2.html">Home - 2</a></li>
-                                        <li><a href="index-3.html">Home - 3</a></li>
-                                    </ul>
+                                <li><a href="{{ route('home') }}">Home</a>
+                                   
                                 </li>
                                 <li><a href="#">Shop</a>
                                     <ul class="dropdown">

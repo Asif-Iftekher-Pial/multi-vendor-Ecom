@@ -35,6 +35,9 @@ route::get('/',[IndexController::class,'home'])->name('home');
 //Product Category
 Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');
 
+//product Detail
+Route::get('product-detail/{slug}/',[IndexController::class,'productDetail'])->name('product.detail');
+
 
 
 
