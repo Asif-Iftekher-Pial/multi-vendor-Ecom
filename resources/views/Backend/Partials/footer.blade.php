@@ -43,7 +43,7 @@
         $('#summary').summernote();
     });
 </script>
-{{-- error notifucation --}}
+{{-- error notification --}}
 <script>
     setTimeout(function() {
         $('#alert').slideUp();

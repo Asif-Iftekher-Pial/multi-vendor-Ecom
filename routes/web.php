@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\User\UserController;
+use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\Index\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,11 @@ use Illuminate\Support\Facades\Route;
 // Frontend routes start
 
 route::get('/',[IndexController::class,'home'])->name('home');
+
+//authentication
+Route::get('/login',[AuthenticationController::class,'index'])->name('customer.login');
+Route::post('/signup',[AuthenticationController::class,'registration'])->name('customer.registration');
+Route::post('/signin',[AuthenticationController::class,'login'])->name('customer.signin');
 
 //Product Category
 Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');
@@ -59,8 +65,7 @@ Route::get('product-detail/{slug}/',[IndexController::class,'productDetail'])->n
 Route::prefix('admin')->group(function () {
 
 
-    Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard')->middleware('auth');
-
+   
     Route::get('/login', [LoginController::class, 'login'])->name('login');
 
     Route::post('/dologin', [LoginController::class, 'dologin'])->name('dologin');
@@ -70,6 +75,9 @@ Route::prefix('admin')->group(function () {
 
     //admin ,Vendor and Employee both can access this group
     Route::group(['middleware' => 'admin.employee'], function () {
+        
+        //Dashboard
+        Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
 
         //banner section
         Route::resource('/banner', BannerController::class);

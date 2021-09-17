@@ -256,16 +256,22 @@
 
                         <!-- Account -->
                         <div class="account-area">
+                            
+                            @auth
                             <div class="user-thumbnail">
-                                <img src="img/bg-img/user.jpg" alt="">
+                                <img src="frontend/img/bg-img/user.jpg" alt="">
                             </div>
                             <ul class="user-meta-dropdown">
                                 <li class="user-title"><span>Hello,</span> Lim Sarah</li>
                                 <li><a href="my-account.html">My Account</a></li>
                                 <li><a href="order-list.html">Orders List</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="login.html"><i class="icofont-logout"></i> Logout</a></li>
+                                <li><a href="login.html"><i class="icofont-logout"></i>Logout</a></li>
                             </ul>
+                                @else
+                                <a class="badge badge-primary" href="{{ route('customer.login') }}">Login</a>
+                            @endauth
+                            
                         </div>
                     </div>
                 </nav>
