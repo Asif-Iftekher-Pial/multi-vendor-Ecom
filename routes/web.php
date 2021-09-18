@@ -37,6 +37,12 @@ route::get('/',[IndexController::class,'home'])->name('home');
 Route::get('/login',[AuthenticationController::class,'index'])->name('customer.login');
 Route::post('/signup',[AuthenticationController::class,'registration'])->name('customer.registration');
 Route::post('/signin',[AuthenticationController::class,'login'])->name('customer.signin');
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('customer.logout');
+
+//customer account and profile
+Route::get('/my-account',[AuthenticationController::class,'myaccount'])->name('my.account');
+Route::get('/my-address',[AuthenticationController::class,'myaddress'])->name('my.address');
+Route::get('/my-accoute-detail',[AuthenticationController::class,'myaccountdetail'])->name('my.accountdetail');
 
 //Product Category
 Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');

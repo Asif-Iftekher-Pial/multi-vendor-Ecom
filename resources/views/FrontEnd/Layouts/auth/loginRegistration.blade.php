@@ -97,7 +97,7 @@
                                 <input type="password" class="form-control" name="confirmpassword" id="password"
                                     placeholder="Repeat Password">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm">Register</button>
+                            <button type="submit" class="btn btn-outline-success mb-1">Register</button>
                         </form>
                     </div>
                 </div>

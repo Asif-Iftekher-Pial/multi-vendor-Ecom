@@ -5,7 +5,9 @@
             <div class="row h-100 align-items-center">
                 <div class="col-6">
                     <div class="welcome-note">
-                        <span class="popover--text" data-toggle="popover" data-content="Welcome to Bigshop ecommerce template."><i class="icofont-info-square"></i></span>
+                        <span class="popover--text" data-toggle="popover"
+                            data-content="Welcome to Bigshop ecommerce template."><i
+                                class="icofont-info-square"></i></span>
                         <span class="text">Welcome to E-Buy</span>
                     </div>
                 </div>
@@ -14,7 +16,8 @@
                         <!-- Language Dropdown -->
                         <div class="language-dropdown">
                             <div class="dropdown">
-                                <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     English
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
@@ -27,7 +30,8 @@
                         <!-- Currency Dropdown -->
                         <div class="currency-dropdown">
                             <div class="dropdown">
-                                <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     $ USD
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
@@ -49,7 +53,8 @@
                 <nav class="classy-navbar" id="bigshopNav">
 
                     <!-- Nav Brand -->
-                    <a href="{{ route('home') }}" class="nav-brand"><img src="frontend/img/core-img/logo.png" alt="logo"></a>
+                    <a href="{{ route('home') }}" class="nav-brand"><img src="frontend/img/core-img/logo.png"
+                            alt="logo"></a>
 
                     <!-- Toggler -->
                     <div class="classy-navbar-toggler">
@@ -60,29 +65,34 @@
                     <div class="classy-menu">
                         <!-- Close -->
                         <div class="classycloseIcon">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            <div class="cross-wrap"><span class="top"></span><span
+                                    class="bottom"></span></div>
                         </div>
 
                         <!-- Nav -->
                         <div class="classynav">
                             <ul>
                                 <li><a href="{{ route('home') }}">Home</a>
-                                   
+
                                 </li>
                                 <li><a href="#">Shop</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Shop Grid</a>
                                             <ul class="dropdown">
-                                                <li><a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">Shop Grid Right Sidebar</a></li>
+                                                <li><a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-grid-right-sidebar.html">Shop Grid Right Sidebar</a>
+                                                </li>
                                                 <li><a href="shop-grid-top-sidebar.html">Shop Grid Top Sidebar</a></li>
                                                 <li><a href="shop-grid-no-sidebar.html">Shop Grid No Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li><a href="#">Shop List</a>
                                             <ul class="dropdown">
-                                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
+                                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
+                                                </li>
                                                 <li><a href="shop-list-top-sidebar.html">Shop List Top Sidebar</a></li>
                                                 <li><a href="shop-list-no-sidebar.html">Shop List No Sidebar</a></li>
                                             </ul>
@@ -202,7 +212,8 @@
 
                         <!-- Cart -->
                         <div class="cart-area">
-                            <div class="cart--btn"><i class="icofont-cart"></i> <span class="cart_quantity">2</span></div>
+                            <div class="cart--btn"><i class="icofont-cart"></i> <span
+                                    class="cart_quantity">2</span></div>
 
                             <!-- Cart Dropdown Content -->
                             <div class="cart-dropdown-content">
@@ -256,22 +267,23 @@
 
                         <!-- Account -->
                         <div class="account-area">
-                            
+
                             @auth
-                            <div class="user-thumbnail">
-                                <img src="frontend/img/bg-img/user.jpg" alt="">
-                            </div>
-                            <ul class="user-meta-dropdown">
-                                <li class="user-title"><span>Hello,</span> Lim Sarah</li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="order-list.html">Orders List</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="login.html"><i class="icofont-logout"></i>Logout</a></li>
-                            </ul>
-                                @else
+                                <div class="user-thumbnail">
+                                    <img src="frontend/img/bg-img/user.jpg" alt="">
+                                </div>
+                                <ul class="user-meta-dropdown">
+                                    <li class="user-title"><span>Hello,</span>{{ auth()->user()->full_name }}</li>
+                                    <li><a href="{{ route('my.account') }}">My Account</a></li>
+                                    <li><a href="order-list.html">Orders List</a></li>
+                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('customer.logout') }}"><i class="icofont-logout"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            @else
                                 <a class="badge badge-primary" href="{{ route('customer.login') }}">Login</a>
                             @endauth
-                            
+
                         </div>
                     </div>
                 </nav>
