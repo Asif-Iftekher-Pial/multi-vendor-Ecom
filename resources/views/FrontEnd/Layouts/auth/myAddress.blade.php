@@ -40,7 +40,7 @@
                                     {{ auth()->user()->phone }}<br>
                                     {{ auth()->user()->address }} <br>
                                 </address>
-                                <a href="#" class="btn btn-primary btn-sm">Edit Address</a>
+                                <a href="{{ route('editaddress') }}" class="btn btn-primary btn-sm">Edit Address</a>
                             </div>
                             {{-- <div class="col-12 col-lg-6">
                                 <h6 class="mb-3">Shipping Address</h6>

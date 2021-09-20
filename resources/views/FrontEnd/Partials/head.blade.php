@@ -12,3 +12,5 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
+
+    @yield('frontend_css_style')

@@ -43,6 +43,7 @@ Route::get('/logout', [AuthenticationController::class, 'logout'])->name('custom
 Route::get('/my-account',[AuthenticationController::class,'myaccount'])->name('my.account');
 Route::get('/my-address',[AuthenticationController::class,'myaddress'])->name('my.address');
 Route::get('/my-accoute-detail',[AuthenticationController::class,'myaccountdetail'])->name('my.accountdetail');
+Route::get('/edit-address',[AuthenticationController::class,'editaddress'])->name('editaddress');
 
 //Product Category
 Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');

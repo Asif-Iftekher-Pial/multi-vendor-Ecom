@@ -111,4 +111,9 @@ class AuthenticationController extends Controller
 
         return view('FrontEnd.Layouts.auth.myAccountDetails');
     }
+
+    public function editaddress()
+    {
+        return view('FrontEnd.Layouts.auth.addressForm');
+    }
 }
