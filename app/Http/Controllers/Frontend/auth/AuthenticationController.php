@@ -66,12 +66,13 @@ class AuthenticationController extends Controller
                 'status' => 'active'
             ]);
 
-            if(Session::get('url.intended')){
-                return Redirect::to(Session::get('url.intended'));
-            }
-            else{
-                return redirect()->route('home');
-            }
+            return redirect()->route('home');
+            // if(Session::get('url.intended')){
+            //     return Redirect::to(Session::get('url.intended'));
+            // }
+            // else{
+               
+            // }
 
             
         }
@@ -97,23 +98,26 @@ class AuthenticationController extends Controller
 
     public function myaccount()
     {
-        return view('FrontEnd.Layouts.auth.myAccount');
+        $user=Auth::user();
+        //dd($user);
+        return view('FrontEnd.Layouts.auth.myAccount',compact('user'));
     }
     public function myaddress()
     {
-        // $addressinfo=User::where('id',auth()->user()->id);
-        //dd($addressinfo);
-        return view('FrontEnd.Layouts.auth.myAddress');
+        $user=Auth::user();
+        
+        return view('FrontEnd.Layouts.auth.myAddress',compact('user'));
     }
 
     public function myaccountdetail()
     {
+        $user=Auth::user();
 
-        return view('FrontEnd.Layouts.auth.myAccountDetails');
+        return view('FrontEnd.Layouts.auth.myAccountDetails',compact('user'));
     }
 
-    public function editaddress()
+    public function editbillingaddress(Request $request,$id)
     {
-        return view('FrontEnd.Layouts.auth.addressForm');
+      dd($id);
     }
 }

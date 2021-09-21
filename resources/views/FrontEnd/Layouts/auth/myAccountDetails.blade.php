@@ -37,13 +37,13 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="fullName">Full Name *</label>
-                                        <input type="text" class="form-control" name="fullname" id="fulltName" placeholder="{{ auth()->user()->full_name }}">
+                                        <input type="text" class="form-control" name="fullname" id="fulltName" placeholder="{{ $user->full_name }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="userName">User Name *</label>
-                                        <input type="text" class="form-control" name="username" id="username" placeholder="{{ auth()->user()->username }}">
+                                        <input type="text" class="form-control" name="username" id="username" placeholder="{{ $user->username }}">
                                     </div>
                                 </div>
                                 
@@ -51,13 +51,13 @@
                                     <div class="form-group">
                                         <label for="emailAddress">Email Address *</label>
                                         <input type="email" class="form-control" id="emailAddress"
-                                            placeholder="{{ auth()->user()->email }}">
+                                            placeholder="{{ $user->email }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="currentPass">Current Password (Leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control" id="currentPass">
+                                        <input type="password" class="form-control" id="currentPass" ">
                                     </div>
                                 </div>
                                 <div class="col-12">

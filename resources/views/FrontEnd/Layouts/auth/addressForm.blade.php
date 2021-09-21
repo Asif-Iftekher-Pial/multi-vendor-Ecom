@@ -34,28 +34,22 @@
                     <form action="#" class="bigshop-form" method="post">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" placeholder="First Name" value="" required="">
+                                <label for="full_name">Full Name</label>
+                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="full_name" value="" required="">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" placeholder="Last Name" value="" required="">
+                                <label for="last_name">User Name</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Last Name" value="" required="">
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="company">Company Name</label>
-                                <input type="text" class="form-control" id="company" placeholder="Company Name" value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email_address">Email Address</label>
-                                <input type="email" class="form-control" id="email_address" placeholder="Email Address" value="">
-                            </div>
+                            
                             <div class="col-md-6 mb-3">
                                 <label for="phone_number">Phone Number</label>
-                                <input type="number" class="form-control" id="phone_number" min="0" value="">
+                                <input type="number" class="form-control" id="phone_number" name="phone" min="0" value="">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="country">Country</label>
-                                <select class="custom-select d-block w-100 form-control" id="country">
+                                <select class="custom-select d-block w-100 form-control" name="country" id="country">
+                                    <option value="bd">Bangladesh</option>
                                     <option value="usa">United States</option>
                                     <option value="uk">United Kingdom</option>
                                     <option value="ger">Germany</option>
@@ -66,30 +60,25 @@
                                     <option value="cana">Canada</option>
                                 </select>
                             </div>
+
                             <div class="col-md-12 mb-3">
                                 <label for="street_address">Street address</label>
-                                <input type="text" class="form-control" id="street_address" placeholder="Street Address" value="">
+                                <input type="text" class="form-control" id="street_address" name="address" placeholder="Street Address" value="">
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="apartment_suite">Apartment/Suite/Unit</label>
-                                <input type="text" class="form-control" id="apartment_suite" placeholder="Apartment, suite, unit etc" value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="city">Town/City</label>
-                                <input type="text" class="form-control" id="city" placeholder="Town/City" value="">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Town/City" value="">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" placeholder="State" value="">
+                                <input type="text" class="form-control" id="state" name="state" placeholder="State" value="">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="postcode">Postcode/Zip</label>
-                                <input type="text" class="form-control" id="postcode" placeholder="Postcode / Zip" value="">
+                                <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Postcode / Zip" value="">
                             </div>
-                            <div class="col-md-12">
-                                <label for="order-notes">Order Notes</label>
-                                <textarea class="form-control" id="order-notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                            </div>
+                            
                         </div>
 
                         <!-- Different Shipping Address -->
@@ -101,29 +90,11 @@
                                 </div>
                             </div>
                             <div class="row shipping_input_field">
-                                <div class="col-md-6 mb-3">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" id="first-name" placeholder="First Name" value="" required="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" id="last-name" placeholder="Last Name" value="" required="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="company">Company Name</label>
-                                    <input type="text" class="form-control" id="ship-company" placeholder="Company Name" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email_address">Email Address</label>
-                                    <input type="email" class="form-control" id="email-address" placeholder="Email Address" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="phone_number">Phone Number</label>
-                                    <input type="number" class="form-control" id="phone-number" min="0" value="">
-                                </div>
+                               
                                 <div class="col-md-6 mb-3">
                                     <label for="country">Country</label>
-                                    <select class="custom-select d-block w-100 form-control" id="ship-country">
+                                    <select class="custom-select d-block w-100 form-control" name="scountry" id="ship-country">
+                                        <option value="bd">Bangladesh</option>
                                         <option value="usa">United States</option>
                                         <option value="uk">United Kingdom</option>
                                         <option value="ger">Germany</option>
@@ -136,27 +107,29 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="street_address">Street address</label>
-                                    <input type="text" class="form-control" id="street-address" placeholder="Street Address" value="">
+                                    <input type="text" class="form-control" id="street-address" name="saddress" placeholder="Street Address" value="">
                                 </div>
+                               
                                 <div class="col-md-6 mb-3">
-                                    <label for="apartment_suite">Apartment/Suite/Unit</label>
-                                    <input type="text" class="form-control" id="apartment-suite" placeholder="Apartment, suite, unit etc" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="city">Town/City</label>
-                                    <input type="text" class="form-control" id="ship-city" placeholder="Town/City" value="">
+                                    <label for="city">City</label> 
+                                    <input type="text" class="form-control" id="ship-city" name="scity" placeholder="Town/City" value="">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="state">State</label>
-                                    <input type="text" class="form-control" id="ship-state" placeholder="State" value="">
+                                    <input type="text" class="form-control" id="ship-state" name="sstate" placeholder="State" value="">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="postcode">Postcode/Zip</label>
-                                    <input type="text" class="form-control" id="ship-postcode" placeholder="Postcode / Zip" value="">
+                                    <input type="text" class="form-control" id="ship-postcode" name="spostcode" placeholder="Postcode / Zip" value="">
                                 </div>
                             </div>
                         </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <div style="text-align: end">
+                            <a class="btn btn-outline-warning mb-1" href="{{ route('home') }}">Go Home</a>
+                        </div>
+                        
                     </form>
                 </div>
                 <!-- ++++++++++++

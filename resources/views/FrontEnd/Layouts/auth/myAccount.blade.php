@@ -19,7 +19,7 @@
                 <div class="col-12 col-lg-3">
                     <div class="my-account-navigation mb-50">
                         <ul>
-                            <li class="active"><a href="{{ route('my.account') }}">Dashboard</a></li>
+                            <li class="{{ \Request::is('user/my-account') ? 'active' : '    '}}"><a href="{{ route('my.account') }}">Dashboard</a></li>
                             <li><a href="order-list.html">Orders</a></li>
                             <li><a href="downloads.html">Downloads</a></li>
                             <li><a href="{{ route('my.address') }}">Addresses</a></li>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="my-account-content mb-50">
-                        <p>Hello <strong>{{ auth()->user()->full_name }}</strong> (not
-                            <strong>{{ auth()->user()->full_name }}</strong>? <a
+                        <p>Hello <strong>{{ $user->full_name }}</strong> (not
+                            <strong>{{ $user->full_name }}</strong>? <a
                                 href="{{ route('customer.logout') }}">Log out</a>)</p>
                         <p>From your account dashboard you can view your recent orders, manage your shipping and billing
                             addresses, and <a href="account-details.html">edit your password and account details</a>.</p>

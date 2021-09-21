@@ -31,25 +31,27 @@ use Illuminate\Support\Facades\Route;
 
 // Frontend routes start
 
-route::get('/',[IndexController::class,'home'])->name('home');
+route::get('/', [IndexController::class, 'home'])->name('home');
 
 //authentication
-Route::get('/login',[AuthenticationController::class,'index'])->name('customer.login');
-Route::post('/signup',[AuthenticationController::class,'registration'])->name('customer.registration');
-Route::post('/signin',[AuthenticationController::class,'login'])->name('customer.signin');
+Route::get('/login', [AuthenticationController::class, 'index'])->name('customer.login');
+Route::post('/signup', [AuthenticationController::class, 'registration'])->name('customer.registration');
+Route::post('/signin', [AuthenticationController::class, 'login'])->name('customer.signin');
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('customer.logout');
 
 //customer account and profile
-Route::get('/my-account',[AuthenticationController::class,'myaccount'])->name('my.account');
-Route::get('/my-address',[AuthenticationController::class,'myaddress'])->name('my.address');
-Route::get('/my-accoute-detail',[AuthenticationController::class,'myaccountdetail'])->name('my.accountdetail');
-Route::get('/edit-address',[AuthenticationController::class,'editaddress'])->name('editaddress');
+Route::prefix('user')->group(function () {
+    Route::get('/my-account', [AuthenticationController::class, 'myaccount'])->name('my.account');
+    Route::get('/my-address', [AuthenticationController::class, 'myaddress'])->name('my.address');
+    Route::get('/my-accoute-detail', [AuthenticationController::class, 'myaccountdetail'])->name('my.accountdetail');
+    Route::post('billing-address/{id}', [AuthenticationController::class, 'editbillingaddress'])->name('editbillingaddress');
+});
 
 //Product Category
-Route::get('product-category/{slug}/',[IndexController::class,'productCategory'])->name('product.category');
+Route::get('product-category/{slug}/', [IndexController::class, 'productCategory'])->name('product.category');
 
 //product Detail
-Route::get('product-detail/{slug}/',[IndexController::class,'productDetail'])->name('product.detail');
+Route::get('product-detail/{slug}/', [IndexController::class, 'productDetail'])->name('product.detail');
 
 
 
@@ -72,7 +74,7 @@ Route::get('product-detail/{slug}/',[IndexController::class,'productDetail'])->n
 Route::prefix('admin')->group(function () {
 
 
-   
+
     Route::get('/login', [LoginController::class, 'login'])->name('login');
 
     Route::post('/dologin', [LoginController::class, 'dologin'])->name('dologin');
@@ -82,7 +84,7 @@ Route::prefix('admin')->group(function () {
 
     //admin ,Vendor and Employee both can access this group
     Route::group(['middleware' => 'admin.employee'], function () {
-        
+
         //Dashboard
         Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
 
@@ -132,4 +134,3 @@ Route::prefix('admin')->group(function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
 });
-
