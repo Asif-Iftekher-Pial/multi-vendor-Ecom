@@ -18,4 +18,11 @@
  <script src="{{ asset('frontend/js/default/active.js') }}"></script>
 
  @yield('front_end_script')
+ 
+ <script>
+    setTimeout(function() {
+        $('#alert').slideUp();
+    }, 4000);
+</script>
+
 

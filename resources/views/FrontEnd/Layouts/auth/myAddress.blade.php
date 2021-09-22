@@ -14,8 +14,10 @@
         </div>
     </div>
     <section class="my-account-area section_padding_100_50">
+
         <div class="container">
             <div class="row">
+
                 <div class="col-12 col-lg-3">
                     <div class="my-account-navigation mb-50">
                         <ul>
@@ -29,16 +31,38 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-9">
+
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @elseif ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                {{ $error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endforeach
+                    @endif
+
                     <div class="my-account-content mb-50">
                         <p>The following addresses will be used on the checkout page by default.</p>
 
                         <div class="row">
                             <div class="col-12 col-lg-6 mb-5 mb-lg-0">
-                                <h6 class="mb-3">Shipping Address</h6>
+                                <h6 class="mb-3">Billing Address</h6>
                                 <address>
                                     {{ $user->full_name }}<br>
-                                    {{ $user->phone }}<br>
                                     {{ $user->address }} <br>
+                                    {{ $user->state }} <br>
+                                    {{ $user->city }} <br>
+                                    {{ $user->postcode }} <br>
+                                    {{ $user->country }} <br>
                                 </address>
                                 {{-- <a href="{{ route('editaddress') }}" class="btn btn-primary btn-sm">Edit Address</a> --}}
 
@@ -58,8 +82,8 @@
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('editbillingaddress',$user->id) }}" method="POST">
-                                                
+                                            <form action="{{ route('editbillingaddress', $user->id) }}" method="POST">
+
                                                 @csrf
                                                 <div class="modal-body">
                                                     <div class="col-md-12 mb-3">
@@ -88,8 +112,6 @@
                                                             name="postcode" placeholder="Postcode / Zip"
                                                             value="{{ $user->postcode }}">
                                                     </div>
-
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btn-sm"
@@ -109,7 +131,14 @@
                             <div class="col-12 col-lg-6">
                                 <h6 class="mb-3">Shipping Address</h6>
                                 <address>
-                                    You have not set up this type of address yet.
+                                    {{ $user->full_name }}<br>
+                                    {{ $user->saddress }} <br>
+                                    {{ $user->sstate }} <br>
+                                    {{ $user->scity }} <br>
+                                    {{ $user->spostcode }} <br>
+                                    <p class="badge badge-success">Contact: </p>
+                                    {{ $user->phone }}<br>
+                                    {{ $user->scountry }} <br>
                                 </address>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#editShippingAddress">
@@ -121,41 +150,48 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Edit shipping address</h5>
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Edit shipping
+                                                    address</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form action="" method="POST">
-                                                @method('patch')
+                                            <form action="{{ route('editshippingaddress',$user->id ) }}" method="POST">
+                                               
                                                 @csrf
                                                 <div class="modal-body">
                                                     <div class="col-md-12 mb-3">
                                                         <label for="address">Shipping Address</label>
                                                         <textarea name="saddress" class="form-control"
-                                                            id="">{{ $user->address }}</textarea>
+                                                            id="">{{ $user->saddress }}</textarea>
                                                     </div>
                                                     <div class="col-md-12 mb-3">
                                                         <label for="country">Shipping Country</label>
                                                         <input type="text" class="form-control" id="" name="scountry"
-                                                            placeholder="Country" value="{{ $user->country }}">
+                                                            placeholder="Country" value="{{ $user->scountry }}">
                                                     </div>
                                                     <div class="col-md-12 mb-3">
                                                         <label for="city">Shipping City</label>
-                                                        <input type="text" class="form-control" id="ship-city" name="scity"
-                                                            placeholder="City" value="{{ $user->city }}">
+                                                        <input type="text" class="form-control" id="ship-city"
+                                                            name="scity" placeholder="City" value="{{ $user->scity }}">
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label for="state">Shipping State</label>
                                                         <input type="text" class="form-control" id="ship-state"
-                                                            name="sstate" placeholder="State" value="{{ $user->state }}">
+                                                            name="sstate" placeholder="State" value="{{ $user->sstate }}">
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label for="postcode">Shipping Postcode/Zip</label>
                                                         <input type="number" class="form-control" id="ship-postcode"
                                                             name="spostcode" placeholder="Postcode / Zip"
-                                                            value="{{ $user->postcode }}">
+                                                            value="{{ $user->spostcode }}">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="phone">Contact Number</label>
+                                                        <input type="number" class="form-control" id="ship-postcode"
+                                                            name="phone" placeholder="Contact Number"
+                                                            value="{{ $user->phone }}">
                                                     </div>
 
 
@@ -177,5 +213,17 @@
             </div>
         </div>
     </section>
+
+@endsection
+
+@section('frontend_css_style')
+
+    <style>
+        /* by this , modal view will not conflict with footer */
+        .footer_area {
+            z-index: -1;
+        }
+
+    </style>
 
 @endsection

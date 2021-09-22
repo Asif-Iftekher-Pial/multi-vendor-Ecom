@@ -89,6 +89,19 @@
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="male" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  Male
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="female" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                  Female
+                                </label>
+                              </div>
+                            
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Password">

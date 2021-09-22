@@ -29,10 +29,28 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-9">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @elseif ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                {{ $error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endforeach
+                    @endif
                     <div class="my-account-content mb-50">
                         <h5 class="mb-3">Account Details</h5>
 
-                        <form action="#" method="post">
+                        <form action="{{ route('editUserAccount',$user->id) }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
@@ -57,19 +75,19 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="currentPass">Current Password (Leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control" id="currentPass" ">
+                                        <input type="password" class="form-control" name="OldPassword" id="currentPass">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="newPass">New Password (Leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control" id="newPass">
+                                        <input type="password" class="form-control" name="NewPassword" id="newPass">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="confirmPass">Confirm New Password</label>
-                                        <input type="password" class="form-control" id="confirmPass">
+                                        <input type="password" class="form-control" name="NewPasswordConfirm" id="confirmPass">
                                     </div>
                                 </div>
                                 <div class="col-12">

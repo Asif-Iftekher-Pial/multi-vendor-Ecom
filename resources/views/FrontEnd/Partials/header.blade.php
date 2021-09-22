@@ -270,10 +270,18 @@
 
                             @auth
                                 <div class="user-thumbnail">
-                                    <img src="frontend/img/bg-img/user.jpg" alt="">
+                                    @if (auth()->user()->photo)
+                                        <img src="{{ auth()->user()->photo }}" alt="">
+                                    @else
+                                        <img src="{{ Helper::userDefaultImage() }}" alt="">
+                                    @endif
+                                    
                                 </div>
                                 <ul class="user-meta-dropdown">
-                                    <li class="user-title"><span>Hello,</span>{{ auth()->user()->full_name }}</li>
+                                    @php
+                                        $first_name=explode(' ',auth()->user()->full_name);
+                                    @endphp
+                                    <li class="user-title"><span>Hello, </span>{{ $first_name[0] }}!</li>
                                     <li><a href="{{ route('my.account') }}">My Account</a></li>
                                     <li><a href="order-list.html">Orders List</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>

@@ -45,6 +45,11 @@ Route::prefix('user')->group(function () {
     Route::get('/my-address', [AuthenticationController::class, 'myaddress'])->name('my.address');
     Route::get('/my-accoute-detail', [AuthenticationController::class, 'myaccountdetail'])->name('my.accountdetail');
     Route::post('billing-address/{id}', [AuthenticationController::class, 'editbillingaddress'])->name('editbillingaddress');
+    Route::post('shipping-address/{id}', [AuthenticationController::class, 'editshippingaddress'])->name('editshippingaddress');
+
+    // edit user account
+    Route::post('user-account/{id}', [AuthenticationController::class, 'editUserAccount'])->name('editUserAccount');
+
 });
 
 //Product Category
