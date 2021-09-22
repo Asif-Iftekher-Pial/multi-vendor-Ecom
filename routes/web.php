@@ -41,6 +41,8 @@ Route::get('/logout', [AuthenticationController::class, 'logout'])->name('custom
 
 //customer account and profile
 Route::prefix('user')->group(function () {
+    Route::middleware(['customer'])->group(function () {
+
     Route::get('/my-account', [AuthenticationController::class, 'myaccount'])->name('my.account');
     Route::get('/my-address', [AuthenticationController::class, 'myaddress'])->name('my.address');
     Route::get('/my-accoute-detail', [AuthenticationController::class, 'myaccountdetail'])->name('my.accountdetail');
@@ -49,7 +51,9 @@ Route::prefix('user')->group(function () {
 
     // edit user account
     Route::post('user-account/{id}', [AuthenticationController::class, 'editUserAccount'])->name('editUserAccount');
-
+        
+    });
+    
 });
 
 //Product Category
