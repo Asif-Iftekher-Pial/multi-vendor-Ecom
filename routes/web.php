@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Frontend\auth\AuthenticationController;
+use App\Http\Controllers\Frontend\Cart\CartController;
 use App\Http\Controllers\Frontend\Index\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,27 +41,37 @@ Route::post('/signin', [AuthenticationController::class, 'login'])->name('custom
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('customer.logout');
 
 //customer account and profile
-Route::prefix('user')->group(function () {
+Route::prefix('user/account')->group(function () {
     Route::middleware(['customer'])->group(function () {
 
     Route::get('/my-account', [AuthenticationController::class, 'myaccount'])->name('my.account');
     Route::get('/my-address', [AuthenticationController::class, 'myaddress'])->name('my.address');
     Route::get('/my-accoute-detail', [AuthenticationController::class, 'myaccountdetail'])->name('my.accountdetail');
-    Route::post('billing-address/{id}', [AuthenticationController::class, 'editbillingaddress'])->name('editbillingaddress');
-    Route::post('shipping-address/{id}', [AuthenticationController::class, 'editshippingaddress'])->name('editshippingaddress');
+    Route::post('/billing-address/{id}', [AuthenticationController::class, 'editbillingaddress'])->name('editbillingaddress');
+    Route::post('/shipping-address/{id}', [AuthenticationController::class, 'editshippingaddress'])->name('editshippingaddress');
 
     // edit user account
-    Route::post('user-account/{id}', [AuthenticationController::class, 'editUserAccount'])->name('editUserAccount');
+    Route::post('/user-account/{id}', [AuthenticationController::class, 'editUserAccount'])->name('editUserAccount');
         
     });
     
 });
 
+// Cart 
+
+Route::prefix('shopping')->group(function(){
+
+    Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store');
+    Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete');
+
+});
+
+
 //Product Category
-Route::get('product-category/{slug}/', [IndexController::class, 'productCategory'])->name('product.category');
+Route::get('/product-category/{slug}/', [IndexController::class, 'productCategory'])->name('product.category');
 
 //product Detail
-Route::get('product-detail/{slug}/', [IndexController::class, 'productDetail'])->name('product.detail');
+Route::get('/product-detail/{slug}/', [IndexController::class, 'productDetail'])->name('product.detail');
 
 
 

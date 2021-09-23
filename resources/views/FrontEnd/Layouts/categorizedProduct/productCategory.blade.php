@@ -172,14 +172,14 @@
     <script>
         function loadmoreData(page) {
             $.ajax({
-                    url:'?page='+page,
-                    type:'get',
-                    beforeSend:function() {
+                    url: '?page=' + page,
+                    type: 'get',
+                    beforeSend: function() {
                         $('.ajax-load').show();
                     },
                 })
                 .done(function(data) {
-                    if(data.html==''){ //if no product available 
+                    if (data.html == '') { //if no product available 
                         $('.ajax-load').html('No more Product found');
                         return;
                     }
@@ -195,10 +195,64 @@
 
         var page = 1;
         $(window).scroll(function() {
-            if($(window).scrollTop()+$(window).height()+120>=$(document).height()) {
-                page ++;
+            if ($(window).scrollTop() + $(window).height() + 120 >= $(document).height()) {
+                page++;
                 loadmoreData(page);
             }
         })
+    </script>
+
+    {{-- script for add to cart, and data-quantity="1" data-product-id="{{ $item->id }}" class="add_to_cart" id="add_to_cart{{ $item->id }}"
+    all are set up in directory FrontEnd.Layouts.categorizedProduct.singleProducts --}}
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(document).on('click', '.add_to_cart', function(e) {
+            e.preventDefault();
+            var product_id = $(this).data('product-id');
+            var product_qty = $(this).data('quantity');
+            var token = "{{ csrf_token() }}";
+            var path = "{{ route('cart.store') }}";
+
+
+            // alert(product_qty);
+            $.ajax({
+                url: path,
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    product_id: product_id,
+                    product_qty: product_qty,
+                    _token: token,
+
+                },
+                beforeSend: function() {
+                    $('#add_to_cart' + product_id).html(
+                        '<i class="fa fa-spinner fa-spin"></i> Loading....');
+                },
+                complete: function() {
+                    $('#add_to_cart' + product_id).html('<i class="fa fa-cart-plus"></i> Add to Cart');
+                },
+                success: function(data) {
+                    console.log(data);
+                    // $('body #header-ajax').html(data['header']);
+                    if (data['status']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #cart-counter').html(data['cart_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error:function (err){
+                    console.log(err);
+                }
+            });
+
+
+        });
     </script>
 @endsection

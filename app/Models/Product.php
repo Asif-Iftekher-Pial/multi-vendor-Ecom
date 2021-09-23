@@ -39,4 +39,10 @@ class Product extends Model
     {
         return $this->hasMany(Product::class,'cat_id','cat_id')->where('status','active')->limit('10');
     }
+
+    // cart controller 
+    public static function getProductByCart($id){
+        return self::where('id',$id)->get()->toArray();  //self is a function that return data to its self model
+    }
+
 }

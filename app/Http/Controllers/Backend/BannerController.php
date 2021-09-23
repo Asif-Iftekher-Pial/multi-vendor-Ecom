@@ -81,7 +81,7 @@ class BannerController extends Controller
             return redirect()->route('banner.index')->with('success', 'Banner Created successfully');
         } else {
 
-            return redirect()->back()->with('error', 'Something went wrong');
+            return back()->withErrors('error', 'Something went wrong');
         }
     }
 
