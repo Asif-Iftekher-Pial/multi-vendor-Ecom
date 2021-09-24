@@ -89,6 +89,14 @@
                                 <li><a href="{{ route('user.index') }}">All User</a></li>
                                 <li><a href="{{ route('user.create') }}">Create User</a></li>
                             </ul>
+                        </li> 
+                        <li>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>Coupon Management
+                                    </span></a>
+                            <ul>
+                                <li><a href="{{ route('coupon.index') }}">All Coupon</a></li>
+                                <li><a href="{{ route('coupon.create') }}">Create Coupon</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>Vendor Management

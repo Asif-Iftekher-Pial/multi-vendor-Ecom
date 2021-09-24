@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Categorie;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
@@ -46,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
         
         $tottal_users=User::count();
         View::share('tottal_users',$tottal_users);
+        
+        $tottal_coupon=Coupon::count();
+        View::share('tottal_coupon',$tottal_coupon);
     }
 
 }

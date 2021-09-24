@@ -1,15 +1,15 @@
 @extends('Backend.backEndMaster')
 @section('main_content')
     <div class="card">
-        {{-- @dd($allBanners); --}}
+       
 
 
         <div class="header">
-            <h2>All Brands</h2>
+            <h2>All Coupons</h2>
             <br>
-            <a href="{{ route('brand.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new brand</i> </a>
+            <a href="{{ route('coupon.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new coupon</i> </a>
             <h2>
-                <p class="float-right ">Tottal brands : {{ $tottal_brands }} </p>
+                <p class="float-right ">Tottal coupons : {{ $tottal_coupon }} </p>
             </h2>
         </div>
 
@@ -30,63 +30,101 @@
                 </div>
             @endforeach
         @endif
+
+
         <div class="body">
             <div class="table-responsive">
                 <table id="table_id" class="table table-hover m-b-0 c_list">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Slug</th>
-                            <th>Photo</th>
+                            <th>Code</th>
+                            <th>Type</th>
+                            <th>Value</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($allBrands as $brand)
+                        @foreach ($coupons as $item)
                             <tr>
                                 <td>
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
 
-                                    <p class="c_name">{{ $brand->title }} </p>
+                                    <p class="c_name">{{ $item->code }} </p>
+                                </td>
+                               
+                                <td>
+                                    @if ($item->type == 'fixed')
+                                        <span class="badge badge-warning">{{ $item->type }}</span>
+                                    @else
+                                        <span class="badge badge-primary">{{ $item->type }}</span>
+                                    @endif
                                 </td>
                                 <td>
-                                    
-                                    {!! html_entity_decode($brand->slug) !!}
-
+                                    <p class="c_name">{{ $item->value }}%</p>
                                 </td>
                                 <td>
-                                    <img src="{{ $brand->photo }}" alt="brand photo"
-                                        style="max-height: 90px; max-idth: 120px">
-                                </td>
-                                
-                                <td>
-                                    <input type="checkbox"  name="toogle" value="{{ $brand->id }}"
-                                        data-toggle="switchbutton" {{ $brand->status == 'active' ? 'checked' : '' }}
+                                    <input type="checkbox"  name="toogle" value="{{ $item->id }}"
+                                        data-toggle="switchbutton" {{ $item->status == 'active' ? 'checked' : '' }}
                                         data-onlabel="active" data-offlabel="inactive" data-size="sm" data-onstyle="success"
                                         data-offstyle="danger">
                                 </td>
                                 <td>
-                                    <a href="{{ route('brand.edit', $brand->id) }}" data-toggle="tooltip"
+                                    <a href="{{ route('coupon.edit', $item->id) }}" data-toggle="tooltip"
                                         class=" float-left btn btn-sm btn-outline-warning" title="edit"><i
                                             class="fa fa-edit"></i></a>
-                                    <form class="float-left ml-2 " action="{{ route('brand.destroy', $brand->id) }}"
+                                    <form class="float-left ml-2 " action="{{ route('coupon.destroy', $item->id) }}"
                                         method="post">
                                         @csrf
                                         @method('delete')
                                         <a href="" data-toggle="tooltip" class="dltBtn btn btn-sm btn-outline-danger"
-                                            title="delete" data-id="{{ $brand->id }}"><i class="fa fa-trash"></i></a>
+                                            title="delete" data-id="{{ $item->id }}"><i class="fa fa-trash"></i></a>
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {{ $allBrands->links() }}
+                {{ $coupons->links() }}
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('backend_script')
+
+<script>
+    $('input[name=toogle]').change(function() {
+        var mode = $(this).prop('checked');
+        var id = $(this).val();
+        //alert(id); 
+        $.ajax({
+            url: "{{ route('coupon.status') }}",
+            type: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                mode: mode,
+                id: id,
+            },
+            success: function(responce) {
+
+                // console.log(responce.status);
+                if (responce.status) {
+                    //alert(responce.msg);
+                    swal("Status Updated", {
+                        icon: "success",
+                    });
+
+                } else {
+                    alert('please try again');
+                }
+            }
+        });
+    });
+</script>
+    
 @endsection

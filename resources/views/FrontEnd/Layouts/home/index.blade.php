@@ -157,26 +157,20 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="popular_brands_slide owl-carousel">
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/1.jpg" alt="">
+                    @if (count($allBrands) > 0)
+                        <div class="popular_brands_slide owl-carousel">
+                            @foreach ($allBrands as $brand)
+                                <div class="single_brands">
+                                    <a href="{{ route('product.brand',$brand->slug) }}">
+                                        <img src="{{ $brand->photo }}" alt="">
+                                    </a>
+                                   
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/2.jpg" alt="">
-                        </div>
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/3.jpg" alt="">
-                        </div>
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/4.jpg" alt="">
-                        </div>
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/5.jpg" alt="">
-                        </div>
-                        <div class="single_brands">
-                            <img src="frontend/img/partner-img/6.jpg" alt="">
-                        </div>
-                    </div>
+                    @else
+                        <h4 class="badge badge-danger">No Brands added yet...!!</h4>
+                    @endif
                 </div>
             </div>
         </div>
@@ -242,10 +236,11 @@
 
                                         <p class="brand_name">
                                             {{ App\Models\Brand::where('id', $item->brand_id)->value('title') }}</p>
-                                        <a href="{{ route('product.detail',$item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
-                                        <h6 class="product-price">${{ number_format($item->offer_price, 2) }} <br> <small><del
-                                            class="text-danger">${{ number_format($item->price, 2) }}
-                                        </del></small></h6>
+                                        <a
+                                            href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
+                                        <h6 class="product-price">${{ number_format($item->offer_price, 2) }} <br>
+                                            <small><del class="text-danger">${{ number_format($item->price, 2) }}
+                                                </del></small></h6>
                                     </div>
                                 </div>
 

@@ -9,6 +9,14 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
+
+    public function cart()
+    {
+        return view('FrontEnd.Layouts.cart.index');
+    }
+
+
+
     public function cartStore(Request $request)
     {
         //dd($request->all());
@@ -26,17 +34,17 @@ class CartController extends Controller
             $cart_array[] = $item->id;
         }
 
-        $result = Cart::instance('shopping')->add(
+        $result = Cart::instance('shopping')->add( //addding products in cart by product id ,
             $product_id,
             $product[0]['title'],
             $product_qty,
             $price
 
-        )->associate('app\Models\Product'); //Product is the model which is assoiciated  
+        )->associate(Product::class); //Product is the model which is assoiciated  
 
 
 
-        
+
         if ($result) {
             $responce['status'] = true;
             $responce['product_id'] = $product_id;

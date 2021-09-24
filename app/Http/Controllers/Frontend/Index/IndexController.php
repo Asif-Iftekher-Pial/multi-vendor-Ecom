@@ -18,8 +18,10 @@ class IndexController extends Controller
 
         $newArrivals=Product::where(['status'=>'active','conditions'=>'new'])->orderBy('id','DESC')->limit('10')->get();
         //dd($newArrivals);
+        $allBrands=Brand::where(['status'=>'active'])->orderBy('id','DESC')->limit('10')->get();
+        //dd($allBrands);
 
-        return view('FrontEnd.Layouts.home.index',compact('banners','categories','newArrivals'));
+        return view('FrontEnd.Layouts.home.index',compact('banners','categories','newArrivals','allBrands'));
     }
 
     public function productCategory( Request $request, $slug)

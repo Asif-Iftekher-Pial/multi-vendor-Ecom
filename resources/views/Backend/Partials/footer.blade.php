@@ -17,6 +17,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+@yield('backend_script')
+
+
 
 {{-- Data Table CDN --}}
 <script>

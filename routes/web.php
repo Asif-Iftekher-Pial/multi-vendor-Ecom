@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\Brand\BrandController;
 use App\Http\Controllers\Backend\Category\CategoryController;
+use App\Http\Controllers\Backend\Coupon\CouponController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\User\UserController;
@@ -63,9 +64,12 @@ Route::prefix('shopping')->group(function(){
 
     Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store');
     Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete');
+    Route::get('cart',[CartController::class,'cart'])->name('cart');
 
 });
 
+// Brand
+Route::get('/product-brand/{slug}/', [IndexController::class, 'productCategory'])->name('product.brand');
 
 //Product Category
 Route::get('/product-category/{slug}/', [IndexController::class, 'productCategory'])->name('product.category');
@@ -127,6 +131,12 @@ Route::prefix('admin')->group(function () {
         //user add section
         Route::resource('/user', UserController::class);
         Route::post('user_status', [UserController::class, 'userStatus'])->name('user.status');
+
+         //coupon section
+         Route::resource('/coupon', CouponController::class);
+         Route::post('coupon_status', [CouponController::class, 'couponStatus'])->name('coupon.status');
+ 
+
     });
 
     //authenticated users can access
