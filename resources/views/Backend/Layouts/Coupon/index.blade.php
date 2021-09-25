@@ -97,6 +97,7 @@
 
 @section('backend_script')
 
+{{-- status toggle --}}
 <script>
     $('input[name=toogle]').change(function() {
         var mode = $(this).prop('checked');
@@ -126,5 +127,7 @@
         });
     });
 </script>
+
+
     
 @endsection

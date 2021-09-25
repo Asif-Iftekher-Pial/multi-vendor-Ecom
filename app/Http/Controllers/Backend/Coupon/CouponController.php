@@ -92,7 +92,12 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::find($id); //find each  data by their id
+        if ($coupon) {
+            return view('Backend.Layouts.coupon.edit', compact('coupon'));
+        } else {
+            return back()->with('error', 'Data not found');
+        }
     }
 
     /**
@@ -104,7 +109,23 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $coupon = Coupon::find($id);
+         //dd($request->all());
+         $request->validate([
+            'code' => 'string|required|min:2',
+            'value' => 'required|numeric',
+            'type' => 'required|in:fixed,percent',
+            'status' => 'required|in:active,inactive'
+        ]);
+
+        $data = $request->all();
+
+        $status = $coupon->fill($data)->save();
+        if ($status) {
+            return redirect()->route('coupon.index')->with('success', 'Coupon successfully updated');
+        } else {
+            return back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -115,6 +136,17 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $coupon = Coupon::find($id); //find each data by their id
+        if ($coupon) {
+            $status=$coupon->delete();
+            if ($status) {
+                return redirect()->route('coupon.index')->with('success','Coupon deleted successfully');
+            } else {
+               return redirect()->back()->with('error','Something went wrong!');
+            }
+            
+        } else {
+            return back()->with('error', 'Data not found');
+        }
     }
 }

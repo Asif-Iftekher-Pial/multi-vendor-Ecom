@@ -5,12 +5,15 @@
         <div class="tab-content">
             <div class="tab-pane active">
                 <div class="body">
-                    <h5>Create new banner</h5>
-                    <form action="{{ route('banner.update',$banner->id) }}" method="POST">
+                    <h5>Edit coupon</h5>
+                    <form action="{{ route('coupon.update',$coupon->id) }}" method="POST">
                         @csrf
-                        @method('patch')
+                        @method('put')
 
-                        
+                        {{-- new error message --}}
+                        {{-- <div class="col-lg-12">
+                            @include('Backend.Partials.Notification.notification')
+                        </div> --}}
 
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
@@ -43,22 +46,27 @@
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label for="">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Title" name="title"
-                                        value="{{ $banner->title }}">
+                                    <label for="">Code <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="ex. flash sell" name="code"
+                                        value="{{ $coupon->code }}">
                                 </div>
+                                
+                                
                                 <div class="form-group">
-                                    <label for="">Description</label>
-                                    <textarea id="description" class="form-control" placeholder="Write about this image"
-                                        name="description">{{ $banner->description }}</textarea>
+                                    <label for="">Coupon Value <span class="text-danger">*</span></label>
+                                    <input type="number" min="0" class="form-control" placeholder="ex. 10%" name="value"
+                                        value="{{ $coupon->value }}">
                                 </div>
+
+
+
                                 <div class="form-group">
-                                    <label for="">Condition <span class="text-danger">*</span></label>
-                                    <select name="condition" class="form-control show-tick">
-                                        <option value="">-- Condition --</option>
-                                        <option value="banner" {{ $banner->condition == 'banner' ? 'selected' : '' }}>Banner
+                                    <label for="">Type <span class="text-danger">*</span></label>
+                                    <select name="type"  class="form-control show-tick">
+                                        <option value="">--Select Type --</option>
+                                        <option value="fixed" {{ old('type') == 'fixed' ? 'selected' : '' }}>Fixed
                                         </option>
-                                        <option value="promo" {{ $banner->condition == 'promo' ? 'selected' : '' }}>Promote
+                                        <option value="percent" {{ old('type') == 'percent' ? 'selected' : '' }}>Percent
                                         </option>
 
                                     </select>
@@ -66,32 +74,19 @@
                                 <div class="form-group">
                                     <label for="">Status <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control show-tick">
-                                        <option value="">-- Select status --</option>
-                                        <option value="active" {{ $banner->status == 'active' ? 'selected' : '' }}>Active
+                                        <option value="">-- Select Status --</option>
+                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active
                                         </option>
-                                        <option value="inactive" {{ $banner->status == 'inactive' ? 'selected' : '' }}>
+                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>
                                             Inactive</option>
 
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Upload picture<span class="text-danger">*</span></label>
-
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <a id="lfm" data-input="thumbnail" data-preview="holder"
-                                                class="btn btn-primary">
-                                                <i class="fa fa-picture-o"></i> Choose
-                                            </a>
-                                        </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="photo" value="{{ $banner->photo }}">
-                                    </div>
-                                    <div id="holder" style="margin-top:15px;max-height:100px;"> </div>
-                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                        <button type="" class="btn btn-danger">Cancel</button>
+                        <a href="{{ route('coupon.index') }}" class="btn btn-danger">Cancel</a>
+                       
                     </form>
                 </div>
             </div>

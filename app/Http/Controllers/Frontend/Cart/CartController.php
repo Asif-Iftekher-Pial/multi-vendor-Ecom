@@ -74,5 +74,21 @@ class CartController extends Controller
             $responce['header'] = $header;
         }
         return json_encode($responce);
+    } 
+    
+    public function managecartDelete(Request $request)
+    {
+        //dd($request->all());
+        $id = $request->input('cart_id');
+        Cart::instance('shopping')->remove($id);
+        $responce['status'] = true;
+        $responce['message'] = "Item successfully removed";
+        $responce['total'] = Cart::subtotal();
+        $responce['cart_count'] = Cart::instance('shopping')->count();
+        if ($request->ajax()) {
+            $header = view('FrontEnd.Layouts.cart.index')->render();
+            $responce['header'] = $header;
+        }
+        return json_encode($responce);
     }
 }
