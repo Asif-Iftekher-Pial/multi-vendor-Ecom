@@ -64,8 +64,13 @@ Route::prefix('shopping')->group(function(){
 
     Route::post('cart/store',[CartController::class,'cartStore'])->name('cart.store');
     Route::post('cart/delete',[CartController::class,'cartDelete'])->name('cart.delete');
+    Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update');
     Route::post('manage/cart/delete',[CartController::class,'managecartDelete'])->name('managecart.delete');
     Route::get('cart',[CartController::class,'cart'])->name('cart');
+
+    // coupon section
+    Route::post('coupon/add',[CartController::class,'couponAdd'])->name('coupon.add');
+
 
 });
 

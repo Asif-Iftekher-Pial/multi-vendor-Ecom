@@ -14,4 +14,9 @@ class Coupon extends Model
         'status',
         'value'
     ];
+
+    public function discount($total)
+    {
+        return $total;
+    }
 }
