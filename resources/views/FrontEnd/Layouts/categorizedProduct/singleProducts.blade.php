@@ -18,7 +18,8 @@
 
                 <!-- Wishlist -->
                 <div class="product_wishlist">
-                    <a href="wishlist.html"><i class="icofont-heart"></i></a>
+                    <a href="javascript:void(0);" class="add_to_wishlist" data-quantity="1" data-id="{{ $item->id }}"
+                        id="add_to_wishlist_{{ $item->id }}"><i class="icofont-heart"></i></a>
                 </div>
 
                 <!-- Compare -->
@@ -31,7 +32,8 @@
             <div class="product_description">
                 <!-- Add to cart -->
                 <div class="product_add_to_cart">
-                    <a href="#" data-quantity="1" data-product-id="{{ $item->id }}" class="add_to_cart" id="add_to_cart{{ $item->id }}"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                    <a href="#" data-quantity="1" data-product-id="{{ $item->id }}" class="add_to_cart"
+                        id="add_to_cart{{ $item->id }}"><i class="icofont-shopping-cart"></i> Add to Cart</a>
                 </div>
 
                 <!-- Quick View -->

@@ -222,7 +222,7 @@ class AuthenticationController extends Controller
                     if ($user) {
                         return redirect()->back()->with('success', 'All user information is Updated successfully');
                     } else {
-                        return back()->withErrors(['error', 'Something went wrong']);
+                        return back()->withErrors(['Something went wrong']);
                     }
                 }
             }

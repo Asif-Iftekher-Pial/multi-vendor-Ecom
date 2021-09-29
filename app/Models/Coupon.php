@@ -15,8 +15,17 @@ class Coupon extends Model
         'value'
     ];
 
-    public function discount($total)
+    public function discount($total) //for coupon section
     {
-        return $total;
+        //dd($total);
+        if($this->type== "fixed"){
+            return $this->value;
+
+        }
+        elseif($this->type== "percent"){
+            return($this->value/100)*$total; 
+        }else{
+            return 0;
+        }
     }
 }

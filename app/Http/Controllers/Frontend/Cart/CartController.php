@@ -45,17 +45,17 @@ class CartController extends Controller
 
 
         if ($result) {
-            $responce['status'] = true;
-            $responce['product_id'] = $product_id;
-            $responce['total'] = Cart::subtotal();
-            $responce['cart_count'] = Cart::instance('shopping')->count();
-            $responce['message'] = "Item was added to your cart";
+            $response['status'] = true;
+            $response['product_id'] = $product_id;
+            $response['total'] = Cart::subtotal();
+            $response['cart_count'] = Cart::instance('shopping')->count();
+            $response['message'] = "Item was added to your cart";
         }
         if ($request->ajax()) {
             $header = view('FrontEnd.Partials.header')->render();
-            $responce['header'] = $header;
+            $response['header'] = $header;
         }
-        return json_encode($responce);
+        return json_encode($response);
     }
 
 
@@ -64,15 +64,15 @@ class CartController extends Controller
         //dd($request->all());
         $id = $request->input('cart_id');
         Cart::instance('shopping')->remove($id);
-        $responce['status'] = true;
-        $responce['message'] = "Item successfully removed";
-        $responce['total'] = Cart::subtotal();
-        $responce['cart_count'] = Cart::instance('shopping')->count();
+        $response['status'] = true;
+        $response['message'] = "Item successfully removed";
+        $response['total'] = Cart::subtotal();
+        $response['cart_count'] = Cart::instance('shopping')->count();
         if ($request->ajax()) {
             $header = view('FrontEnd.Partials.header')->render();
-            $responce['header'] = $header;
+            $response['header'] = $header;
         }
-        return json_encode($responce);
+        return json_encode($response);
     } 
     
     public function managecartDelete(Request $request)
@@ -80,15 +80,15 @@ class CartController extends Controller
         //dd($request->all());
         $id = $request->input('cart_id');
         Cart::instance('shopping')->remove($id);
-        $responce['status'] = true;
-        $responce['message'] = "Item successfully removed";
-        $responce['total'] = Cart::subtotal();
-        $responce['cart_count'] = Cart::instance('shopping')->count();
+        $response['status'] = true;
+        $response['message'] = "Item successfully removed";
+        $response['total'] = Cart::subtotal();
+        $response['cart_count'] = Cart::instance('shopping')->count();
         if ($request->ajax()) {
             $header = view('FrontEnd.Layouts.cart.index')->render();
-            $responce['header'] = $header;
+            $response['header'] = $header;
         }
-        return json_encode($responce);
+        return json_encode($response);
     }
 
     public function cartUpdate(Request $request)
@@ -104,29 +104,29 @@ class CartController extends Controller
         if ($request_quantity>$productQuantity) {
             # code...
             $message="Currently do not have enough product in stoke";
-            $responce['status']=false;
+            $response['status']=false;
 
         } elseif($request_quantity<1) {
             $message="you can not add less than one quantity";
-            $responce['status']=false;
+            $response['status']=false;
         }
         else{
             Cart::instance('shopping')->update($rowId,$request_quantity);
             $message="Quantity was updated successfully";
-            $responce['status']=true;
-            $responce['total'] = Cart::subtotal();
-            $responce['cart_count'] = Cart::instance('shopping')->count();
+            $response['status']=true;
+            $response['total'] = Cart::subtotal();
+            $response['cart_count'] = Cart::instance('shopping')->count();
 
         }
         if ($request->ajax()) {
             $header = view('FrontEnd.Partials.header')->render();
-            $cart_list = view('FrontEnd.Layouts.cartList._cart-lists')->render();
-            $responce['header'] = $header;
-            $responce['cart_list'] = $cart_list;
-            $responce['message'] = $message;
+            $cart_list = view('FrontEnd.Layouts.cartList._responsecart-lists')->render();
+            $response['header'] = $header;
+            $response['cart_list'] = $cart_list;
+            $response['message'] = $message;
 
         }
-        return $responce;
+        return $response;
         
 
     }
@@ -138,7 +138,7 @@ class CartController extends Controller
 
         $coupon=Coupon::where('code',$request->input('code'))->first(); //see if code is mathing with the inputed code from the form
         if(!$coupon){
-            return back()->withErrors('error','Invalid coupon code,Please inter valid code');
+           return back()->withErrors(['Invalid coupon,Enter valid coupon']);
         }
         if($coupon){
             $total_price=Cart::instance('shopping')->subtotal();

@@ -30,6 +30,7 @@
     <!-- Footer Area -->
 
    @include('FrontEnd.Partials.script')
+   
    {{-- cart delete script --}}
    
    <script>
@@ -74,6 +75,7 @@
 
         });
    </script>
+   
 
 </body>
 

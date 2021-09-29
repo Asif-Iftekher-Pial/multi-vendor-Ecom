@@ -20,13 +20,30 @@
                 <div class="col-12">
                     <div class="cart-table">
                         <div class="table-responsive" id="cart_list">
-                           @include('FrontEnd.Layouts.cartList._cart-lists')
+                            @include('FrontEnd.Layouts.cartList._cart-lists')
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-lg-6">
                     <div class="cart-apply-coupon mb-30">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @elseif ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                    {{ $error }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endforeach
+                        @endif
                         <h6>Have a Coupon?</h6>
                         <p>Enter your coupon code here &amp; get awesome discounts!</p>
                         <!-- Form -->
@@ -79,18 +96,18 @@
 
 @section('front_end_script')
 
-{{-- coupon script --}}
-<script>
-    $(document).on('click','.coupon-btn',function(e){
-        e.preventDefault();
-        var code=$('input[name=code]').val();
-        //alert(code);
-        $('.coupon-btn').html('<i class="fa fa-spinner fa-spin"></i> Applying...');
+    {{-- coupon script --}}
+    <script>
+        $(document).on('click', '.coupon-btn', function(e) {
+            e.preventDefault();
+            var code = $('input[name=code]').val();
+            //alert(code);
+            $('.coupon-btn').html('<i class="fa fa-spinner fa-spin"></i> Applying...');
 
-        $('#coupon-form').submit();
-        
-    });
-</script>
+            $('#coupon-form').submit();
+
+        });
+    </script>
     {{-- cart.index delete script --}}
 
     <script>
@@ -135,40 +152,41 @@
 
     {{-- qty incriment and update qty after adding in the cart --}}
     <script>
-        $(document).on('click','.qty-text',function(){  //qty-text is the class name of quantity field
-            var id=$(this).data('id');
+        $(document).on('click', '.qty-text', function() { //qty-text is the class name of quantity field
+            var id = $(this).data('id');
             //alert(id);
-            var spinner =$(this),input=spinner.closest("div.quantity").find('input[type="number"]');
+            var spinner = $(this),
+                input = spinner.closest("div.quantity").find('input[type="number"]');
             // alert(input.val());
-            if(input.val()==1){
+            if (input.val() == 1) {
                 return false;
 
             }
-            if(input.val()!=1)
-            {
-                var newVal=parseFloat(input.val());
-                $('#qty-input-'+id).val(newVal);
+            if (input.val() != 1) {
+                var newVal = parseFloat(input.val());
+                $('#qty-input-' + id).val(newVal);
             }
 
-            var productQuantity = $("#update-cart-"+id).data('product-quantity');
+            var productQuantity = $("#update-cart-" + id).data('product-quantity');
             //alert(productQuantity);
-            update_cart(id,productQuantity)
+            update_cart(id, productQuantity)
         });
-        function  update_cart(id,productQuantity){
-            var rowId=id;
-            var product_qty=$('#qty-input-'+rowId).val();
-            var token="{{ csrf_token() }}";
+
+        function update_cart(id, productQuantity) {
+            var rowId = id;
+            var product_qty = $('#qty-input-' + rowId).val();
+            var token = "{{ csrf_token() }}";
             var path = "{{ route('cart.update') }}";
             $.ajax({
-                url:path,
-                type:"POST",
-                data:{
-                    _token:token,
-                    product_qty:product_qty,
-                    rowId:rowId,
-                    productQuantity:productQuantity,
-                }, 
-                success:function(data){
+                url: path,
+                type: "POST",
+                data: {
+                    _token: token,
+                    product_qty: product_qty,
+                    rowId: rowId,
+                    productQuantity: productQuantity,
+                },
+                success: function(data) {
                     console.log(data);
                     if (data['status']) {
                         $('body #header-ajax').html(data['header']);
@@ -182,8 +200,7 @@
                         // });
 
                         alert(data['message']);
-                    }
-                    else{
+                    } else {
                         alert(data['message']);
                     }
 

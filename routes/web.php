@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\Cart\CartController;
 use App\Http\Controllers\Frontend\Index\IndexController;
+use App\Http\Controllers\Frontend\wishlist\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +75,15 @@ Route::prefix('shopping')->group(function(){
 
 });
 
+
+//whishlists
+ Route::prefix('wishlists')->group(function(){
+     Route::get('wishlist',[WishlistController::class,'wishlist'])->name('wishlist');
+     Route::post('wishlist/store',[WishlistController::class,'wishlistStore'])->name('wishlist.store');
+     Route::post('wishlist/move-to-cart',[WishlistController::class,'moveToCart'])->name('wishlist.move.cart');
+     Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->name('wishlist.delete');
+     
+});
 // Brand
 Route::get('/product-brand/{slug}/', [IndexController::class, 'productCategory'])->name('product.brand');
 
