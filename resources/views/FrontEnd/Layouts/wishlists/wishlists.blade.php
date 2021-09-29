@@ -35,7 +35,7 @@
 
 {{-- move wishlist product to the cart --}}
     <script>
-        $('.move-to-cart').on('click', function(e) {
+        $(document).on('click','.move-to-cart',function (e){
             e.preventDefault();
             var rowId = $(this).data('id');
             //alert(rowId);
@@ -93,7 +93,7 @@
 
     {{-- delete wishlist --}}
     <script>
-        $('.delete_wishlist').on('click', function(e) {
+        $(document).on('click','.wishlist_delete',function (e) {
             e.preventDefault();
             var rowId = $(this).data('id');
             //alert(rowId);

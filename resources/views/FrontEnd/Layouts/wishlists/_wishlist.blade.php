@@ -17,7 +17,7 @@
             $photo = explode(',', $item->model->photo); // its because theres multiple photo
             @endphp
             <th scope="row">
-                <i class="icofont-close delete_wishlist" data-id="{{ $item->rowId }}"></i>
+                <i class="icofont-close wishlist_delete" data-id="{{ $item->rowId }}"></i>
             </th>
             <td>
                 <img src="{{ $photo[0] }}" alt="Product">
