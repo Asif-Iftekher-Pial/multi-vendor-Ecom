@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\Cart\CartController;
+use App\Http\Controllers\Frontend\checkout\CheckoutController;
 use App\Http\Controllers\Frontend\Index\IndexController;
 use App\Http\Controllers\Frontend\wishlist\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -83,6 +84,17 @@ Route::prefix('shopping')->group(function(){
      Route::post('wishlist/move-to-cart',[WishlistController::class,'moveToCart'])->name('wishlist.move.cart');
      Route::post('wishlist/delete',[WishlistController::class,'wishlistDelete'])->name('wishlist.delete');
      
+});
+
+//checkout section
+Route::prefix('order')->group(function () {
+    Route::middleware(['customer'])->group(function () {
+
+        Route::get('checkout1',[CheckoutController::class,'checkout1'])->name('checkout1');
+
+
+    });
+    
 });
 // Brand
 Route::get('/product-brand/{slug}/', [IndexController::class, 'productCategory'])->name('product.brand');

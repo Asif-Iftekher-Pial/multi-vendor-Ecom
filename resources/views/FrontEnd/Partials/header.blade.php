@@ -205,7 +205,8 @@
 
                     <!-- Wishlist -->
                     <div class="wishlist-area">
-                        <a href="{{ route('wishlist') }}" class="wishlist-btn" id="wishlist_counter" ><i class="icofont-heart"> {{ Cart::instance('wishlist')->count() }}</i></a>
+                        <a href="{{ route('wishlist') }}" class="wishlist-btn" id="wishlist_counter"><i
+                                class="icofont-heart"> {{ Cart::instance('wishlist')->count() }}</i></a>
                     </div>
 
                     <!-- Cart -->
@@ -248,21 +249,17 @@
                                         <span>Sub Total:</span>
                                         <span>${{ Cart::subtotal() }}</span>
                                     </li>
-                                    {{-- <li>
-                                            <span>Shipping:</span>
-                                            <span>$30.00</span>
-                                        </li> --}}
                                     <li>
-                                        {{-- @php
-                                                $subtotal = (float) str_replace(',', '', Cart::subtotal());
-                                            @endphp --}}
                                         <span>Total:</span>
-                                        @if (session()->has('coupon'))
-                                            <span>${{ filter_var(Cart::subtotal(), FILTER_SANITIZE_NUMBER_INT) - session('coupon')['value'] }}</span>
+                                        @if (Session::has('coupon'))
+                                            @php
+                                                $subtotal = (float) str_replace(',', '', Cart::subtotal());
+                                                $coupondiscount = (float) str_replace(',', '', Session::get('coupon')['value']);
+                                            @endphp
+                                            <span>${{ number_format($subtotal - $coupondiscount, 2) }}</span>
                                         @else
                                             <span>${{ Cart::subtotal() }}</span>
                                         @endif
-
                                     </li>
                                 </ul>
                             </div>

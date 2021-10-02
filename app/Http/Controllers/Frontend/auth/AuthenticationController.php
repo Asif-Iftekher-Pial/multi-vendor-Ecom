@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend\auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Symfony\Component\HttpFoundation\Session\Session;
+
+use Illuminate\Support\Facades\Session;
 
 class AuthenticationController extends Controller
 {
@@ -69,15 +71,16 @@ class AuthenticationController extends Controller
                 'status' => 'active'
             ]);
 
-            return redirect()->route('home');
-            // if(Session::get('url.intended')){
-            //     return Redirect::to(Session::get('url.intended'));
+            // return redirect()->session()->get('url.intended')??'/';
+             return redirect()->route('home');
+            //dd($request);
+            // if(session()->has('url.intended')) {
+            //    //dd('okey');
+            //     session()->put('url.intended', URL::previous());
+            
+            // } else {
+            //     return redirect()->route('home');
             // }
-            // else{
-
-            // }
-
-
         } else
             return back()->withErrors([
                 'email' => 'The provided information did not match our records.',

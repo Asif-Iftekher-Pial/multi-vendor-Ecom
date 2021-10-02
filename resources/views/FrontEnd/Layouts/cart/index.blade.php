@@ -63,29 +63,45 @@
                         <div class="table-responsive">
                             <table class="table mb-3">
                                 <tbody>
-                                    {{-- @php
-                                    $subtotal = (float) str_replace(',', '', Cart::subtotal());
-                                    @endphp --}}
+
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td>$00.00</td>
+                                        <td>${{ Cart::subtotal() }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Shipping</td>
-                                        <td>$10.00</td>
+                                        <td>Save amount</td>
+                                        <td>
+                                            @if (Session::has('coupon'))
+                                                ${{ number_format(Session::get('coupon')['value'], 2) }}
+
+                                            @else
+                                                $0
+
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>VAT (10%)</td>
                                         <td>$5.60</td>
                                     </tr>
                                     <tr>
-                                        <td>Total</td>
-                                        <td>$71.60</td>
+                                        @if (Session::has('coupon'))
+                                            @php
+                                                $subtotal = (float) str_replace(',', '', Cart::subtotal());
+                                                $coupondiscount = (float) str_replace(',', '', Session::get('coupon')['value']);
+                                            @endphp
+                                            <td>Total(coupon applied):</td>
+                                            <td> {{ number_format($subtotal - $coupondiscount, 2) }}</td>
+
+                                        @else
+                                            <td>Total:</td>
+                                            <td>${{ Cart::subtotal() }}</td>
+                                        @endif
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <a href="checkout-1.html" class="btn btn-primary d-block">Proceed To Checkout</a>
+                        <a href="{{ route('checkout1') }}" class="btn btn-primary d-block">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
@@ -97,6 +113,8 @@
 @section('front_end_script')
 
     {{-- coupon script --}}
+
+
     <script>
         $(document).on('click', '.coupon-btn', function(e) {
             e.preventDefault();
@@ -108,6 +126,7 @@
 
         });
     </script>
+
     {{-- cart.index delete script --}}
 
     <script>
@@ -151,6 +170,8 @@
     </script>
 
     {{-- qty incriment and update qty after adding in the cart --}}
+
+
     <script>
         $(document).on('click', '.qty-text', function() { //qty-text is the class name of quantity field
             var id = $(this).data('id');

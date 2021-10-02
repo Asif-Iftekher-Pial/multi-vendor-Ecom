@@ -4,8 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Customer
 {
@@ -26,12 +28,18 @@ class Customer
            
             else
             {
+                $status=User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+                $status->update([
+                'status'=> 'inactive'
+                ]);
                 
-                return redirect()->route('customer.login')->withErrors(['error','Please log in first']);
+                Auth::logout();
+                
+                return redirect()->route('customer.login')->withErrors(['Please log in first']);
             }
             
         }else{
-            return redirect()->route('customer.login')->withErrors(['error','Please log in first']);
+            return redirect()->route('customer.login')->withErrors(['Please log in first']);
         }
     }
 }
