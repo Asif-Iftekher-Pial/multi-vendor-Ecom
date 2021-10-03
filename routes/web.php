@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\Coupon\CouponController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
+use App\Http\Controllers\Backend\shipping\ShippingController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\Cart\CartController;
@@ -91,6 +92,8 @@ Route::prefix('order')->group(function () {
     Route::middleware(['customer'])->group(function () {
 
         Route::get('checkout1',[CheckoutController::class,'checkout1'])->name('checkout1');
+        Route::post('checkout-first',[CheckoutController::class,'checkout1Store'])->name('checkout1.store');
+        Route::post('checkout-two',[CheckoutController::class,'checkout2Store'])->name('checkout2.store');
 
 
     });
@@ -149,6 +152,12 @@ Route::prefix('admin')->group(function () {
         Route::resource('/category', CategoryController::class);
         Route::post('category_status', [CategoryController::class, 'categoryStatus'])->name('category.status');
         Route::post('category/{id}/child', [CategoryController::class, 'getChildByParentID']);
+
+         //shipping section
+         Route::resource('/shipping', ShippingController::class);
+         Route::post('shipping_status', [ShippingController::class, 'shippingStatus'])->name('shipping.status');
+ 
+
     });
 
 

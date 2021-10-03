@@ -99,6 +99,14 @@
                             </ul>
                         </li>
                         <li>
+                            <a href="#FileManager" class="has-arrow"><i class="fa fa-truck"></i> <span>Shipping Management
+                                    </span></a>
+                            <ul>
+                                <li><a href="{{ route('shipping.index') }}">All shipping</a></li>
+                                <li><a href="{{ route('shipping.create') }}">Create shipping</a></li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>Vendor Management
                                     </span></a>
                             <ul>
