@@ -59,4 +59,15 @@ class CheckoutController extends Controller
         ]);
         return view('FrontEnd.Layouts.checkout.checkout3');
     }
+    
+    public function checkout3Store(Request $request)
+    {
+        //return $request->all();
+        Session::push('checkout',[
+            'payment_method'=>$request->payment_method,
+            'payment_status'=>'paid',
+        ]);
+         //return Session::get('checkout')[0]['delivery_charge'];
+        return view('FrontEnd.Layouts.checkout.checkout4');
+    }
 }

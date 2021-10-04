@@ -34,6 +34,9 @@ class Orders extends Model
         'saddress',
         'scity',
         'sstate',
+        'payment_method',
+        'payment_status',
+        'condition'
 
     ];
 }

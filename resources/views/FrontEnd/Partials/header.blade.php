@@ -225,7 +225,7 @@
                                         @endphp
 
                                         <div class="cart-item-desc">
-                                            <a href="#" class="image">
+                                            <a href="{{ route('product.detail', $item->model->slug) }}" class="image">
                                                 <img src=" {{ $photo[0] }}" class="cart-thumb" alt="">
                                             </a>
                                             <div>
