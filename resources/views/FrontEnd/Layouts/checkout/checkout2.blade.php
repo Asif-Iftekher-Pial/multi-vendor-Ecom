@@ -51,7 +51,7 @@
                                                             <div class="custom-control custom-radio">
                                                                 <input type="radio" id="customRadio{{ $key }}"
                                                                     name="delivery_charge"
-                                                                    value="{{ $item->delivery_charge }}"
+                                                                    value="{{ $item->delivery_charge }}" required
                                                                     class="custom-control-input">
                                                                 <label class="custom-control-label"
                                                                     for="customRadio{{ $key }}"></label>

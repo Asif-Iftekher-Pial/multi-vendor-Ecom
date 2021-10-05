@@ -131,7 +131,7 @@
                                     
                                     <div class="col-12 mb-3">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="payment_method" value="cod" class="custom-control-input" id="customCheck1">
+                                            <input type="checkbox" name="payment_method" required value="cod" class="custom-control-input" id="customCheck1">
                                             <label class="custom-control-label" for="customCheck1">Credit or Debit Card</label>
                                         </div>
                                     </div>

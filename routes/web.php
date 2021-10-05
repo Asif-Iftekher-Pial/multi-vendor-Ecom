@@ -95,6 +95,9 @@ Route::prefix('order')->group(function () {
         Route::post('checkout-first',[CheckoutController::class,'checkout1Store'])->name('checkout1.store');
         Route::post('checkout-two',[CheckoutController::class,'checkout2Store'])->name('checkout2.store');
         Route::post('checkout-three',[CheckoutController::class,'checkout3Store'])->name('checkout3.store');
+        Route::get('checkout-store',[CheckoutController::class,'checkoutStore'])->name('checkout.store');
+        Route::get('complete/{order}',[CheckoutController::class,'complete'])->name('complete');
+
 
 
     });

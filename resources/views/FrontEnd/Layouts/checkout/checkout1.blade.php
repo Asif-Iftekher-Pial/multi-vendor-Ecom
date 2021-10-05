@@ -25,6 +25,23 @@
             <div class="row">
                 <form action="{{ route('checkout1.store') }}" method="post">
                     <div class="col-12">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @elseif ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                                    {{ $error }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="checkout_details_area clearfix">
                             <h5 class="mb-4">Billing Details</h5>
 
@@ -147,6 +164,9 @@
 
                         </div>
                     </div>
+                    
+                    <input type="hidden" class="form-control" name="sub_total" value="{{ Cart::instance('shopping')->subtotal() }}">
+                    <input type="hidden" class="form-control" name="total_amount" value="{{ Cart::instance('shopping')->subtotal() }}">
 
                     <div class="col-12">
                         <div class="checkout_pagination d-flex justify-content-end mt-50">

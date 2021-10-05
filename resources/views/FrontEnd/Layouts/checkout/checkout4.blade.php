@@ -71,6 +71,7 @@
 
                 <div class="col-12 col-lg-7 ml-auto">
                     <div class="cart-total-area">
+                       
                         <h5 class="mb-3">Cart Totals</h5>
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -144,8 +145,11 @@
                         </div>
                         <div class="checkout_pagination d-flex justify-content-end mt-3">
                             <a href="checkout-4.html" class="btn btn-primary mt-2 ml-2 d-none d-sm-inline-block">Go Back</a>
-                            <a href="checkout-complate.html" class="btn btn-primary mt-2 ml-2">Confirm</a>
+                            <a href="{{ route('checkout.store') }}" class="btn btn-primary mt-2 ml-2">Confirm</a>
                         </div>
+
+                      
+                        
                     </div>
                 </div>
             </div>

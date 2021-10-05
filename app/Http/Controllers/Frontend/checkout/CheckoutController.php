@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\checkout;
 
+use App\Models\Orders;
 use App\Models\Shipping;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
@@ -42,6 +45,8 @@ class CheckoutController extends Controller
             'scity'=>$request->scity,
             'sstate'=>$request->sstate,
             'spostcode'=>$request->spostcode,
+            'sub_total'=>$request->sub_total,
+            'total_amount'=>$request->total_amount,
             
         ]);
 
@@ -54,6 +59,9 @@ class CheckoutController extends Controller
     public function checkout2Store(Request $request)
     {
         //return $request->all();
+        $request->validate([
+            'delivery_charge' =>'required|numeric'
+        ]);
         Session::push('checkout',[
             'delivery_charge'=>$request->delivery_charge,
         ]);
@@ -63,11 +71,88 @@ class CheckoutController extends Controller
     public function checkout3Store(Request $request)
     {
         //return $request->all();
+        $request->validate([
+            'payment_method'          =>'string|required',
+            'payment_status'          =>'string|in:paid,unpaid',
+        ]);
         Session::push('checkout',[
             'payment_method'=>$request->payment_method,
             'payment_status'=>'paid',
         ]);
          //return Session::get('checkout')[0]['delivery_charge'];
         return view('FrontEnd.Layouts.checkout.checkout4');
+    }
+   
+
+    public function checkoutStore()
+    {
+        $deliverycharge = Session::get('checkout')[0]['delivery_charge'];
+        $subtotal = (float) str_replace(',', '', Cart::instance('shopping')->subtotal());
+        $subtotalsession=  (float) str_replace(',', '',Session::get('checkout')['sub_total']);
+        //dd($subtotalsession);
+        //dd($subtotal);
+        //dd('ok');
+        $order= new Orders(); //storing in order table by creating instance of Order Model class
+        $order['user_id']=auth()->user()->id;
+        $order['order_number']=Str::upper('ORD-'.Str::random(6)); //will generate random string for order
+        //return Session::get('checkout');
+        $order['sub_total']=$subtotalsession;
+
+        if (Session::has('coupon')) {
+            $order['coupon']=Session::get('coupon')['value'];
+        }else{
+            $order['coupon']=0;
+        }
+        
+        $order['total_amount']= $subtotal + $deliverycharge - $order['coupon'];
+        $order['payment_method']=Session::get('checkout')[1]['payment_method'];
+        $order['payment_status']=Session::get('checkout')[1]['payment_status'];
+        $order['condition']='pending';
+        //  $check=Session::get('checkout');
+        // dd($check);
+        $order['delivery_charge']=Session::get('checkout')[0]['delivery_charge'];
+        $order['first_name']=Session::get('checkout')['first_name'];
+        $order['last_name']=Session::get('checkout')['last_name'];
+        $order['email']=Session::get('checkout')['email'];
+        $order['phone']=Session::get('checkout')['phone'];
+        $order['country']=Session::get('checkout')['country'];
+        $order['address']=Session::get('checkout')['address'];
+        $order['city']=Session::get('checkout')['city'];
+        $order['state']=Session::get('checkout')['state'];
+        $order['note']=Session::get('checkout')['note'];
+
+
+        $order['sfirst_name']=Session::get('checkout')['sfirst_name'];
+        $order['slast_name']=Session::get('checkout')['slast_name'];
+        $order['semail']=Session::get('checkout')['semail'];
+        $order['sphone']=Session::get('checkout')['sphone'];
+        $order['scountry']=Session::get('checkout')['scountry'];
+        $order['saddress']=Session::get('checkout')['saddress'];
+        $order['scity']=Session::get('checkout')['scity'];
+        $order['sstate']=Session::get('checkout')['sstate'];
+       
+        
+        // saving all data in Order table
+        $status=$order->save();
+        if ($status) {
+            Session::forget('coupon');
+            Session::forget('checkout');
+            Cart::destroy();
+
+            # code...
+            return redirect()->route('complete',$order['order_number']);
+        } else {
+            return redirect()->route('checkout1')->withErrors(['Failed', 'Something went wrong']);
+        }
+        
+       
+       
+
+    }
+
+    public function complete($order)
+    {
+        $order=$order;
+        return view('FrontEnd.Layouts.checkout.complete',compact('order'));
     }
 }
