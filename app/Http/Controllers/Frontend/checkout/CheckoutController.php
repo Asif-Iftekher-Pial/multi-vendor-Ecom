@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Frontend\checkout;
 
 use App\Models\Orders;
+use App\Mail\OrderMail;
 use App\Models\Shipping;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -156,15 +158,23 @@ class CheckoutController extends Controller
         $order['scity']=Session::get('checkout')['scity'];
         $order['sstate']=Session::get('checkout')['sstate'];
        
-        
+       
         // saving all data in Order table
         $status=$order->save();
         if ($status) {
+
+             //mail section
+            Mail::to($order['email'])->bcc($order['semail'])->cc('iftekherpial67@gmail.com')->send(new OrderMail($order));
+            //dd('mail has sent');
+            // if facing error like - "stream_socket_enable_crypto(): SSL operation failed with code 1 "
+            // Just go to the file -
+            // vendor\swiftmailer\lib\classes\Swift\Transport\StreamBuffer.php and comment out the code $options = []; and paste the code $options['ssl'] = array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true);
+        
+
             Session::forget('coupon');
             Session::forget('checkout');
             Cart::destroy();
-
-            # code...
+            
             return redirect()->route('complete',$order['order_number']);
         } else {
             return redirect()->route('checkout1')->withErrors(['Failed', 'Something went wrong']);
