@@ -21,6 +21,23 @@
     </div>
     <div class="checkout_area section_padding_100">
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                        {{ $error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endforeach
+            @endif
             <form action="{{ route('checkout2.store') }}" method="POST">
                 @csrf
                 <div class="row">

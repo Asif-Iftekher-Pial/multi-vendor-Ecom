@@ -23,6 +23,31 @@ class CheckoutController extends Controller
     public function checkout1Store(Request $request)
     {
         //return $request->all();
+        $request->validate([
+            'first_name' => 'string|required',
+            'last_name'   => 'string|required',
+            'email'     => 'required',
+            'phone'     => 'numeric|required',
+            'country' => 'string|required',
+            'address' => 'string|required',
+            'city' => 'string|required',
+            'state' => 'string|required',
+            'postcode' => 'string|required',
+            'note' => 'required',
+
+
+            'sfirst_name' => 'string|required',
+            'slast_name' => 'string|required',
+            'semail' => 'required',
+            'sphone' => 'numeric|required',
+            'scountry' => 'string|required',
+            'saddress' => 'string|required',
+            'scity' => 'string|required',
+            'sstate' => 'string|required',
+            'spostcode' => 'string|required',
+            'sub_total' => 'required',
+            'total_amount' => 'required',
+        ]);
         Session::put('checkout',[
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
@@ -144,10 +169,6 @@ class CheckoutController extends Controller
         } else {
             return redirect()->route('checkout1')->withErrors(['Failed', 'Something went wrong']);
         }
-        
-       
-       
-
     }
 
     public function complete($order)

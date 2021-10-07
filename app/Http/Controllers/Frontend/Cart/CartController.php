@@ -103,11 +103,11 @@ class CartController extends Controller
 
         if ($request_quantity>$productQuantity) {
             # code...
-            $message="Currently do not have enough product in stoke";
+            $message="Currentlywe do not have enough product in stoke";
             $response['status']=false;
 
-        } elseif($request_quantity<1) {
-            $message="you can not add less than one quantity";
+        } elseif($request_quantity<=1) {
+            $message="You can not add less than one quantity";
             $response['status']=false;
         }
         else{
@@ -120,7 +120,7 @@ class CartController extends Controller
         }
         if ($request->ajax()) {
             $header = view('FrontEnd.Partials.header')->render();
-            $cart_list = view('FrontEnd.Layouts.cartList._responsecart-lists')->render();
+            $cart_list = view('FrontEnd.Layouts.cartList._cart-lists')->render();
             $response['header'] = $header;
             $response['cart_list'] = $cart_list;
             $response['message'] = $message;

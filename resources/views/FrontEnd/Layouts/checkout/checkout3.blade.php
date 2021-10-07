@@ -1,36 +1,53 @@
 @extends('FrontEnd.Master.master')
 @section('main')
-<div class="breadcumb_area">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <h5>Checkout</h5>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Checkout</li>
-                </ol>
+    <div class="breadcumb_area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <h5>Checkout</h5>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Checkout</li>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="checkout_steps_area">
-    <a class="complated" href="{{ route('checkout1') }}"><i class="icofont-check-circled"></i> Billing</a>
-    <a class="complated" href="checkout-3.html"><i class="icofont-check-circled"></i> Shipping</a>
-    <a class="active" href="checkout-4.html"><i class="icofont-check-circled"></i> Payment</a>
-    <a href="checkout-5.html"><i class="icofont-check-circled"></i> Review</a>
-</div>
+    <div class="checkout_steps_area">
+        <a class="complated" href="{{ route('checkout1') }}"><i class="icofont-check-circled"></i> Billing</a>
+        <a class="complated" href="checkout-3.html"><i class="icofont-check-circled"></i> Shipping</a>
+        <a class="active" href="checkout-4.html"><i class="icofont-check-circled"></i> Payment</a>
+        <a href="checkout-5.html"><i class="icofont-check-circled"></i> Review</a>
+    </div>
 
-<div class="checkout_area section_padding_100">
-    <div class="container">
-        <form action="{{ route('checkout3.store') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-12">
-                    <div class="checkout_details_area clearfix">
-                        <div class="payment_method">
-                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                <!-- Single Payment Method -->
-                                {{-- <div class="panel panel-default">
+    <div class="checkout_area section_padding_100">
+        <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                        {{ $error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endforeach
+            @endif
+            <form action="{{ route('checkout3.store') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-12">
+                        <div class="checkout_details_area clearfix">
+                            <div class="payment_method">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <!-- Single Payment Method -->
+                                    {{-- <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="one">
                                         <h6 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_one" aria-expanded="false" aria-controls="collapse_one"><i class="icofont-mastercard-alt"></i> Pay with Credit Card</a>
@@ -125,47 +142,54 @@
                                         </div>
                                     </div>
                                 </div> --}}
-    
-                                <!-- Single Payment Method -->
-                                <div class="panel panel-default">
-                                    
-                                    <div class="col-12 mb-3">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="payment_method" required value="cod" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Credit or Debit Card</label>
+
+                                    <!-- Single Payment Method -->
+                                    <div class="panel panel-default">
+
+                                        <div class="col-12 mb-3">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="payment_method" required value="cod"
+                                                    class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1">Credit or Debit
+                                                    Card</label>
+                                            </div>
+                                        </div>
+                                        <div class="panel-heading" role="tab" id="five">
+                                            <h6 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordion" href="#collapse_five" aria-expanded="false"
+                                                    aria-controls="collapse_five"><i
+                                                        class="icofont-cash-on-delivery-alt"></i> Cash on Delivery
+                                                </a>
+                                            </h6>
+                                        </div>
+
+                                        <div aria-expanded="false" id="collapse_five" class="panel-collapse collapse"
+                                            role="tabpanel" aria-labelledby="five">
+                                            <div class="panel-body">
+                                                <p>Please send your cheque to Store Name, Store Street, Store Town, Store
+                                                    State / County, Store Postcode.</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="panel-heading" role="tab" id="five">
-                                        <h6 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_five" aria-expanded="false" aria-controls="collapse_five"><i class="icofont-cash-on-delivery-alt"></i> Cash on Delivery
-                                            </a>
-                                        </h6>
-                                    </div>
-                                    
-                                    <div aria-expanded="false" id="collapse_five" class="panel-collapse collapse" role="tabpanel" aria-labelledby="five">
-                                        <div class="panel-body">
-                                            <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                        </div>
-                                    </div>
+
                                 </div>
-    
                             </div>
                         </div>
                     </div>
-                </div>
-    
-                <div class="col-12">
-                    <div class="checkout_pagination d-flex justify-content-end mt-30">
-                        <a href="{{ route('checkout2.store') }}" class="btn btn-primary mt-2 ml-2">Go Back</a>
-                        <button type="submit" class="btn btn-primary mt-2 ml-2">Final Step</button>
+
+                    <div class="col-12">
+                        <div class="checkout_pagination d-flex justify-content-end mt-30">
+                            <a href="{{ route('checkout2.store') }}" class="btn btn-primary mt-2 ml-2">Go Back</a>
+                            <button type="submit" class="btn btn-primary mt-2 ml-2">Final Step</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        
-        </form>
-        
-    </div>
-</div>
 
-    
+            </form>
+
+        </div>
+    </div>
+
+
 @endsection

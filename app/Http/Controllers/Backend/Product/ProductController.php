@@ -70,8 +70,6 @@ class ProductController extends Controller
             'status'        =>  'nullable|in:active,inactive',
         ]);
         $data = $request->all();
-
-
         $slug = Str::slug($request->input('title'));
         $slug_count = Product::where('slug', $slug)->count();
         if ($slug_count > 0) {

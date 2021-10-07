@@ -287,7 +287,6 @@
                 data:{
                     _token:"{{ csrf_token() }}",
                     cat_id:cat_id,
-
                 },
                 success:function(response){
                     var html_option="<option value=''>-- Child Category --</option>";

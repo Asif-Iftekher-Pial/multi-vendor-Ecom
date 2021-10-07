@@ -21,6 +21,23 @@
     </div>
     <div class="checkout_area section_padding_100">
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                        {{ $error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endforeach
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="checkout_details_area clearfix">
@@ -31,7 +48,7 @@
                                 <table class="table table-bordered mb-30">
                                     <thead>
                                         <tr>
-                                            
+
                                             <th scope="col">Image</th>
                                             <th scope="col">Product</th>
                                             <th scope="col">Unit Price</th>
@@ -46,16 +63,17 @@
                                                 @php
                                                     $photo = explode(',', $item->model->photo); // its because theres multiple photo
                                                 @endphp
-                                               
+
                                                 <td>
                                                     <img src="{{ $photo[0] }}" alt="Product">
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('product.detail', $item->model->slug) }}">{{ $item->name }}</a></a>
+                                                    <a
+                                                        href="{{ route('product.detail', $item->model->slug) }}">{{ $item->name }}</a></a>
                                                 </td>
                                                 <td>${{ number_format($item->price, 2) }}</td>
                                                 <td>
-                                                    {{ $item->qty }} 
+                                                    {{ $item->qty }}
                                                 </td>
                                                 <td>${{ $item->subtotal() }}</td>
                                             </tr>
@@ -71,7 +89,7 @@
 
                 <div class="col-12 col-lg-7 ml-auto">
                     <div class="cart-total-area">
-                       
+
                         <h5 class="mb-3">Cart Totals</h5>
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -147,9 +165,6 @@
                             <a href="checkout-4.html" class="btn btn-primary mt-2 ml-2 d-none d-sm-inline-block">Go Back</a>
                             <a href="{{ route('checkout.store') }}" class="btn btn-primary mt-2 ml-2">Confirm</a>
                         </div>
-
-                      
-                        
                     </div>
                 </div>
             </div>

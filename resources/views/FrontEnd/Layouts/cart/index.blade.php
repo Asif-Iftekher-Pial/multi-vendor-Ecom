@@ -16,94 +16,9 @@
 
     <div class="cart_area section_padding_100_70 clearfix">
         <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-12">
-                    <div class="cart-table">
-                        <div class="table-responsive" id="cart_list">
-                            @include('FrontEnd.Layouts.cartList._cart-lists')
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="cart-apply-coupon mb-30">
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @elseif ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
-                                    {{ $error }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endforeach
-                        @endif
-                        <h6>Have a Coupon?</h6>
-                        <p>Enter your coupon code here &amp; get awesome discounts!</p>
-                        <!-- Form -->
-                        <div class="coupon-form">
-                            <form action="{{ route('coupon.add') }}" id="coupon-form" method="post">
-                                @csrf
-                                <input type="text" class="form-control" name="code" placeholder="Enter Your Coupon Code">
-                                <button type="submit" class="coupon-btn btn btn-primary">Apply Coupon</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-5">
-                    <div class="cart-total-area mb-30">
-                        <h5 class="mb-3">Cart Totals</h5>
-                        <div class="table-responsive">
-                            <table class="table mb-3">
-                                <tbody>
-
-                                    <tr>
-                                        <td>Sub Total</td>
-                                        <td>${{ Cart::subtotal() }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Save amount</td>
-                                        <td>
-                                            @if (Session::has('coupon'))
-                                                ${{ number_format(Session::get('coupon')['value'], 2) }}
-
-                                            @else
-                                                $0
-
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>VAT (10%)</td>
-                                        <td>$5.60</td>
-                                    </tr>
-                                    <tr>
-                                        @if (Session::has('coupon'))
-                                            @php
-                                                $subtotal = (float) str_replace(',', '', Cart::subtotal());
-                                                $coupondiscount = (float) str_replace(',', '', Session::get('coupon')['value']);
-                                            @endphp
-                                            <td>Total(coupon applied):</td>
-                                            <td> {{ number_format($subtotal - $coupondiscount, 2) }}</td>
-
-                                        @else
-                                            <td>Total:</td>
-                                            <td>${{ Cart::subtotal() }}</td>
-                                        @endif
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="{{ route('checkout1') }}" class="btn btn-primary d-block">Proceed To Checkout</a>
-                    </div>
-                </div>
+            <div class="row justify-content-between" id="cart_list">
+                @include('FrontEnd.Layouts.cartList._cart-lists')
+                
             </div>
         </div>
     </div>
@@ -213,16 +128,23 @@
                         $('body #header-ajax').html(data['header']);
                         $('body #cart-counter').html(data['cart_count']);
                         $('body #cart_list').html(data['cart_list']);
-                        // swal({
-                        //     title: "Removed!",
-                        //     text: data['message'],
-                        //     icon: "success",
-                        //     button: "OK!",
-                        // });
+                        swal({
+                            title: "Updated!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
 
-                        alert(data['message']);
+                        //alert(data['message']);
                     } else {
-                        alert(data['message']);
+                        //alert(data['message']);
+                        //if anything goes wrongly
+                        swal({
+                            title: "Stop!",
+                            text: data['message'],
+                            icon: "warning",
+                            button: "OK!",
+                        });
                     }
 
                 }
