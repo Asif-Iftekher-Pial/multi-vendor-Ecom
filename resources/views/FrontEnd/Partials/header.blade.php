@@ -73,8 +73,8 @@
                             <li><a href="{{ route('home') }}">Home</a>
 
                             </li>
-                            <li><a href="#">Shop</a>
-                                <ul class="dropdown">
+                            <li><a href="{{ route('shop') }}">Shop</a>
+                                {{-- <ul class="dropdown">
                                     <li><a href="#">Shop Grid</a>
                                         <ul class="dropdown">
                                             <li><a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
@@ -118,7 +118,7 @@
                                     </li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="compare.html">Compare</a></li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li><a href="#">Pages</a>
                                 <div class="megamenu">

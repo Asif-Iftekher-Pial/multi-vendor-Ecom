@@ -38,6 +38,11 @@
             </div>
         </section>
         <!-- Welcome Slides Area -->
+    @else
+        <div style="text-align: center">
+            <p class="badge badge-danger"> No banner found..!</p>
+        </div>
+
     @endif
 
     <!-- Top Catagory Area -->
@@ -161,15 +166,18 @@
                         <div class="popular_brands_slide owl-carousel">
                             @foreach ($allBrands as $brand)
                                 <div class="single_brands">
-                                    <a href="{{ route('product.brand',$brand->slug) }}">
+                                    <a href="{{ route('product.brand', $brand->slug) }}">
                                         <img src="{{ $brand->photo }}" alt="">
                                     </a>
-                                   
+
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <h4 class="badge badge-danger">No Brands added yet...!!</h4>
+                    <div style="text-align: center">
+                        <h4 class="badge badge-danger">No Brands added yet...!!</h4>    
+                    </div>
+                        
                     @endif
                 </div>
             </div>
@@ -211,7 +219,9 @@
 
                                         <!-- Wishlist -->
                                         <div class="product_wishlist">
-                                            <a href="wishlist.html"><i class="icofont-heart"></i></a>
+                                            <a href="javascript:void(0);" class="add_to_wishlist" data-quantity="1"
+                                                data-id="{{ $item->id }}" id="add_to_wishlist_{{ $item->id }}"><i
+                                                    class="icofont-heart"></i></a>
                                         </div>
 
                                         <!-- Compare -->
@@ -224,7 +234,9 @@
                                     <div class="product_description">
                                         <!-- Add to cart -->
                                         <div class="product_add_to_cart">
-                                            <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                                            <a href="#" data-quantity="1" data-product-id="{{ $item->id }}"
+                                                class="add_to_cart" id="add_to_cart{{ $item->id }}"><i
+                                                    class="icofont-shopping-cart"></i> Add to Cart</a>
                                         </div>
 
                                         <!-- Quick View -->
@@ -240,7 +252,8 @@
                                             href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
                                         <h6 class="product-price">${{ number_format($item->offer_price, 2) }} <br>
                                             <small><del class="text-danger">${{ number_format($item->price, 2) }}
-                                                </del></small></h6>
+                                                </del></small>
+                                        </h6>
                                     </div>
                                 </div>
 
@@ -1518,5 +1531,135 @@
     </section>
     <!-- Special Featured Area -->
 
+
+@endsection
+@section('front_end_script')
+    {{-- Add to cart,
+         and 
+        
+        data-quantity="1" data-product-id="{{ $item->id }}" class="add_to_cart" id="add_to_cart{{ $item->id }}"
+    all are set up in directory FrontEnd.Layouts.categorizedProduct.singleProducts --}}
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(document).on('click', '.add_to_cart', function(e) {
+            e.preventDefault();
+            var product_id = $(this).data('product-id');
+            var product_qty = $(this).data('quantity');
+            var token = "{{ csrf_token() }}";
+            var path = "{{ route('cart.store') }}";
+
+
+            // alert(product_qty);
+            $.ajax({
+                url: path,
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    product_id: product_id,
+                    product_qty: product_qty,
+                    _token: token,
+
+                },
+                beforeSend: function() {
+                    $('#add_to_cart' + product_id).html(
+                        '<i class="fa fa-spinner fa-spin"></i> Loading....');
+                },
+                complete: function() {
+                    $('#add_to_cart' + product_id).html('<i class="fa fa-cart-plus"></i> Add to Cart');
+                },
+                success: function(data) {
+                    console.log(data);
+                    // $('body #header-ajax').html(data['header']);
+                    if (data['status']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #cart-counter').html(data['cart_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+
+
+        });
+    </script>
+
+    {{-- end add to cart --}}
+
+    {{-- wishlist --}}
+
+    <script>
+        $(document).on('click', '.add_to_wishlist', function(e) {
+            e.preventDefault();
+            var product_id = $(this).data('id');
+            var product_qty = $(this).data('quantity');
+            var token = "{{ csrf_token() }}";
+            var path = "{{ route('wishlist.store') }}";
+
+
+            // alert(product_qty);
+            $.ajax({
+                url: path,
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    product_id: product_id,
+                    product_qty: product_qty,
+                    _token: token,
+
+                },
+                beforeSend: function() {
+                    $('#add_to_wishlist_' + product_id).html(
+                        '<i class="fa fa-spinner fa-spin"></i>');
+                },
+                complete: function() {
+                    $('#add_to_wishlist_' + product_id).html('<i class="fa fa-heart"></i> Add to Cart');
+                },
+                success: function(data) {
+                    console.log(data);
+                    // $('body #header-ajax').html(data['header']);
+                    if (data['status']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #wishlist_counter').html(data['wishlist_count']);
+                        swal({
+                            title: "Good job!",
+                            text: data['message'],
+                            icon: "success",
+                            button: "OK!",
+                        });
+                    } else if (data['present']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #wishlist_counter').html(data['wishlist_count']);
+                        swal({
+                            title: "Opps!",
+                            text: data['message'],
+                            icon: "warning",
+                            button: "OK!",
+                        });
+                    } else {
+                        swal({
+                            title: "Sorry!",
+                            text: "You can't add that product",
+                            icon: "error",
+                            button: "OK!",
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+
+
+        });
+    </script>
+    {{-- End wishlist --}}
 
 @endsection

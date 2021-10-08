@@ -24,8 +24,33 @@ class IndexController extends Controller
         return view('FrontEnd.Layouts.home.index',compact('banners','categories','newArrivals','allBrands'));
     }
 
+    public function shop(Request $request){
+        $cats=Categorie::where(['status'=>'active','is_parent'=>1])->with('products')->orderBy('title','ASC')->get();
+        //dd($cats);
+        $products=Product::where(['status'=>'active'])->paginate(5);
+        
+        return view('FrontEnd.Layouts.categorizedProduct.shop',compact('products','cats'));
+    }
+
+    public function shopFilter(Request $request){
+    //dd($request->all());
+        $data=$request->all();
+        $catUrl=''; //lets take a variable catUrl
+        if(!empty($data['category'])){ //check if requested data['category'] from view  is not empty  then-
+            foreach ($data['category'] as $category) { //take all the collection of category as single category
+                if(empty($catUrl)){  //if  when catUrl is empty then 
+                    $catUrl .='&category='.$category; //single category wil store is  catUrl
+                }
+                else{
+                    $catUrl .=','.$category;
+                }
+            }
+        }
+        return redirect()->route('shop',$catUrl);
+
+    }
+
     public function productCategory( Request $request, $slug)
-    
     {
         //return $slug;
         $categories=Categorie::with('products')->where('slug',$slug)->first();

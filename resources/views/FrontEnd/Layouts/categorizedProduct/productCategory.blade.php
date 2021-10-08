@@ -282,8 +282,7 @@
 
                 },
                 beforeSend: function() {
-                    $('#add_to_wishlist_' + product_id).html(
-                        '<i class="fa fa-spinner fa-spin"></i>');
+                    $('#add_to_wishlist_' + product_id).html('<i class="fa fa-spinner fa-spin"></i>');
                 },
                 complete: function() {
                     $('#add_to_wishlist_' + product_id).html('<i class="fa fa-heart"></i> Add to Cart');

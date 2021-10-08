@@ -103,6 +103,12 @@ Route::prefix('order')->group(function () {
     });
     
 });
+
+Route::prefix('shopping')->group(function () {
+
+    Route::get('shop',[IndexController::class,'shop'])->name('shop');
+    Route::post('shop-filter',[IndexController::class,'shopFilter'])->name('shop.filter');
+});
 // Brand
 Route::get('/product-brand/{slug}/', [IndexController::class, 'productCategory'])->name('product.brand');
 
