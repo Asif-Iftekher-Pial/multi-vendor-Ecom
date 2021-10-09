@@ -32,14 +32,33 @@ class IndexController extends Controller
             $slugs=explode(',',$_GET['category']);
             $cat_ids=Categorie::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
             //dd($cat_ids);
-            $products=$products->whereIn('cat_id',$cat_ids)->paginate(12);
+            $products=$products->whereIn('cat_id',$cat_ids);
             //dd($products);
-
-
-             
+        }
+       
+        if(!empty($_GET['sortBy']))
+        {
+            if($_GET['sortBy']=='priceAsc'){ //if product is sort by offer price with ASC
+                $products=$products->where(['status'=>'active'])->orderBy('offer_price','ASC')->paginate(12);
+            }
+            if($_GET['sortBy']=='priceDesc'){ //if product is sort by Offer price with Desc
+                $products=$products->where(['status'=>'active'])->orderBy('offer_price','DESC')->paginate(12);
+            }
+             if($_GET['sortBy']=='discAsc'){ //if product is sort by Discounted price with ASC
+                $products=$products->where(['status'=>'active'])->orderBy('price','ASC')->paginate(12);
+            }
+             if($_GET['sortBy']=='discDesc'){ //if product is sort by Discounted price with Desc
+                $products=$products->where(['status'=>'active'])->orderBy('price','DESC')->paginate(12);
+            } 
+            if($_GET['sortBy']=='titleAsc'){ //if product is sort by Product Title with ASC
+                $products=$products->where(['status'=>'active'])->orderBy('title','ASC')->paginate(12);
+            }
+            if($_GET['sortBy']=='titleDesc'){ //if product is sort by Product Title with Desc
+                $products=$products->where(['status'=>'active'])->orderBy('title','DESC')->paginate(12);
+            }
         }
         else{
-            $products=Product::where(['status'=>'active'])->paginate(12);
+            $products=$products->where(['status'=>'active'])->paginate(12);
         
         }
         $cats=Categorie::where(['status'=>'active','is_parent'=>1])->with('products')->orderBy('title','ASC')->get();
@@ -51,6 +70,7 @@ class IndexController extends Controller
     public function shopFilter(Request $request){
     //dd($request->all());
         $data=$request->all();
+        // category filter
         $catUrl=''; //lets take a variable catUrl
         if(!empty($data['category'])){ //check if requested data['category'] from view  is not empty  then-
             foreach ($data['category'] as $category) { //take all the collection of category as single category
@@ -62,11 +82,20 @@ class IndexController extends Controller
                 }
             }
         }
-        return redirect()->route('shop',$catUrl);
+        // category filter end
+
+        // //sort filter
+        $sortByUrl="";
+        if(!empty($data['sortBy'])){//sortBy is name name of shop.blade file selection section 
+            $sortByUrl .='&sortBy='.$data['sortBy'];
+
+        } 
+        // //sort filter end
+        return \redirect()->route('shop',$catUrl.$sortByUrl);  //$catUrl.$sortByUrl is called append data in browser url section 
 
     }
 
-    public function productCategory( Request $request, $slug)
+    public function productCategory( Request $request,$slug)
     {
         //return $slug;
         $categories=Categorie::with('products')->where('slug',$slug)->first();

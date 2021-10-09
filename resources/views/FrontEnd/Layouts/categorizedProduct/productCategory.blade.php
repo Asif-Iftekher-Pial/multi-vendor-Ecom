@@ -116,18 +116,18 @@
                         </div>
                         <select id="sortBy" class="small right" style="display: none;">
                             <option selected="">Default</option>
-                            <option value="priceAsc" {{ old('sortBy') == 'priceAsc' ? 'selected' : '' }}>Price - Lower to
+                            <option value="priceAsc" {{ old('sortBy')  == 'priceAsc' ?  'selected' : '' }}>Price - Lower to
                                 Higher</option>
                             <option value="priceDesc" {{ old('sortBy') == 'priceDesc' ? 'selected' : '' }}>Price - Higher
                                 to
                                 Lower</option>
-                            <option value="titleAsc" {{ old('sortBy') == 'titleAsc' ? 'selected' : '' }}>Alphabetical
+                            <option value="titleAsc" {{ old('sortBy')  == 'titleAsc' ?  'selected' : '' }}>Alphabetical
                                 Ascending</option>
                             <option value="titleDesc" {{ old('sortBy') == 'titleDesc' ? 'selected' : '' }}>Alphabetical
                                 Descending</option>
-                            <option value="discAsc" {{ old('sortBy') == 'discAsc' ? 'selected' : '' }}>Discount - Lower to
+                            <option value="discAsc" {{ old('sortBy')   == 'discAsc' ?   'selected' : '' }}>Discount - Lower to
                                 Higher</option>
-                            <option value="discDesc" {{ old('sortBy') == 'discDesc' ? 'selected' : '' }}>Discount - Higher
+                            <option value="discDesc" {{ old('sortBy')  == 'discDesc' ?  'selected' : '' }}>Discount - Higher
                                 to Lower</option>
                         </select>
                         {{-- <div class="nice-select small right" tabindex="0"><span class="current">Short by
