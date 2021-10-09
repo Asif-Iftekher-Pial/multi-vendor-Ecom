@@ -20,14 +20,30 @@ class IndexController extends Controller
         //dd($newArrivals);
         $allBrands=Brand::where(['status'=>'active'])->orderBy('id','DESC')->limit('10')->get();
         //dd($allBrands);
-
+        
+        //dd($modalProducts);
         return view('FrontEnd.Layouts.home.index',compact('banners','categories','newArrivals','allBrands'));
     }
 
     public function shop(Request $request){
+        //tutorial =https://www.youtube.com/watch?v=tZgQqwqF1cM&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_SC_&index=29
+        $products=Product::query();
+        if(!empty($_GET['category'])){
+            $slugs=explode(',',$_GET['category']);
+            $cat_ids=Categorie::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+            //dd($cat_ids);
+            $products=$products->whereIn('cat_id',$cat_ids)->paginate(12);
+            //dd($products);
+
+
+             
+        }
+        else{
+            $products=Product::where(['status'=>'active'])->paginate(12);
+        
+        }
         $cats=Categorie::where(['status'=>'active','is_parent'=>1])->with('products')->orderBy('title','ASC')->get();
         //dd($cats);
-        $products=Product::where(['status'=>'active'])->paginate(5);
         
         return view('FrontEnd.Layouts.categorizedProduct.shop',compact('products','cats'));
     }

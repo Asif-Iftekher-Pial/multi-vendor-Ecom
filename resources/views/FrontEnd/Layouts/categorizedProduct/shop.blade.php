@@ -36,10 +36,18 @@
                                 <div class="widget catagory mb-30">
                                     <h6 class="widget-title">Product Categories</h6>
                                     <div class="widget-desc">
+                                        @if (!empty($_GET['category']))
+                                            @php
+                                                $filter_cats=explode(',',$_GET['category'])
+                                            @endphp
+                                            
+                                        @else
+                                            
+                                        @endif
                                         @foreach ($cats as $cat )
                                              <!-- Single Checkbox -->
                                         <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-                                            <input type="checkbox" class="custom-control-input" id="{{ $cat->slug }}" name="category[]" onchange="this.form.submit();" value="{{ $cat->slug }}">
+                                            <input type="checkbox" @if(!empty($filter_cats) && in_array($cat->slug,$filter_cats)) checked @endif class="custom-control-input" id="{{ $cat->slug }}" name="category[]" onchange="this.form.submit();" value="{{ $cat->slug }}">
                                             <label class="custom-control-label" for="{{ $cat->slug }}">{{ ucfirst($cat->title) }} <span
                                                     class="text-muted">({{ count($cat->products) }})</span></label>
                                         </div>
@@ -393,7 +401,7 @@
 
                         </div>
                     </div>
-                    {{ $products->links('vendor.pagination.custom') }}
+                    {{ $products->appends($_GET)->links('vendor.pagination.custom') }}
 
 
                 </div>

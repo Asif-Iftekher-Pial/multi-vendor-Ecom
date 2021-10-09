@@ -44,5 +44,7 @@ class Product extends Model
     public static function getProductByCart($id){
         return self::where('id',$id)->get()->toArray();  //self is a function that return data to its self model
     }
+     
+  
 
 }

@@ -241,7 +241,7 @@
 
                                         <!-- Quick View -->
                                         <div class="product_quick_view">
-                                            <a href="#" data-toggle="modal" data-target="#quickview"><i
+                                            <a href="{{ $item->id }}" data-toggle="modal" data-target="#quickview"><i
                                                     class="icofont-eye-alt"></i>
                                                 Quick View</a>
                                         </div>
