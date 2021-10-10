@@ -41,8 +41,6 @@
                                                 $filter_cats = explode(',', $_GET['category']);
                                             @endphp
 
-                                        @else
-
                                         @endif
                                         @foreach ($cats as $cat)
                                             <!-- Single Checkbox -->
@@ -63,28 +61,30 @@
                             @endif
 
 
-                            <!-- Single Widget -->
+                            {{-- <!-- Single Widget -->
                             <div class="widget price mb-30">
                                 <h6 class="widget-title">Filter by Price</h6>
                                 <div class="widget-desc">
                                     <div class="slider-range">
-                                        <div data-min="0" data-max="1350" data-unit="$"
+                                        <div id="slider-range" data-min="{{ Helper::minPrice() }}" data-max="{{ Helper::maxPrice() }}" data-unit="$"
                                             class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                                            data-value-min="0" data-value-max="1350" data-label-result="Price:">
+                                            data-value-min="{{ Helper::minPrice() }}" data-value-max="{{ Helper::maxPrice() }}" data-label-result="Price:">
                                             <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all"
                                                 tabindex="0"></span>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all"
                                                 tabindex="0"></span>
                                         </div>
-                                        <div class="range-price">Price: 0 - 1350</div>
-                                        <button class="btn btn-sm btn-primary float-right" style="margin: -31px -29px 0px 1px;">Filter</button>
+                                        <input type="hidden" id="price_range" value="@if(!empty($_GET['price'])) {{ $_GET['price'] }} @endif" name="price_range">
+                                        <input type="text" readonly id="amount" value="${{ Helper::minPrice() }} - ${{ Helper::maxPrice() }}">
+                                        <div class="range-price">Price: ${{ Helper::minPrice() }} - ${{ Helper::maxPrice() }}</div>
+                                        <button type="submit" class="btn btn-primary btn-sm float-right" style="margin: -31px -29px 0px 1px;">Filter</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>"#slider-range" --}}
 
                             <!-- Single Widget -->
-                            <div class="widget color mb-30">
+                            {{-- <div class="widget color mb-30">
                                 <h6 class="widget-title">Filter by Color</h6>
                                 <div class="widget-desc">
                                     <!-- Single Checkbox -->
@@ -118,47 +118,33 @@
                                                 class="text-muted">(7)</span></label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Single Widget -->
-                            <div class="widget brands mb-30">
-                                <h6 class="widget-title">Filter by brands</h6>
-                                <div class="widget-desc">
-                                    <!-- Single Checkbox -->
-                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck11">
-                                        <label class="custom-control-label" for="customCheck11">Zara <span
-                                                class="text-muted">(213)</span></label>
-                                    </div>
-                                    <!-- Single Checkbox -->
-                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck12">
-                                        <label class="custom-control-label" for="customCheck12">Gucci <span
-                                                class="text-muted">(65)</span></label>
-                                    </div>
-                                    <!-- Single Checkbox -->
-                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck13">
-                                        <label class="custom-control-label" for="customCheck13">Addidas <span
-                                                class="text-muted">(70)</span></label>
-                                    </div>
-                                    <!-- Single Checkbox -->
-                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck14">
-                                        <label class="custom-control-label" for="customCheck14">Nike <span
-                                                class="text-muted">(104)</span></label>
-                                    </div>
-                                    <!-- Single Checkbox -->
-                                    <div class="custom-control custom-checkbox d-flex align-items-center">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck15">
-                                        <label class="custom-control-label" for="customCheck15">Denim <span
-                                                class="text-muted">(71)</span></label>
+                            @if(count($brands) > 0)
+                                <div class="widget brands mb-30">
+                                    <h6 class="widget-title">Filter by brands</h6>
+                                    <div class="widget-desc">
+                                        @if (!empty($_GET['brand']))
+                                            @php
+                                                $filter_brands = explode(',', $_GET['brand']);
+                                            @endphp
+
+                                        @endif
+                                        <!-- Single Checkbox -->
+                                        @foreach ($brands as $brand )
+                                            <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+                                                <input type="checkbox" @if (!empty($filter_brands) && in_array($brand->slug, $filter_brands)) checked @endif class="custom-control-input" id="{{ $brand->slug }}" name="brand[]" value="{{ $brand->slug }}" onchange="this.form.submit();">
+                                                <label class="custom-control-label" for="{{ $brand->slug }}">{{ ucfirst($brand->title) }} <span
+                                                        class="text-muted">({{ count($brand->products) }})</span></label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <!-- Single Widget -->
-                            <div class="widget rating mb-30">
+                            {{-- <div class="widget rating mb-30">
                                 <h6 class="widget-title">Average Rating</h6>
                                 <div class="widget-desc">
                                     <ul>
@@ -198,19 +184,28 @@
                                                     class="text-muted">(3)</span></a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Single Widget -->
                             <div class="widget size mb-30">
                                 <h6 class="widget-title">Filter by Size</h6>
                                 <div class="widget-desc">
-                                    <ul>
-                                        <li><a href="#">XS</a></li>
-                                        <li><a href="#">S</a></li>
-                                        <li><a href="#">M</a></li>
-                                        <li><a href="#">L</a></li>
-                                        <li><a href="#">XL</a></li>
-                                    </ul>
+                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck11"  @if (!empty($_GET['size']) && $_GET['size']=='S') checked @endif name="size" value="S" onchange="this.form.submit();">
+                                        <label class="custom-control-label" for="customCheck11">Small <span class="text-muted">({{ \App\Models\Product::where(['status'=>'active','size'=>'S'])->count() }})</span></label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck12" @if (!empty($_GET['size']) && $_GET['size']=='M') checked @endif name="size" value="M" onchange="this.form.submit();">
+                                        <label class="custom-control-label" for="customCheck12">Medium <span class="text-muted">({{ \App\Models\Product::where(['status'=>'active','size'=>'M'])->count() }})</span></label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck13" @if (!empty($_GET['size']) && $_GET['size']=='L') checked @endif name="size" value="L" onchange="this.form.submit();">
+                                        <label class="custom-control-label" for="customCheck13">Large <span class="text-muted">({{ \App\Models\Product::where(['status'=>'active','size'=>'L'])->count() }})</span></label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck14" @if (!empty($_GET['size']) && $_GET['size']=='XL') checked @endif name="size" value="XL" onchange="this.form.submit();">
+                                        <label class="custom-control-label" for="customCheck14">Extra Large <span class="text-muted">({{ \App\Models\Product::where(['status'=>'active','size'=>'XL'])->count() }})</span></label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -438,6 +433,40 @@
     </section>
 @endsection
 @section('front_end_script')
+
+{{-- Price range slider --}}
+{{-- not working --}}
+{{-- <script>
+    $(document).ready(function () {
+        if($('#slider-range').length > 0){
+            const max_value=parseInt($('#slider-range').data('max')) || 500;
+            const min_value=parseInt($('#slider-range').data('min')) || 0;
+            const currency= $('#slider-range').data('currency') || '';
+            let price_range=min_price+'-'+max_price;
+
+            if($('#price_range').length > 0 && $('#price_range').val()){
+                price_range=$('#price_range').val().trim();
+                alert(price_range);
+            }
+            let price=price_range.split('-');
+            $("#slider-range").slider({
+                range:true,
+                min:min_value,
+                max:max_value,
+                values:price,
+                slide:function(event,ui){
+                    $("#amount").val('$'+ui.values[0]+"-"+'$'+ui.values[1]);
+                    $("#price_range").val(ui.values[0]+"-"+ui.values[1]);
+
+                }
+            });
+             
+        }
+    });
+</script> --}}
+{{-- End Price range slider --}}
+
+
 
     {{-- add to wishlist --}}
 

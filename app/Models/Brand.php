@@ -9,4 +9,8 @@ class Brand extends Model
 {
     use HasFactory;
     protected $fillable=['title','slug','photo','status','status'];
+    public function products()
+    {
+        return $this->hasMany(Product::class)->where('status','active');
+    }
 }
