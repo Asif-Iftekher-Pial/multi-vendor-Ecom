@@ -12,5 +12,7 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
+    {{-- search autoComplete --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 
     @yield('frontend_css_style')

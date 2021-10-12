@@ -138,6 +138,39 @@ class IndexController extends Controller
 
     }
 
+
+    //autoComplete in search box
+    public function autoSearch(Request $request)
+    {
+       $query=$request->get('term','');
+       $products=Product::where('title','LIKE','%'.$query.'%')->get();
+       $data=array();
+       foreach ($products as $product){
+           $data[]=array('value'=>$product->title,'id'=>$product->id);
+
+       }
+
+       if(count($data)){
+           return $data;
+       }
+       else{
+           return ['value'=>"No result found",'id'=>''];
+       }
+       
+    }
+    // Product search
+    public function search(Request $request)
+    {
+        $query=$request->input('query');
+        $products=Product::where('title','LIKE','%'.$query.'%')->orderBy('id',"DESC")->paginate(12);
+        $brands = Brand::where(['status' => 'active'])->with('products')->orderBy('title', 'ASC')->get();
+        //dd($brands);
+        $cats = Categorie::where(['status' => 'active', 'is_parent' => 1])->with('products')->orderBy('title', 'ASC')->get();
+        //dd($cats);
+
+        return view('FrontEnd.Layouts.categorizedProduct.shop',compact('products','cats','brands'));
+    }
+
     public function productCategory(Request $request, $slug)
     {
         //return $slug;

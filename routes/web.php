@@ -118,6 +118,10 @@ Route::get('/product-category/{slug}/', [IndexController::class, 'productCategor
 //product Detail
 Route::get('/product-detail/{slug}/', [IndexController::class, 'productDetail'])->name('product.detail');
 
+//search product and auto search 
+Route::get('/autosearch',[IndexController::class, 'autoSearch'])->name('autosearch');
+Route::get('/search',[IndexController::class, 'search'])->name('search');
+
 
 
 
