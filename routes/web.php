@@ -209,6 +209,9 @@ Route::prefix('admin')->group(function () {
         //product section
         Route::resource('/product', ProductController::class);
         Route::post('product_status', [ProductController::class, 'productStatus'])->name('product.status');
+        // product attribute
+        Route::post('product-attribute/{id}',[ProductController::class,'addProductAttribute'])->name('product.attribute');
+        Route::delete('product-attribute-delete/{id}',[ProductController::class,'addProductAttributeDelete'])->name('product.attribute.destroy');
     });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

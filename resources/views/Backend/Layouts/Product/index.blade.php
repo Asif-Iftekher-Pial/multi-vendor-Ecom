@@ -90,14 +90,17 @@
                                         data-offstyle="danger">
                                 </td>
                                 <td>
-                                    <a href="{{ route('product.show', $item->id) }}" data-toggle="modal"
+                                    <a href="javascript:void(0);" data-toggle="modal"
                                         data-target="#productID{{ $item->id }}" data-toggle="tooltip"
-                                        class=" float-left ml-2 btn btn-sm btn-outline-primary" title="view"><i
+                                        class=" float-left btn btn-sm btn-outline-secondary ml-2" title="view"><i
                                             class="fa fa-eye"></i></a>
+
+                                    <a href="{{ route('product.show', $item->id) }}"  data-toggle="tooltip"
+                                        class=" float-left ml-2 btn btn-sm btn-outline-primary" title="add attribute"><i class="fa fa-plus-circle"></i></a>
 
 
                                     <a href="{{ route('product.edit', $item->id) }}" data-toggle="tooltip"
-                                        class=" float-right ml-2 btn btn-sm btn-outline-warning" title="edit"><i
+                                        class=" float-right btn btn-sm btn-outline-warning" title="edit"><i
                                             class="fa fa-edit"></i></a>
 
 

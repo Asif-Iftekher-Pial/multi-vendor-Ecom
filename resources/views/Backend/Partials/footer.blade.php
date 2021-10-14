@@ -180,10 +180,6 @@
 {{-- .....................category Scropt end...................... --}}
 
 
-
-
-
-
 {{-- ........................Brand Script..................... --}}
 {{-- status active or inactive button page:Brand/index.blade.php --}}
 
