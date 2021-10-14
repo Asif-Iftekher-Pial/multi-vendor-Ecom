@@ -24,49 +24,51 @@
         @endif
 
         <div class="body">
-            <div class="row">
-                
+            <div class="content">
                 <form action="{{ route('product.attribute', $product->id) }}" method="POST">
                     @csrf
-                    <div class="col-md-7">
-                        <div id="product_attribute" class="content"
-                            data-mfield-options='{"section": ".group","btnAdd":"#btnAdd-1","btnRemove":".btnRemove"}'>
-                            <div class="row">
-                                <div class="col-md-11"><button type="button" id="btnAdd-1"
-                                        class="btn btn-sm my-2 btn-primary"><i class="fa fa-plus-circle"></i></button>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="product_attribute" class="content"
+                                data-mfield-options='{"section": ".group","btnAdd":"#btnAdd-1","btnRemove":".btnRemove"}'>
+                                <div class="row">
+                                    <div class="col-md-11"><button type="button" id="btnAdd-1"
+                                            class="btn btn-sm my-2 btn-primary"><i class="fa fa-plus-circle"></i></button>
+                                    </div>
+                                </div>
+                                <div class="row group">
+                                    <div class="col-md-2">
+                                        <label for="">Size</label>
+                                        <input class="form-control form-control-sm" name="size[]" placeholder="eg. S or XL"
+                                            type="text">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="">Original Price</label>
+                                        <input class="form-control form-control-sm" name="original_price[]"
+                                            placeholder="eg. 2000" step="any" type="number">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="">Offer Price</label>
+                                        <input class="form-control form-control-sm" name="offer_price[]"
+                                            placeholder="eg. 2000" step="any" type="number">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="">Stock</label>
+                                        <input class="form-control form-control-sm" name="stock[]" placeholder="eg. 4"
+                                            type="number">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="button" class=" mt-4 btn btn-danger btn-sm btnRemove"><i
+                                                class="fa fa-trash"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row group">
-                                <div class="col-md-2">
-                                    <label for="">Size</label>
-                                    <input class="form-control form-control-sm" name="size[]" placeholder="eg. S or XL"
-                                        type="text">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="">Original Price</label>
-                                    <input class="form-control form-control-sm" name="original_price[]"
-                                        placeholder="eg. 2000" step="any" type="number">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="">Offer Price</label>
-                                    <input class="form-control form-control-sm" name="offer_price[]" placeholder="eg. 2000"
-                                        step="any" type="number">
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="">Stock</label>
-                                    <input class="form-control form-control-sm" name="stock[]" placeholder="eg. 4"
-                                        type="number">
-                                </div>
-
-                                <div class="col-md-2">
-                                    <button type="button" class=" mt-4 btn btn-danger btn-sm btnRemove"><i
-                                            class="fa fa-trash"></i></button>
-                                </div>
+                            <div style="padding-top: 10px">
+                                <button type="submit" class="btn btn-sm btn-info">Submit</button>
                             </div>
-
+                           
                         </div>
-                        <button type="submit" class="btn btn-sm btn-info">Submit</button>
-                    </div>
                 </form>
                 {{-- table --}}
                 <div class="col-md-5">
@@ -113,8 +115,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
     </div>
 
 
