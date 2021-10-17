@@ -28,6 +28,9 @@ class Product extends Model
         'cat_id',
         'child_cat_id',
         'vendor_id',
+        'additional_info',
+        'return_cancellation',
+        'size_guide',
     ];
 
     public function brand()

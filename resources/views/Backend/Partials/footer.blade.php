@@ -31,7 +31,7 @@
 
 {{-- filemanager --}}
 <script>
-    $('#lfm').filemanager('image');
+    $('#lfm,#lfm1').filemanager('image');
 </script>
 
 {{-- summer note --}}

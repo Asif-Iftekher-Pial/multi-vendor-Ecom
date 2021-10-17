@@ -43,7 +43,7 @@
                             @endforeach
                         @endif --}}
                         <div class="row clearfix">
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label for="">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Title" name="title"
@@ -58,7 +58,7 @@
 
                                 <div class="form-group">
                                     <label for="">Description</label>
-                                    <textarea id="description" class="form-control" placeholder="Write about this image"
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
                                         name="description">{{ old('description') }}</textarea>
                                 </div>
 
@@ -157,6 +157,17 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Additional Information</label>
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
+                                        name="additional_info">{{ old('additional_info') }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Return & Cancallation</label>
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
+                                        name="return_cancellation">{{ old('return_cancellation') }}</textarea>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="">Status <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control show-tick">
                                         <option value="">-- Select status --</option>
@@ -181,6 +192,20 @@
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"> </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Size Guide<span class="text-danger">*</span></label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="lfm1" data-input="thumbnail1" data-preview="holder1"
+                                                class="btn btn-primary">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="thumbnail1" class="form-control" type="text" name="size_guide">
+                                    </div>
+                                    <div id="holder1" style="margin-top:15px;max-height:100px;"> </div>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Create</button> &nbsp;&nbsp;
@@ -191,4 +216,13 @@
         </div>
 
     </div>
+@endsection
+@section('backend_script')
+{{-- description for additional info ,size giude and return cancallation ,class="description" --}}
+<script>
+    $(document).ready(function() {
+        $('.description').summernote();
+    });
+</script>
+    
 @endsection

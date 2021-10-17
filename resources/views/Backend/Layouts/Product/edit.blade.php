@@ -58,7 +58,7 @@
 
                                 <div class="form-group">
                                     <label for="">Description</label>
-                                    <textarea id="description" class="form-control" placeholder="Write about this image"
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
                                         name="description">{{ $product->description }}</textarea>
                                 </div>
 
@@ -153,6 +153,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Additional Information</label>
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
+                                        name="additional_info">{{ $product->additional_info }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Return & Cancallation</label>
+                                    <textarea id="description" class="form-control description" placeholder="Write about this image"
+                                        name="return_cancellation">{{ $product->return_cancellation }}</textarea>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Upload picture<span class="text-danger">*</span></label>
 
                                     <div class="input-group">
@@ -166,6 +176,20 @@
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"> </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Size Guide<span class="text-danger">*</span></label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="lfm1" data-input="thumbnail1" data-preview="holder1"
+                                                class="btn btn-primary">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="thumbnail1" class="form-control" type="text" value="{{ $product->size_guide }}" name="size_guide">
+                                    </div>
+                                    <div id="holder1" style="margin-top:15px;max-height:100px;"> </div>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button> &nbsp;&nbsp;
@@ -178,7 +202,15 @@
     </div>
 @endsection
 
-@section('script')
+@section('backend_script')
+{{-- description for additional info ,size giude and return cancallation ,class="description" --}}
+<script>
+    $(document).ready(function() {
+        $('.description').summernote();
+    });
+</script>
+{{-- description for additional info ,size giude and return cancallation ,class="description" --}}
+
 
 <script>
 
@@ -219,6 +251,5 @@
         $('#cat_id').change();
     }
 </script>
-
     
 @endsection

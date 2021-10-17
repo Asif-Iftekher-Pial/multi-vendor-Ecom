@@ -39,6 +39,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Photo</th>
+                            <th>Size Guide</th>
                             <th>Price</th>
                             <th>Discount</th>
                             <th>Size</th>
@@ -51,6 +52,7 @@
                         @foreach ($products as $item)
                         @php
                             $photo=explode(',',$item->photo);
+                            $sizephoto=explode(',', $item->size_guide);
                         @endphp
                             <tr>
                                 <td>
@@ -63,6 +65,10 @@
 
                                 <td>
                                     <img src="{{ $photo[0] }}" alt="Product photo"
+                                        style=";max-height: 100px; max-width: 100px">
+                                </td> 
+                                <td>
+                                    <img src="{{ $sizephoto[0] }}" alt="Product size"
                                         style=";max-height: 100px; max-width: 100px">
                                 </td> 
                                 <td>
@@ -89,6 +95,9 @@
                                         data-onlabel="active" data-offlabel="inactive" data-size="sm" data-onstyle="success"
                                         data-offstyle="danger">
                                 </td>
+
+
+                                {{-- buttons --}}
                                 <td>
                                     <a href="javascript:void(0);" data-toggle="modal"
                                         data-target="#productID{{ $item->id }}" data-toggle="tooltip"
@@ -234,3 +243,4 @@
         </div>
     </div>
 @endsection
+
