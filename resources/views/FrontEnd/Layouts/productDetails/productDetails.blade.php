@@ -128,13 +128,13 @@
                             <h6 class="widget-title">Size</h6>
                             <div class="widget-desc" style="display: block; width: 45%;">
                                 @php
-                                    $product_attr=App\Models\ProductAttribute::where('product_id',$productDetails->id)->get();
+                                    $product_attr = App\Models\ProductAttribute::where('product_id', $productDetails->id)->get();
                                 @endphp
                                 <select name="size" id="">
-                                    @foreach ( $product_attr as $size)
-                                    <option value="{{ $size->size }}">{{ $size->size }}</option>
+                                    @foreach ($product_attr as $size)
+                                        <option value="{{ $size->size }}">{{ $size->size }}</option>
                                     @endforeach
-                                   
+
                                 </select>
                             </div>
                         </div>
@@ -193,7 +193,8 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#reviews" class="nav-link" data-toggle="tab" role="tab"
-                                    aria-selected="false">Reviews <span class="text-muted">(3)</span></a>
+                                    aria-selected="false">Reviews <span
+                                        class="text-muted">({{ App\Models\ProductReview::where('product_id', $productDetails->id)->count() }})</span></a>
                             </li>
                             <li class="nav-item">
                                 <a href="#addi-info" class="nav-link" data-toggle="tab" role="tab"
@@ -206,217 +207,261 @@
                         </ul>
                         <!-- Tab Content -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active show" id="description">
+                            <div role="tabpanel" class="tab-pane fade" id="description">
                                 <div class="description_area">
                                     <h5>Description</h5>
                                     {!! html_entity_decode($productDetails->description) !!}
                                 </div>
                             </div>
 
-                            <div role="tabpanel" class="tab-pane fade" id="reviews">
-                                <div class="reviews_area">
-                                    <ul>
-                                        <li>
-                                            <div class="single_user_review mb-15">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Quality</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep
-                                                            2019</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="single_user_review mb-15">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Design</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep
-                                                            2019</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="single_user_review">
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>for Value</span>
-                                                </div>
-                                                <div class="review-details">
-                                                    <p>by <a href="#">Designing World</a> on <span>12 Sep
-                                                            2019</span></p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                            <div role="tabpanel" class="tab-pane fade active show" id="reviews">
                                 <div class="submit_a_review_area mt-50">
-                                    <h4>Submit A Review</h4>
-                                    <form action="#" method="post">
-                                        <div class="form-group">
-                                            <span>Your Ratings</span>
-                                            <div class="stars">
-                                                <input type="radio" name="star" class="star-1" id="star-1">
-                                                <label class="star-1" for="star-1">1</label>
-                                                <input type="radio" name="star" class="star-2" id="star-2">
-                                                <label class="star-2" for="star-2">2</label>
-                                                <input type="radio" name="star" class="star-3" id="star-3">
-                                                <label class="star-3" for="star-3">3</label>
-                                                <input type="radio" name="star" class="star-4" id="star-4">
-                                                <label class="star-4" for="star-4">4</label>
-                                                <input type="radio" name="star" class="star-5" id="star-5">
-                                                <label class="star-5" for="star-5">5</label>
-                                                <span></span>
+                                    @if (session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" id="alert"
+                                            role="alert">
+                                            {{ session('success') }}
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @endif
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger alert-dismissible fade show" id="alert"
+                                                role="alert">
+                                                {{ $error }}
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Nickname</label>
-                                            <input type="email" class="form-control" id="name" placeholder="Nazrul">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="options">Reason for your rating</label>
-                                            <select class="form-control small right py-0 w-100" id="options">
-                                                <option>Quality</option>
-                                                <option>Value</option>
-                                                <option>Design</option>
-                                                <option>Price</option>
-                                                <option>Others</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="comments">Comments</label>
-                                            <textarea class="form-control" id="comments" rows="5"
-                                                data-max-length="150"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit Review</button>
-                                    </form>
-                                </div>
-                            </div>
+                                        @endforeach
+                                    @endif
+                                    <h4>Submit A Review</h4>
+                                    @auth
+                                        <form action="{{ route('product.review', $productDetails->slug) }}" method="post">
+                                            @csrf
+                                            <div class="form-group">
+                                                <span>Your Ratings</span>
+                                                <div class="stars">
+                                                    <input type="radio" name="rate" class="star-1" id="star-1"
+                                                        value="1">
+                                                    <label class="star-1" for="star-1">1</label>
+                                                    <input type="radio" name="rate" class="star-2" id="star-2"
+                                                        value="2">
+                                                    <label class="star-2" for="star-2">2</label>
+                                                    <input type="radio" name="rate" class="star-3" id="star-3"
+                                                        value="3">
+                                                    <label class="star-3" for="star-3">3</label>
+                                                    <input type="radio" name="rate" class="star-4" id="star-4"
+                                                        value="4">
+                                                    <label class="star-4" for="star-4">4</label>
+                                                    <input type="radio" name="rate" class="star-5" id="star-5"
+                                                        value="5">
+                                                    <label class="star-5" for="star-5">5</label>
+                                                    <span></span>
+                                                </div>
+                                                @error('rate')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                            <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
+                                            <div class="form-group">
+                                                <label for="options">Reason for your rating</label>
+                                                <select class="form-control small right py-0 w-100" id="options" name="reason">
+                                                    <option value="quality"
+                                                        {{ old('reason') == 'quality' ? 'selected' : '' }}>
+                                                        Quality</option>
+                                                    <option value="value" {{ old('reason') == 'value' ? 'selected' : '' }}>
+                                                        Value</option>
+                                                    <option value="design" {{ old('reason') == 'design' ? 'selected' : '' }}>
+                                                        Design</option>
+                                                    <option value="price" {{ old('reason') == 'price' ? 'selected' : '' }}>
+                                                        Price</option>
+                                                    <option value="others" {{ old('reason') == 'others' ? 'selected' : '' }}>
+                                                        Others</option>
+                                                </select>
+                                                @error('reason')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comments">Comments</label>
+                                                <textarea class="form-control" id="comments" rows="5" data-max-length="150"
+                                                    name="review"></textarea>
+                                                @error('review')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                                        </form>
+                                    @else
+                                        <p class="py-5">For product review <a
+                                                href="{{ route('customer.login') }}">Click here!</a> to login first</p>
+                                        @endif
 
-                            <div role="tabpanel" class="tab-pane fade" id="addi-info">
-                                <div class="additional_info_area">
-                                    <h5>Additional Info</h5>
-                                   {!! html_entity_decode($productDetails->additional_info) !!}
-                                </div>
-                            </div>
+                                    </div>
+                                    <div class="reviews_area">
+                                        @php
+                                            $reviews = \App\Models\ProductReview::where('product_id', $productDetails->id)
+                                                ->latest()
+                                                ->paginate(5);
+                                        @endphp
 
-                            <div role="tabpanel" class="tab-pane fade" id="refund">
-                                <div class="refund_area">
-                                    <h6>Return Policy</h6>
-                                    {!! html_entity_decode($productDetails->return_cancellation) !!}
+                                        <ul class="mt-5">
+                                            <li>
+                                                @if (count($reviews) > 0)
+                                                    @foreach ($reviews as $review)
+                                                        <div class="single_user_review mb-15">
+                                                            <div class="review-rating">
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    @if (($review->rate) > $i)
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+
+                                                                    @else
+                                                                        <i class="far fa-star" aria-hidden="true"></i>
+                                                                    @endif
+                                                                @endfor
+
+                                                                <span> for {{ $review->reason }}</span>
+
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <p>by <strong>
+                                                                        <b>{{ \App\Models\User::where('id', $review->user_id)->value('full_name') }}</b>
+                                                                    </strong> on
+                                                                    <span>{{ \Carbon\Carbon::parse($review->created_at)->format('D,M,Y') }}</span>
+                                                                </p>
+                                                                <p>{{ $review->review }}</p>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <p class="badge badge-danger">No review found!</p>
+                                                @endif
+                                                {{ $reviews->links('vendor.pagination.custom') }}
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane fade" id="addi-info">
+                                    <div class="additional_info_area">
+                                        <h5>Additional Info</h5>
+                                        {!! html_entity_decode($productDetails->additional_info) !!}
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane fade" id="refund">
+                                    <div class="refund_area">
+                                        <h6>Return Policy</h6>
+                                        {!! html_entity_decode($productDetails->return_cancellation) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
 
-    <!-- Related Products Area -->
-    <section class="you_may_like_area section_padding_0_100 clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section_heading new_arrivals">
-                        <h5>You May Also Like</h5>
+        <!-- Related Products Area -->
+        <section class="you_may_like_area section_padding_0_100 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading new_arrivals">
+                            <h5>You May Also Like</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="you_make_like_slider owl-carousel">
+
+                            <!-- Single Product -->
+                            @foreach ($productDetails->related_products as $item)
+
+
+                                <div class="single-product-area">
+                                    <div class="product_image">
+                                        <!-- Product Image -->
+                                        @php
+                                            $photo = explode(',', $item->photo); // its because theres multiple photo
+                                        @endphp
+                                        <img class="normal_img" src="{{ $photo[0] }}" alt="{{ $item->title }}">
+                                        <img class="hover_img" src="{{ $photo[1] }}" alt="{{ $item->title }}">
+
+                                        <!-- Product Badge -->
+                                        <div class="product_badge">
+                                            <span>{{ $item->conditions }}</span>
+                                        </div>
+
+                                        <!-- Wishlist -->
+                                        <div class="product_wishlist">
+                                            <a href="wishlist.html"><i class="icofont-heart"></i></a>
+                                        </div>
+
+                                        <!-- Compare -->
+                                        <div class="product_compare">
+                                            <a href="compare.html"><i class="icofont-exchange"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product_description">
+                                        <!-- Add to cart -->
+                                        <div class="product_add_to_cart">
+                                            <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
+                                        </div>
+
+                                        <!-- Quick View -->
+                                        <div class="product_quick_view">
+                                            <a href="#" data-toggle="modal" data-target="#quickview"><i
+                                                    class="icofont-eye-alt"></i> Quick View</a>
+                                        </div>
+
+                                        <p class="brand_name">
+                                            {{ App\Models\Brand::where('id', $item->brand_id)->value('title') }}
+                                        </p>
+                                        <a
+                                            href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
+                                        <h6 class="product-price">${{ number_format($item->offer_price, 2) }}
+                                            <small><del class="text-danger">${{ number_format($item->price, 2) }}
+                                                </del></small>
+                                        </h6>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="you_make_like_slider owl-carousel">
+        </section>
 
-                        <!-- Single Product -->
-                        @foreach ($productDetails->related_products as $item)
+    @endsection
+    @section('frontend_css_style')
+        <style>
+            .nice-select {
+                float: none;
+            }
 
+            .widget.size .widget-desc li {
+                display: block;
+            }
 
-                            <div class="single-product-area">
-                                <div class="product_image">
-                                    <!-- Product Image -->
-                                    @php
-                                        $photo = explode(',', $item->photo); // its because theres multiple photo
-                                    @endphp
-                                    <img class="normal_img" src="{{ $photo[0] }}" alt="{{ $item->title }}">
-                                    <img class="hover_img" src="{{ $photo[1] }}" alt="{{ $item->title }}">
+            .nice-select.open.list {
+                width: 100%;
+            }
 
-                                    <!-- Product Badge -->
-                                    <div class="product_badge">
-                                        <span>{{ $item->conditions }}</span>
-                                    </div>
+        </style>
 
-                                    <!-- Wishlist -->
-                                    <div class="product_wishlist">
-                                        <a href="wishlist.html"><i class="icofont-heart"></i></a>
-                                    </div>
-
-                                    <!-- Compare -->
-                                    <div class="product_compare">
-                                        <a href="compare.html"><i class="icofont-exchange"></i></a>
-                                    </div>
-                                </div>
-
-                                <!-- Product Description -->
-                                <div class="product_description">
-                                    <!-- Add to cart -->
-                                    <div class="product_add_to_cart">
-                                        <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                                    </div>
-
-                                    <!-- Quick View -->
-                                    <div class="product_quick_view">
-                                        <a href="#" data-toggle="modal" data-target="#quickview"><i
-                                                class="icofont-eye-alt"></i> Quick View</a>
-                                    </div>
-
-                                    <p class="brand_name">
-                                        {{ App\Models\Brand::where('id', $item->brand_id)->value('title') }}
-                                    </p>
-                                    <a
-                                        href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
-                                    <h6 class="product-price">${{ number_format($item->offer_price, 2) }}
-                                        <small><del class="text-danger">${{ number_format($item->price, 2) }}
-                                            </del></small>
-                                    </h6>
-                                </div>
-                            </div>
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-@endsection
-@section('frontend_css_style')
-<style>
-    .nice-select{
-        float: none;
-    }
-
-    .widget.size .widget-desc li{
-        display: block;
-    }
-    .nice-select.open.list{
-        width:100%;
-    }
-
-</style>
-    
-@endsection
+    @endsection

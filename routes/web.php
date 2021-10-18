@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\Cart\CartController;
 use App\Http\Controllers\Frontend\checkout\CheckoutController;
 use App\Http\Controllers\Frontend\Index\IndexController;
+use App\Http\Controllers\Frontend\ProductReview\ProductReviewController;
 use App\Http\Controllers\Frontend\wishlist\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,14 @@ Route::prefix('user/account')->group(function () {
     // edit user account
     Route::post('/user-account/{id}', [AuthenticationController::class, 'editUserAccount'])->name('editUserAccount');
         
+    });
+    
+});
+
+Route::prefix('user/review')->group(function () {
+    Route::middleware(['customer'])->group(function () {
+
+     Route::post('product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
     });
     
 });

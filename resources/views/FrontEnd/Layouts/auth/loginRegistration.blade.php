@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-6">
                     <div class="login_form mb-50">
                         <h5 class="mb-3">Login</h5>
-                        @if ($errors->any())
+                        {{-- @if ($errors->any())
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
                                     {{ $error }}
@@ -30,16 +30,23 @@
                                     </button>
                                 </div>
                             @endforeach
-                        @endif
+                        @endif --}}
 
                         <form action="{{ route('customer.signin') }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" id="password"
+                                    placeholder="Password">
                             </div>
+                            @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox mb-3 pl-1">
                                     <input type="checkbox" class="custom-control-input" id="customChe">
@@ -66,15 +73,6 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                        @elseif ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
-                                    {{ $error }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endforeach
                         @endif
                         <form action="{{ route('customer.registration') }}" method="post">
                             @csrf
@@ -82,34 +80,54 @@
                                 <input type="text" class="form-control" name="fullname" id="fullname"
                                     placeholder="Full Name">
                             </div>
+                            @error('fullname')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <input type="text" class="form-control" name="username" id="username"
                                     placeholder="User Name">
                             </div>
+                            @error('username')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" value="male" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="gender" value="male"
+                                    id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
-                                  Male
+                                    Male
                                 </label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" value="female" id="flexRadioDefault2" checked>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="female"
+                                    id="flexRadioDefault2" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
-                                  Female
+                                    Female
                                 </label>
-                              </div>
-                            
+                            </div>
+                            @error('gender')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Password">
                             </div>
+                            @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <input type="password" class="form-control" name="confirmpassword" id="password"
                                     placeholder="Repeat Password">
                             </div>
+                            @error('confirmpassword')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <button type="submit" class="btn btn-outline-success mb-1">Register</button>
                         </form>
                     </div>
@@ -121,10 +139,10 @@
 @endsection
 
 @section('front_end_script')
-    {{-- validation error  --}}
- <script>
-    setTimeout(function() {
-        $('#alert').slideUp();
-    }, 4000);
-</script>
+    {{-- validation error --}}
+    <script>
+        setTimeout(function() {
+            $('#alert').slideUp();
+        }, 4000);
+    </script>
 @endsection
