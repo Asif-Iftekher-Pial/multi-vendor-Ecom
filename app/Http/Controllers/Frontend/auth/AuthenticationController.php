@@ -60,31 +60,51 @@ class AuthenticationController extends Controller
             'password' => 'required|min:8'
         ]);
 
-
-        $credentials = $request->only('email', 'password');  //only email and passoword are now stored in credentials variable
-
-        // dd($credentials);
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $credentials = $request->only('email', 'password');
+        if(Auth::attempt($credentials)){
+            Session::put('user',$request->email);
             $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
-            $status->update([
-                'status' => 'active'
-            ]);
+                $status->update([
+                     'status' => 'active'
+                 ]);
+            if(Session::get('url.intended')){
+                return Redirect::to(Session::get('url.intended'))->with('success', 'Successfully logged in');
+            }
+            else{
+                return redirect()->route('home')->with('success', 'Successfully logged in');
+            }
+        }
+        else{
+            return back()->with('error','Wrong email or password'); 
+        }
 
-            // return redirect()->session()->get('url.intended')??'/';
-             return redirect()->route('home');
-            //dd($request);
-            // if(session()->has('url.intended')) {
-            //    //dd('okey');
-            //     session()->put('url.intended', URL::previous());
+        // $credentials = $request->only('email', 'password');  //only email and passoword are now stored in credentials variable
+
+        // // dd($credentials);
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+        //     $status->update([
+        //         'status' => 'active'
+        //     ]);
+
+        //     // return redirect()->session()->get('url.intended')??'/';
+        //      return redirect()->route('home');
+        //     //dd($request);
+        //     // if(session()->has('url.intended')) {
+        //     //    //dd('okey');
+        //     //     session()->put('url.intended', URL::previous());
             
-            // } else {
-            //     return redirect()->route('home');
-            // }
-        } else
-            return back()->withErrors([
-                'email' => 'The provided information did not match our records.',
-            ]);
+        //     // } else {
+        //     //     return redirect()->route('home');
+        //     // }
+        // } else
+        //     return back()->withErrors([
+        //         'email' => 'The provided information did not match our records.',
+        //     ]);
+
+
+
     }
 
 

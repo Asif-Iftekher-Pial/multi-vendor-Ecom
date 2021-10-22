@@ -1,41 +1,49 @@
 <div id="left-sidebar" class="sidebar">
     <div class="sidebar-scroll">
         <div class="user-account">
-            <img src="{{ auth()->user()->photo }}" class="rounded-circle user-photo"
-                alt="User Profile Picture"  style="height: 60px;width: 60px"">
-            <div class="dropdown">
-                <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ auth()->user()->full_name }}</strong></a>
-                <ul class="dropdown-menu dropdown-menu-right account">
-                    <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
-                    <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                    <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{ route('logout') }}"><i class="icon-power"></i>Logout</a></li>
+            @if (Auth::guard('admin'))
+                <img src="{{ Auth::guard('admin')->user()->photo }}" class="rounded-circle user-photo"
+                    alt="User Profile Picture" style="height: 60px;width: 60px">
+                <div class="dropdown">
+                    <span>Welcome,</span>
+                    <a href="javascript:void(0);" class="dropdown-toggle user-name"
+                        data-toggle="dropdown"><strong>{{ Auth::guard('admin')->user()->full_name }}</strong></a>
+                    <ul class="dropdown-menu dropdown-menu-right account">
+                        <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
+                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ route('logout') }}"><i class="icon-power"></i>Logout</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <ul class="row list-unstyled">
+                    <li class="col-4">
+                        <small>Sales</small>
+                        <h6>456</h6>
+                    </li>
+                    <li class="col-4">
+                        <small>Order</small>
+                        <h6>1350</h6>
+                    </li>
+                    <li class="col-4">
+                        <small>Revenue</small>
+                        <h6>$2.13B</h6>
+                    </li>
                 </ul>
-            </div>
-            <hr>
-            <ul class="row list-unstyled">
-                <li class="col-4">
-                    <small>Sales</small>
-                    <h6>456</h6>
-                </li>
-                <li class="col-4">
-                    <small>Order</small>
-                    <h6>1350</h6>
-                </li>
-                <li class="col-4">
-                    <small>Revenue</small>
-                    <h6>$2.13B</h6>
-                </li>
-            </ul>
+            @else
+
+            @endif
+
         </div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i class="icon-book-open"></i></a>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i
+                        class="icon-book-open"></i></a>
             </li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i
+                        class="icon-settings"></i></a>
             </li>
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i
                         class="icon-question"></i></a></li>
@@ -49,7 +57,7 @@
                         <li class="active">
                             <a href="{{ route('dashboard') }}" class="has-arrow"><i class="icon-home"></i>
                                 <span>Dashboard</span></a>
-                           
+
                         </li>
                         <li>
                             <a href="#Widgets" class="has-arrow"><i class="icon-puzzle"></i>
@@ -57,11 +65,12 @@
                             <ul>
                                 <li><a href="{{ route('banner.index') }}">Show Banner</a></li>
                                 <li><a href="{{ route('banner.create') }}">Add Banner</a></li>
-                               
+
                             </ul>
                         </li>
                         <li>
-                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Category</span></a>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i>
+                                <span>Category</span></a>
                             <ul>
                                 <li><a href="{{ route('category.index') }}">All Category</a></li>
                                 <li><a href="{{ route('category.create') }}">Add Category</a></li>
@@ -76,49 +85,44 @@
                         </li>
 
                         <li>
-                            <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Product</span></a>
+                            <a href="#App" class="has-arrow"><i class="icon-grid"></i>
+                                <span>Product</span></a>
                             <ul>
                                 <li><a href="{{ route('product.index') }}">All Product</a></li>
                                 <li><a href="{{ route('product.create') }}">Create Product</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>User Management
-                                    </span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>User
+                                    Management
+                                </span></a>
                             <ul>
                                 <li><a href="{{ route('user.index') }}">All User</a></li>
                                 <li><a href="{{ route('user.create') }}">Create User</a></li>
                             </ul>
-                        </li> 
+                        </li>
                         <li>
-                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>Coupon Management
-                                    </span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>Coupon
+                                    Management
+                                </span></a>
                             <ul>
                                 <li><a href="{{ route('coupon.index') }}">All Coupon</a></li>
                                 <li><a href="{{ route('coupon.create') }}">Create Coupon</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#FileManager" class="has-arrow"><i class="fa fa-truck"></i> <span>Shipping Management
-                                    </span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="fa fa-truck"></i> <span>Shipping
+                                    Management
+                                </span></a>
                             <ul>
                                 <li><a href="{{ route('shipping.index') }}">All shipping</a></li>
                                 <li><a href="{{ route('shipping.create') }}">Create shipping</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>Vendor Management
-                                    </span></a>
-                            <ul>
-                                <li><a href="file-dashboard.html">Dashboard</a></li>
-                                <li><a href="file-documents.html">Documents</a></li>
-                                <li><a href="file-media.html">Media</a></li>
-                                <li><a href="file-images.html">Images</a></li>
-                            </ul>
-                        </li> 
-                        <li>
-                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i> <span>Customer Management
-                                    </span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i> <span>Vendor
+                                    Management
+                                </span></a>
                             <ul>
                                 <li><a href="file-dashboard.html">Dashboard</a></li>
                                 <li><a href="file-documents.html">Documents</a></li>
@@ -127,8 +131,9 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#FileManager" class=" has-arrow"><i class="icon-basket-loaded"></i> <span>Order Management
-                                    </span></a>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-user-follow"></i>
+                                <span>Customer Management
+                                </span></a>
                             <ul>
                                 <li><a href="file-dashboard.html">Dashboard</a></li>
                                 <li><a href="file-documents.html">Documents</a></li>
@@ -137,7 +142,19 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i> <span>Review Management</span></a>
+                            <a href="#FileManager" class=" has-arrow"><i class="icon-basket-loaded"></i> <span>Order
+                                    Management
+                                </span></a>
+                            <ul>
+                                <li><a href="file-dashboard.html">Dashboard</a></li>
+                                <li><a href="file-documents.html">Documents</a></li>
+                                <li><a href="file-media.html">Media</a></li>
+                                <li><a href="file-images.html">Images</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i> <span>Review
+                                    Management</span></a>
                             <ul>
                                 <li><a href="blog-dashboard.html">Dashboard</a></li>
                                 <li><a href="blog-post.html">New Post</a></li>
@@ -175,7 +192,7 @@
                                 <li><a href="ui-treeview.html">Treeview</a></li>
                             </ul>
                         </li>
-                       
+
                         <li>
                             <a href="#Authentication" class="has-arrow"><i class="icon-lock"></i>
                                 <span>Authentication</span></a>
@@ -191,7 +208,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#Pages" class="has-arrow"><i class="icon-docs"></i> <span>Pages</span></a>
+                            <a href="#Pages" class="has-arrow"><i class="icon-docs"></i>
+                                <span>Pages</span></a>
                             <ul>
                                 <li><a href="page-blank.html">Blank Page</a> </li>
                                 <li><a href="page-profile.html">Profile <span
@@ -235,7 +253,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#Tables" class="has-arrow"><i class="icon-tag"></i> <span>Tables</span></a>
+                            <a href="#Tables" class="has-arrow"><i class="icon-tag"></i>
+                                <span>Tables</span></a>
                             <ul>
                                 <li><a href="table-basic.html">Tables Example<span
                                             class="badge badge-info float-right">New</span></a> </li>
@@ -249,7 +268,7 @@
                                             class="badge badge-info float-right">New</span></a> </li>
                             </ul>
                         </li>
-                       
+
                         <li>
                             <a href="#Maps" class="has-arrow"><i class="icon-map"></i> <span>Maps</span></a>
                             <ul>
@@ -259,7 +278,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#menu-level-1" class="has-arrow"><i class="icon-tag"></i> <span>Menu Level
+                            <a href="#menu-level-1" class="has-arrow"><i class="icon-tag"></i> <span>Menu
+                                    Level
                                     1</span></a>
                             <ul>
                                 <li>
@@ -315,8 +335,8 @@
                     <li class="offline">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="{{ asset('backend/assets/images/xs/avatar2.jpg') }}"
-                                    alt="">
+                                <img class="media-object "
+                                    src="{{ asset('backend/assets/images/xs/avatar2.jpg') }}" alt="">
                                 <div class="media-body">
                                     <span class="name">Isabella</span>
                                     <span class="message">CEO, Thememakker</span>
@@ -328,7 +348,8 @@
                     <li class="offline">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="{{ asset('/assets/images/xs/avatar1.jpg') }}" alt="">
+                                <img class="media-object " src="{{ asset('/assets/images/xs/avatar1.jpg') }}"
+                                    alt="">
                                 <div class="media-body">
                                     <span class="name">Folisise Chosielie</span>
                                     <span class="message">Art director, Movie Cut</span>
@@ -340,8 +361,8 @@
                     <li class="online">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="{{ asset('backend/assets/images/xs/avatar3.jpg') }}"
-                                    alt="">
+                                <img class="media-object "
+                                    src="{{ asset('backend/assets/images/xs/avatar3.jpg') }}" alt="">
                                 <div class="media-body">
                                     <span class="name">Alexander</span>
                                     <span class="message">Writter, Mag Editor</span>

@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Backend\BannerController;
-use App\Http\Controllers\Backend\Brand\BrandController;
-use App\Http\Controllers\Backend\Category\CategoryController;
-use App\Http\Controllers\Backend\Coupon\CouponController;
-use App\Http\Controllers\Backend\LoginController;
-use App\Http\Controllers\Backend\Product\ProductController;
-use App\Http\Controllers\Backend\shipping\ShippingController;
-use App\Http\Controllers\Backend\User\UserController;
-use App\Http\Controllers\Frontend\auth\AuthenticationController;
-use App\Http\Controllers\Frontend\Cart\CartController;
-use App\Http\Controllers\Frontend\checkout\CheckoutController;
-use App\Http\Controllers\Frontend\Index\IndexController;
-use App\Http\Controllers\Frontend\ProductReview\ProductReviewController;
-use App\Http\Controllers\Frontend\wishlist\WishlistController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\LoginController;
+use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\User\UserController;
+use App\Http\Controllers\Frontend\Cart\CartController;
+use App\Http\Controllers\Backend\Brand\BrandController;
+use App\Http\Controllers\Frontend\Index\IndexController;
+use App\Http\Controllers\Backend\Coupon\CouponController;
+use App\Http\Controllers\Backend\Auth\AdminLoginController;
+use App\Http\Controllers\Backend\Product\ProductController;
+use App\Http\Controllers\Backend\Category\CategoryController;
+use App\Http\Controllers\Backend\shipping\ShippingController;
+use App\Http\Controllers\Frontend\checkout\CheckoutController;
+use App\Http\Controllers\Frontend\wishlist\WishlistController;
+use App\Http\Controllers\Frontend\auth\AuthenticationController;
+use App\Http\Controllers\Frontend\ProductReview\ProductReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -149,8 +150,14 @@ Route::get('/search',[IndexController::class, 'search'])->name('search');
 
 // Route::get('/index',[TestController::class,'index'])->name('test');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('app')->group(function () {
 
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/login',[AdminLoginController::class, 'showloginForm'])->name('admin.login.form');
+        Route::post('/adminLogin',[AdminLoginController::class, 'login'])->name('admin.login');;
+
+    });
 
 
     Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -161,7 +168,7 @@ Route::prefix('admin')->group(function () {
 
 
     //admin ,Vendor and Employee both can access this group
-    Route::group(['middleware' => 'admin.employee'], function () {
+    
 
         //Dashboard
         Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
@@ -181,12 +188,12 @@ Route::prefix('admin')->group(function () {
          Route::post('shipping_status', [ShippingController::class, 'shippingStatus'])->name('shipping.status');
  
 
-    });
+    // });
 
 
 
     //only Admin can access this group
-    Route::group(['middleware' => 'admin'], function () {
+    // Route::group(['middleware' => 'admin'], function () {
 
         //user add section
         Route::resource('/user', UserController::class);
@@ -197,10 +204,10 @@ Route::prefix('admin')->group(function () {
          Route::post('coupon_status', [CouponController::class, 'couponStatus'])->name('coupon.status');
  
 
-    });
+    // });
 
     //authenticated users can access
-    Route::middleware(['auth'])->group(function () {
+    // Route::middleware(['auth'])->group(function () {
 
 
         //User profile update section
@@ -221,7 +228,7 @@ Route::prefix('admin')->group(function () {
         // product attribute
         Route::post('product-attribute/{id}',[ProductController::class,'addProductAttribute'])->name('product.attribute');
         Route::delete('product-attribute-delete/{id}',[ProductController::class,'addProductAttributeDelete'])->name('product.attribute.destroy');
-    });
+    // });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();

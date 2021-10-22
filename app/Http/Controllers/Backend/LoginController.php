@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\User;
+use App\Models\Admin;
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\Categorie;
-use App\Models\Product;
-use App\Models\User;
+use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -68,18 +70,46 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials does not match our records.',
+            'email' => 'Seller credentials does not match our records.',
         ]);
 
     }
     public function logout()
     {
-        $status=User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
-        $status->update([
-            'status'=> 'inactive'
-        ]);
-        Auth::logout();
+        // $ok=auth()->guard('admin');
+        // dd($ok);
+
+        if(Auth::guard('admin'))
+        {
+            //dd('Admin');
+            $status=Admin::where('id','=',Auth::guard('admin')->user()->id);
+            //dd($status);
+                $status->update([
+                    'status'=> 'inactive'
+                ]);
+                Auth::logout();
        
-        return redirect()->route('login')->with('success','Logout successful');
+                return redirect()->route('admin.login.form')->with('success','Admin Logout successful');
+        } 
+        elseif(Auth::guard('seller'))
+        {
+            //dd('Admin');
+            $status=Seller::where('id','=',Auth::guard('seller')->user()->id);
+            //dd($status);
+                $status->update([
+                    'status'=> 'inactive'
+                ]);
+                Auth::logout();
+       
+                return redirect()->route('login')->with('success','Vendor Logout successful');
+        }
+        else{
+            return view('FrontEnd.Layouts.errors.404');
+        }
+        // $status=User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+        // $status->update([
+        //     'status'=> 'inactive'
+        // ]);
+       
     }
 }
