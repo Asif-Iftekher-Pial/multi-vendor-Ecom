@@ -155,7 +155,8 @@ Route::prefix('app')->group(function () {
 
     Route::prefix('admin')->group(function () {
         Route::get('/login',[AdminLoginController::class, 'showloginForm'])->name('admin.login.form');
-        Route::post('/adminLogin',[AdminLoginController::class, 'login'])->name('admin.login');;
+        Route::post('/adminLogin',[AdminLoginController::class, 'login'])->name('admin.login');
+        Route::get('/adminLogout',[AdminLoginController::class, 'adminlogout'])->name('admin.logout');
 
     });
 
@@ -176,6 +177,10 @@ Route::prefix('app')->group(function () {
         //banner section
         Route::resource('/banner', BannerController::class);
         Route::post('banner_status', [BannerController::class, 'bannerStatus'])->name('banner.status');
+
+        //Employee or Seller Add section
+        
+        Route::get('sellerAdd',[UserController::class,'sellerAdd'])->name('sellerAdd');
 
 
         //category section

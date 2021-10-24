@@ -1,13 +1,44 @@
 <div id="left-sidebar" class="sidebar">
     <div class="sidebar-scroll">
+        {{-- @dd(Auth::check()) --}}
         <div class="user-account">
-            @if (Auth::guard('admin'))
+            @if ( Auth::guard('admin')->user())
                 <img src="{{ Auth::guard('admin')->user()->photo }}" class="rounded-circle user-photo"
                     alt="User Profile Picture" style="height: 60px;width: 60px">
                 <div class="dropdown">
                     <span>Welcome,</span>
                     <a href="javascript:void(0);" class="dropdown-toggle user-name"
-                        data-toggle="dropdown"><strong>{{ Auth::guard('admin')->user()->full_name }}</strong></a>
+                        data-toggle="dropdown"><strong>{{ Auth::guard('admin')->user('admin')->full_name }}</strong></a>
+                    <ul class="dropdown-menu dropdown-menu-right account">
+                        <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
+                        <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ route('admin.logout') }}"><i class="icon-power"></i>Logout</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <ul class="row list-unstyled">
+                    <li class="col-4">
+                        <small>Sales</small>
+                        <h6>456</h6>
+                    </li>
+                    <li class="col-4">
+                        <small>Order</small>
+                        <h6>1350</h6>
+                    </li>
+                    <li class="col-4">
+                        <small>Revenue</small>
+                        <h6>$2.13B</h6>
+                    </li>
+                </ul>
+            @elseif (auth('seller')->user('seller'))
+                <img src="{{ Auth::guard('seller')->user()->photo }}" class="rounded-circle user-photo"
+                    alt="User Profile Picture" style="height: 60px;width: 60px">
+                <div class="dropdown">
+                    <span>Welcome,</span>
+                    <a href="javascript:void(0);" class="dropdown-toggle user-name"
+                        data-toggle="dropdown"><strong>{{ Auth::guard('seller')->user()->full_name }}</strong></a>
                     <ul class="dropdown-menu dropdown-menu-right account">
                         <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
                         <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -31,7 +62,6 @@
                         <h6>$2.13B</h6>
                     </li>
                 </ul>
-            @else
 
             @endif
 
@@ -309,8 +339,8 @@
                     <li class="online">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="{{ asset('backend/assets/images/xs/avatar4.jpg') }}"
-                                    alt="">
+                                <img class="media-object "
+                                    src="{{ asset('backend/assets/images/xs/avatar4.jpg') }}" alt="">
                                 <div class="media-body">
                                     <span class="name">Chris Fox</span>
                                     <span class="message">Designer, Blogger</span>
@@ -322,8 +352,8 @@
                     <li class="online">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="{{ asset('backend/assets/images/xs/avatar5.jpg') }}"
-                                    alt="">
+                                <img class="media-object "
+                                    src="{{ asset('backend/assets/images/xs/avatar5.jpg') }}" alt="">
                                 <div class="media-body">
                                     <span class="name">Joge Lucky</span>
                                     <span class="message">Java Developer</span>

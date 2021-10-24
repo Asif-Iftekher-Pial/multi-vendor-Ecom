@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->paginate(4);
+        $users = Seller::orderBy('id', 'DESC')->paginate(4);
         //dd($allBanners);
         return view('Backend.Layouts.User.index', compact('users'));
   
@@ -29,9 +30,9 @@ class UserController extends Controller
         //dd($request->all());
         if ($request->mode == 'true') {
 
-            DB::table('users')->where('id', $request->id)->update(['status' => 'active']);
+            DB::table('sellers')->where('id', $request->id)->update(['status' => 'active']);
         } else {
-            DB::table('users')->where('id', $request->id)->update(['status' => 'inactive']);
+            DB::table('sellers')->where('id', $request->id)->update(['status' => 'inactive']);
         }
         return response()->json(['msg' => 'Status updated successfully', 'status' => 'true']);
     }
@@ -52,37 +53,37 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function sellerAdd()
+    {
+        return view('Backend.Layouts.User.sellerCreate');
+    }
+   
     public function store(Request $request)
     {
         $request->validate([
             
             'email'          =>  'required',
-            'role'           =>  'required',
         ]);
 
-        $status=User::create([
+        $status=Seller::create([
 
             'email'     =>$request->email,
-            'role'      =>$request->role,
             'password'  =>bcrypt('123456'),
         ]);
-
-        
-
-
         if ($status) {
             //dd('ok');
-            return redirect()->route('user.index')->with('success', 'User registered successfully');
+            return redirect()->route('user.index')->with('success', 'Seller registered successfully');
         } else {
 
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error','Something went wrong');
         }
     }
 
 
     public function userprofile()
     {
-        $data=auth()->user();
+        $data=auth('seller')->user();
+        //dd($data);
         return view('Backend.Layouts.Profile.profile',compact('data'));
     }
 
@@ -117,7 +118,7 @@ class UserController extends Controller
     public function changepassword(Request $request)
     {
         
-        if (!Hash::check($request->input('OldPassword'), auth()->user()->password)) {
+        if (!Hash::check($request->input('OldPassword'), auth('seller')->user()->password)) {
             return redirect()->back()->with('error', 'Current Password does not match.');
         }
 
@@ -130,12 +131,12 @@ class UserController extends Controller
         ]);
 
 
-        if (Hash::check($request->input('NewPassword'), auth()->user()->password)) {
+        if (Hash::check($request->input('NewPassword'), auth('seller')->user()->password)) {
             return redirect()->back()->with('error', 'New password can not be the old password.');
         }
 
         
-        $users = User::find(auth()->user()->id);
+        $users = Seller::find(auth('seller')->user()->id);
         // dd($users);
         $users->update([
             'password' => bcrypt($request->NewPassword)
@@ -151,7 +152,7 @@ class UserController extends Controller
     public function basicinfo(Request $request)
     {
         // $selectprofile= Auth::user();
-        $selectprofile=auth()->user();
+        $selectprofile=auth('seller')->user();
 
         $status=$request->validate([
             'full_name' =>'required|string',

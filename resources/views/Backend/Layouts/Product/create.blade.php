@@ -147,10 +147,10 @@
                                 @endif --}}
 
                                 <div class="form-group">
-                                    <label for="">Vendors<span class="text-danger">*</span></label>
+                                    <label for="">Seller Name<span class="text-danger">*</span></label>
                                     <select name="vendor_id" class="form-control show-tick">
-                                        <option value="">-- Vendors --</option>
-                                       @foreach (\App\Models\User::where('role','vendor')->get() as $vendor)
+                                        <option value="">-- Sellers --</option>
+                                       @foreach (\App\Models\Seller::get() as $vendor)
                                        <option value="{{ $vendor->id }}" {{ old('vendor_id')==$vendor->id ? 'selected' : '' }}>{{ $vendor->full_name }}</option>
                                        @endforeach
 

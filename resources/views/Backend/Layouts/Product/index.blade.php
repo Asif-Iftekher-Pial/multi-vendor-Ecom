@@ -217,7 +217,7 @@
                                                     <div class="col-md-4">
                                                         <strong>Vendor:</strong>
                                                         <p class="badge badge-success">
-                                                            {{ \App\Models\User::where('id', $product->vendor_id)->value('full_name') }}
+                                                            {{ \App\Models\Seller::where('id', $product->vendor_id)->value('full_name') }}
                                                         </p>
                                                     </div>
 

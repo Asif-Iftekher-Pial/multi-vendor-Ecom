@@ -34,7 +34,10 @@
                     </div>
                     <div class="card">
                         <div class="header">
-                            <p class="lead">Login to your account</p>
+                            <div style="text-align: center">
+                                <p class="lead badge badge-danger">Seller Login </p>
+                            </div>
+                           
                         </div>
                         <div class="body">
                             <form class="form-auth-small"

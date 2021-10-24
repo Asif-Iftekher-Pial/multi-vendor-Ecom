@@ -39,7 +39,7 @@ class CreateProductsTable extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade'); //cascade means MySQL to delete the rows from the child table automatically, when the rows from the parent table are deleted
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('child_cat_id')->references('id')->on('categories')->onDelete('SET NULL');
-            $table->foreign('vendor_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('vendor_id')->references('id')->on('sellers')->onDelete('SET NULL');
             $table->timestamps();
         });
     }

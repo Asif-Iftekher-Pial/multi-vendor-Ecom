@@ -17,6 +17,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+
 @yield('backend_script')
 
 
@@ -278,7 +279,7 @@
         //alert(cat_id);
         if(cat_id !=null){
             $.ajax({
-                url:"/admin/category/"+cat_id+"/child",
+                url:"/app/category/"+cat_id+"/child",
                 type:"POST",
                 data:{
                     _token:"{{ csrf_token() }}",

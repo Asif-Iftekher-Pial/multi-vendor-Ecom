@@ -132,10 +132,10 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Vendors<span class="text-danger">*</span></label>
+                                    <label for="">Sellers<span class="text-danger">*</span></label>
                                     <select name="vendor_id" class="form-control show-tick">
                                         <option value="">-- Vendors --</option>
-                                       @foreach (\App\Models\User::where('role','vendor')->get() as $vendor)
+                                       @foreach (\App\Models\Seller::get() as $vendor)
                                        <option value="{{ $vendor->id }}" {{ $vendor->id==$product->vendor_id ? 'selected' : '' }}>{{ $vendor->full_name }}</option>
                                        @endforeach
 
@@ -220,7 +220,7 @@
         //alert(cat_id);
         if(cat_id !=null){
             $.ajax({
-                url:"/admin/category/"+cat_id+"/child",
+                url:"/app/category/"+cat_id+"/child",
                 type:"POST",
                 data:{
                     _token:"{{ csrf_token() }}",

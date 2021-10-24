@@ -11,7 +11,9 @@
                         </a>
                       
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
                           <li><a class="dropdown-item" href="{{ route('user.create') }}">Employee</a></li>
+                          
                           <li><a class="dropdown-item" href="{{ route('sellerAdd') }}">Seller</a></li>
                         </ul>
                     </div>
@@ -19,7 +21,8 @@
 
                     <br>
                     <br>
-                    <h5>Create new Employee</h5>
+
+                    <h5>Create Seller</h5>
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf
 
@@ -57,7 +60,6 @@
                             @endforeach
                         @endif --}}
                         
-
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -73,7 +75,7 @@
                                 </div> --}}
 
                                 
-                                {{-- 
+{{-- 
                                 <div class="form-group">
                                     <label for="">Role <span class="text-danger">*</span></label>
                                     <select name="role" class="form-control show-tick">

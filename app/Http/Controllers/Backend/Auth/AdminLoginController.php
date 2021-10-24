@@ -28,6 +28,7 @@ class AdminLoginController extends Controller
                     'status'=> 'active'
                 ]);
             //dd($request->all());
+            
             return redirect()->intended(route('dashboard'))->with('success','You are logged in as admin!');
         }
         return back()->withErrors([
@@ -43,6 +44,8 @@ class AdminLoginController extends Controller
                 'status'=> 'inactive'
             ]);
         Auth::logout();
+        session()->flush();
+       
        
         return redirect()->route('admin.login.form')->with('success','Logout successful');
     }

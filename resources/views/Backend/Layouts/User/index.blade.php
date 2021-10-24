@@ -136,7 +136,7 @@
                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         @php
-                                            $user = \App\Models\User::where('id', $item->id)->first();
+                                            $user = \App\Models\Seller::where('id', $item->id)->first();
                                         @endphp
                                         
                                         <div class="modal-content">

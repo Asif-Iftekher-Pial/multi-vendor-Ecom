@@ -17,15 +17,13 @@ class Employee
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            if (Auth::user()->role == 'employee') {
+        if (Auth::guard('employee')->check()) {
+           
                 return $next($request);
             } else {
                 Auth::logout();
                 return redirect()->route('login')->with('success', 'You are not Employee');
             }
-        } else {
-            return redirect()->route('login');
-        }
+       
     }
 }

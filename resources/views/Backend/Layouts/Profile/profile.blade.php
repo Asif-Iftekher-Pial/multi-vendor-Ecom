@@ -13,9 +13,9 @@
                         </div> --}}
                         <div class="profile-image"> <img src="{{ $data->photo }}" class="rounded-circle" style="height: 100px;width: 100px" alt=""> </div>
                         <div>
-                            <h4 class="m-b-0"><strong>{{ auth()->user()->full_name }}</strong></h4>
-                            <span>{{ auth()->user()->username }}</span> <br>
-                            <span> <b>Position:</b><p class="badge badge-primary">{{ auth()->user()->role }}</p> </span>
+                            <h4 class="m-b-0"><strong>{{ auth('seller')->user()->full_name }}</strong></h4>
+                            <span>{{ auth('seller')->user()->username }}</span> <br>
+                            <span> <b>Position:</b><p class="badge badge-primary">{{ auth('seller')->user()->role }}</p> </span>
                         </div>
                     </div>
                 </div>
@@ -27,18 +27,18 @@
                     </div>
                     <div class="body">
                         <small class="text-muted">Gender: </small>
-                        <p>{{ auth()->user()->gender }}</p>
+                        <p>{{ auth('seller')->user()->gender }}</p>
                         <hr>
 
                         <small class="text-muted">Address: </small>
-                        <p>{{ auth()->user()->address }}</p>
+                        <p>{{ auth('seller')->user()->address }}</p>
 
                         <hr>
                         <small class="text-muted">Email address: </small>
-                        <p>{{ auth()->user()->email }}</p>
+                        <p>{{ auth('seller')->user()->email }}</p>
                         <hr>
                         <small class="text-muted">Mobile: </small>
-                        <p>{{ auth()->user()->phone }}</p>
+                        <p>{{ auth('seller')->user()->phone }}</p>
                         <hr>
 
                         <hr>
@@ -151,11 +151,11 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="full_name" class="form-control"
-                                                    placeholder="Full Name" value="{{ auth()->user()->full_name }}">
+                                                    placeholder="Full Name" value="{{ auth('seller')->user()->full_name }}">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="username" class="form-control"
-                                                    placeholder="User Name" value="{{ auth()->user()->username }}">
+                                                    placeholder="User Name" value="{{ auth('seller')->user()->username }}">
                                             </div>
                                             <div class="form-group">
                                                 <div>
@@ -173,11 +173,11 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="address" class="form-control"
-                                                    placeholder="Address" value="{{ auth()->user()->address }}">
+                                                    placeholder="Address" value="{{ auth('seller')->user()->address }}">
                                             </div>
                                             <div class="form-group">
                                                 <input type="number" name="phone" class="form-control"
-                                                    placeholder="phone" value="{{ auth()->user()->phone }}">
+                                                    placeholder="phone" value="{{ auth('seller')->user()->phone }}">
                                             </div>
                                         </div>
                                     </div>
