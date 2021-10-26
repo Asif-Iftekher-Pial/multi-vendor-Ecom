@@ -178,8 +178,10 @@
 
                                     </select>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="">Upload picture<span class="text-danger">*</span></label>
+
+                                    <label for="">Upload picture (minimum 2 pictures)<span class="text-danger">*</span></label>
 
                                     <div class="input-group">
                                         <span class="input-group-btn">

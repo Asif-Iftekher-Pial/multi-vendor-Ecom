@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Seller;
+use App\Models\Admin;
 use Closure;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class SellerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,19 +18,20 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check() ) {
+        if (Auth::guard('seller')->check()) {
 
             return $next($request);
         } else {
-            dd('admin check from middleware');
-            $status = Seller::where('id', '=', Auth::guard('seller')->user()->id); //this will find query will authorized logged in user by his ID 
+            dd('seller checked from middleware');
+            $status = Admin::where('id', '=', Auth::guard('admin')->user()->id); //this will find query will authorized logged in user by his ID 
             //dd($status);
             $status->update([
                 'status' => 'inactive'
             ]);
             Auth::logout();
             session()->flush();
-            return redirect()->route('login')->with('success', 'You are not Admin');
+            return redirect()->route('login')->with('success', 'You are not Seller');
         }
     }
+    
 }
