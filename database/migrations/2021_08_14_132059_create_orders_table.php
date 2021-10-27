@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->float('delivery_charge')->default('0')->nullable();
             $table->string('payment_method')->default('cod');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
-            $table->enum('condition',['pending','processiong','delivered','cancelled'])->default('pending');
+            $table->enum('condition',['pending','processing','delivered','cancelled'])->default('pending');
             
 
 

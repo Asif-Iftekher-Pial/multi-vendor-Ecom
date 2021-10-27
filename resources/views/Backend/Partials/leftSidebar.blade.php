@@ -139,7 +139,7 @@
                                     Management
                                 </span></a>
                             <ul>
-                                <li><a href="file-dashboard.html">Dashboard</a></li>
+                                <li><a href="{{ route('order.index') }}">All Order</a></li>
                                 <li><a href="file-documents.html">Documents</a></li>
                                 <li><a href="file-media.html">Media</a></li>
                                 <li><a href="file-images.html">Images</a></li>

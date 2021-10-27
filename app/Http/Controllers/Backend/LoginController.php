@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Orders;
 use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,8 +20,10 @@ class LoginController extends Controller
         $total_products=Product::count();
         $total_categories=Categorie::count();
         $total_brands=Brand::count();
-        //dd($total_products);
-        return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands'));
+        $orders=Orders::orderBy('id', 'DESC')->limit(25)->get();
+        
+        //dd($orders);
+        return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands','orders'));
     }
 
     public function login()

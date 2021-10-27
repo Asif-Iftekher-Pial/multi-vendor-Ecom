@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Backend\Brand\BrandController;
+use App\Http\Controllers\Backend\Order\OrderController;
 use App\Http\Controllers\Backend\Coupon\CouponController;
 use App\Http\Controllers\Backend\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
@@ -64,8 +65,6 @@ Route::prefix('app')->group(function () {
         // admin and employee access End
     });
 
-    //only Admin can access this group
-    // 
 
         //user add section
         Route::resource('/user', UserController::class);
@@ -76,12 +75,9 @@ Route::prefix('app')->group(function () {
          Route::post('coupon_status', [CouponController::class, 'couponStatus'])->name('coupon.status');
  
 
-    //
+   
 
-    //authenticated users can access
-    // Route::middleware(['auth'])->group(function () {
-
-
+    
         //category section
         Route::resource('/category', CategoryController::class);
         Route::post('category_status', [CategoryController::class, 'categoryStatus'])->name('category.status');
@@ -105,8 +101,11 @@ Route::prefix('app')->group(function () {
         // product attribute
         Route::post('product-attribute/{id}',[ProductController::class,'addProductAttribute'])->name('product.attribute');
         Route::delete('product-attribute-delete/{id}',[ProductController::class,'addProductAttributeDelete'])->name('product.attribute.destroy');
-    // });
+    
 
+        //order Management
+        Route::resource('order', OrderController::class);
+        
    
 });
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'admin']], function () {
