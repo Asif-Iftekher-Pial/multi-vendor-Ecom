@@ -18,6 +18,7 @@ class CheckoutController extends Controller
     //
     public function checkout1()
     {
+        
         $user=Auth::user();
         //dd($user);
         return view('FrontEnd.Layouts.checkout.checkout1',compact('user'));

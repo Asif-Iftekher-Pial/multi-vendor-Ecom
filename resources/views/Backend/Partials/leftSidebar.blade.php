@@ -3,12 +3,16 @@
         {{-- @dd(Auth::check()) --}}
         <div class="user-account">
             @if ( Auth::guard('admin')->user())
+                @php
+                    $name=explode(' ',auth('admin')->user()->full_name);  // double space needed-> ' '
+                    
+                @endphp
                 <img src="{{ Auth::guard('admin')->user()->photo }}" class="rounded-circle user-photo"
                     alt="User Profile Picture" style="height: 60px;width: 60px">
                 <div class="dropdown">
                     <span>Welcome,</span>
                     <a href="javascript:void(0);" class="dropdown-toggle user-name"
-                        data-toggle="dropdown"><strong>{{ Auth::guard('admin')->user('admin')->full_name }}</strong></a>
+                        data-toggle="dropdown"><strong>{{ ucfirst($name[0]) }} (Admin)</strong></a>
                     <ul class="dropdown-menu dropdown-menu-right account">
                         <li><a href="{{ route('profile') }}"><i class="icon-user"></i>My Profile</a></li>
                         <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -17,21 +21,7 @@
                         <li><a href="{{ route('admin.logout') }}"><i class="icon-power"></i>Logout</a></li>
                     </ul>
                 </div>
-                <hr>
-                <ul class="row list-unstyled">
-                    <li class="col-4">
-                        <small>Sales</small>
-                        <h6>456</h6>
-                    </li>
-                    <li class="col-4">
-                        <small>Order</small>
-                        <h6>1350</h6>
-                    </li>
-                    <li class="col-4">
-                        <small>Revenue</small>
-                        <h6>$2.13B</h6>
-                    </li>
-                </ul>
+               
             @elseif (auth('seller')->user('seller'))
                 <img src="{{ Auth::guard('seller')->user()->photo }}" class="rounded-circle user-photo"
                     alt="User Profile Picture" style="height: 60px;width: 60px">
@@ -47,38 +37,11 @@
                         <li><a href="{{ route('logout') }}"><i class="icon-power"></i>Logout</a></li>
                     </ul>
                 </div>
-                <hr>
-                <ul class="row list-unstyled">
-                    <li class="col-4">
-                        <small>Sales</small>
-                        <h6>456</h6>
-                    </li>
-                    <li class="col-4">
-                        <small>Order</small>
-                        <h6>1350</h6>
-                    </li>
-                    <li class="col-4">
-                        <small>Revenue</small>
-                        <h6>$2.13B</h6>
-                    </li>
-                </ul>
-
+               
             @endif
 
         </div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i
-                        class="icon-book-open"></i></a>
-            </li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i
-                        class="icon-settings"></i></a>
-            </li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i
-                        class="icon-question"></i></a></li>
-        </ul>
-
+      
         <!-- Tab panes -->
         <div class="tab-content p-l-0 p-r-0">
             <div class="tab-pane active" id="menu">
