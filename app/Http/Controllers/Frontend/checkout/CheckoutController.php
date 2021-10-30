@@ -169,7 +169,15 @@ class CheckoutController extends Controller
         foreach (Cart::instance('shopping')->content() as $item) {
             $product_id[]=$item->id;
             $product=Product::find($item->id);
+            //dd($product);
+            //Update stock when order is placed
             $quantity=$item->qty;
+            //dd($quantity);
+
+            $stock=$product->stock - $quantity ;
+           // dd($stock);
+            $product->update(['stock'=>$stock]);
+            //dd($product);
             $order->products()->attach($product,['quantity'=>$quantity]);
         }
 

@@ -24,13 +24,13 @@ class OrderController extends Controller
         //return $request->input('order_id');
         $order=Orders::find($request->input('order_id'));
         if($order){
-            if($request->input('condition')=='delivered'){
+            if($request->input('condition')=='cancelled'){
                 foreach ($order->products as $item) {
                    $product=Product::where('id',$item->pivot->product_id)->first();
                    //dd($product);
-                   //reduce the stok qty after status change
+                   //increase the stok qty when order status cancelled
                    $stock=$product->stock;
-                   $stock -=$item->pivot->quantity;
+                   $stock +=$item->pivot->quantity;
                    $product->update(['stock'=>$stock]);
                    Orders::where('id',$request->input('order_id'))->update(['payment_status'=>'paid']);
 
