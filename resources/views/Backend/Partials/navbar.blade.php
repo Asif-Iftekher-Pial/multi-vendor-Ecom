@@ -20,6 +20,9 @@
                    
                    
                     <li>
+                        <a href="{{ route('dashboard') }}" target="_blank" class="icon-menu d-none d-sm-block"><i class="icon-home"></i></a>
+                    </li>
+                    <li>
                         <a href="app-inbox.html" class="icon-menu d-none d-sm-block"><i class="icon-envelope"></i><span
                                 class="notification-dot"></span></a>
                     </li>

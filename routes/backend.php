@@ -105,7 +105,7 @@ Route::prefix('app')->group(function () {
 
         //order Management
         Route::resource('order', OrderController::class);
-        
+        Route::post('order-status/{id}',[OrderController::class,'orderStatus'])->name('order.status');
    
 });
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'admin']], function () {

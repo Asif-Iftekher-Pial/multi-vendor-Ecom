@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\checkout;
 
 use App\Models\Orders;
 use App\Mail\OrderMail;
+use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -105,7 +106,7 @@ class CheckoutController extends Controller
         ]);
         Session::push('checkout',[
             'payment_method'=>$request->payment_method,
-            'payment_status'=>'paid',
+            'payment_status'=>'unpaid',
         ]);
          //return Session::get('checkout')[0]['delivery_charge'];
         return view('FrontEnd.Layouts.checkout.checkout4');
@@ -162,6 +163,17 @@ class CheckoutController extends Controller
        
         // saving all data in Order table
         $status=$order->save();
+
+        
+        //saving data in ProductOrder table
+        foreach (Cart::instance('shopping')->content() as $item) {
+            $product_id[]=$item->id;
+            $product=Product::find($item->id);
+            $quantity=$item->qty;
+            $order->products()->attach($product,['quantity'=>$quantity]);
+        }
+
+
         if ($status) {
 
              //mail section

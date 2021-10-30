@@ -20,7 +20,7 @@ class LoginController extends Controller
         $total_products=Product::count();
         $total_categories=Categorie::count();
         $total_brands=Brand::count();
-        $orders=Orders::orderBy('id', 'DESC')->limit(25)->get();
+        $orders=Orders::orderBy('id', 'DESC')->limit(10)->get();
         
         //dd($orders);
         return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands','orders'));

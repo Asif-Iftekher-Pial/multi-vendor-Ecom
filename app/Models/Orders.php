@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Orders extends Model
 {
@@ -39,4 +40,8 @@ class Orders extends Model
         'condition'
 
     ];
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'product_orders')->withPivot('quantity');
+    }
 }

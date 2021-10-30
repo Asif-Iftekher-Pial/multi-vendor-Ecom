@@ -48,6 +48,10 @@ class Product extends Model
         return self::where('id',$id)->get()->toArray();  //self is a function that return data to its self model
     }
      
+    public function orders()
+    {
+        return $this->belongsToMany(Orders::class,'product_orders')->withPivot('quantity');
+    }
   
 
 }
