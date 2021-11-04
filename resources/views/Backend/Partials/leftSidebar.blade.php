@@ -146,25 +146,24 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i> <span>Review
-                                    Management</span></a>
-                            <ul>
-                                <li><a href="blog-dashboard.html">Dashboard</a></li>
-                                <li><a href="blog-post.html">New Post</a></li>
-                                <li><a href="blog-list.html">Blog List</a></li>
-                                <li><a href="blog-details.html">Blog Detail</a></li>
-                            </ul>
-                        </li>
-                        <li>
                             <a href="#charts" class="has-arrow"><i class="icon-bar-chart"></i>
                                 <span>Report Management</span></a>
                             <ul>
                                 <li><a href="chart-morris.html"> <i class="fa fa-dollar"></i> Sell Report</a> </li>
-                                <li><a href="chart-flot.html">Order Report</a> </li>
-                                <li><a href="chart-chartjs.html">Vendor Products</a> </li>
+                                {{-- <li><a href="chart-flot.html">Order Report</a> </li>
+                                <li><a href="chart-chartjs.html">Vendor Products</a> </li> --}}
                             </ul>
                         </li>
                         <li>
+                            <a href="#charts" class="has-arrow"><i class="icon-settings"></i>
+                                <span>Settings</span></a>
+                            <ul>
+                                <li><a href="{{ route('settings') }}"> <i class="fa fa-dollar"></i>Basic Info</a> </li>
+                                {{-- <li><a href="chart-flot.html">Order Report</a> </li>
+                                <li><a href="chart-chartjs.html">Vendor Products</a> </li> --}}
+                            </ul>
+                        </li>
+                        {{-- <li>
                             <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i> <span>UI
                                     Elements</span></a>
                             <ul>
@@ -285,7 +284,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
             </div>

@@ -1,7 +1,7 @@
 @extends('Backend.backEndMaster')
 @section('main_content')
     <div class="card">
-       
+
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
                 {{ session('success') }}
@@ -24,7 +24,7 @@
         <div class="body">
             <div class="table-responsive">
                 <h3>Customer Info</h3>
-                <table  class="table table-hover m-b-0 c_list">
+                <table class="table table-hover m-b-0 c_list">
                     <thead>
                         <tr>
                             <th>Order No.</th>
@@ -39,17 +39,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
-                            <tr>
-                                <td>{{ $order->order_number }}</td>
-                                <td>{{ $order->first_name }} {{ $order->last_name }}</td>
-                                <td><img src="{{ $order->photo }}" alt="User img"></td>
-                                <td>{{ $order->email }}</td>
-                                <td>{{ $order->payment_method == 'cod' ? 'cash on delivery' : $order->payment_method }}</td>
-                                <td>{{ ucfirst($order->payment_status) }}</td>
-                                <td>${{ number_format($order->total_amount, 2) }}</td>
-                                <td><span
-                                        class="badge 
+
+                        <tr>
+                            <td>{{ $order->order_number }}</td>
+                            <td>{{ $order->first_name }} {{ $order->last_name }}</td>
+                            <td><img src="{{ $order->photo }}" alt="User img"></td>
+                            <td>{{ $order->email }}</td>
+                            <td>{{ $order->payment_method == 'cod' ? 'cash on delivery' : $order->payment_method }}</td>
+                            <td>{{ ucfirst($order->payment_status) }}</td>
+                            <td>${{ number_format($order->total_amount, 2) }}</td>
+                            <td><span
+                                    class="badge 
                                     @if ($order->condition == 'pending')
                                     badge-info
                                     @elseif ($order->condition == 'processing')
@@ -60,28 +60,28 @@
                                     badge-danger
                                     @endif
                                     ">{{ $order->condition }}</span>
-                                </td>
-                                <td>
-                                    <a href="{{ route('order.show', $order->id) }}" data-toggle="tooltip"
-                                        class=" float-left btn btn-sm btn-outline-success" title="download"><i
-                                            class="fa fa-download"></i></a>
-                                    <form class="float-left ml-2 " action="{{ route('order.destroy', $order->id) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <a href="" data-toggle="tooltip" class="dltBtn btn btn-sm btn-outline-danger"
-                                            title="delete" data-id="{{ $order->id }}"><i class="fa fa-trash"></i></a>
-                                    </form>
-                                </td>
-                            </tr>
-                      
+                            </td>
+                            <td>
+                                <a href="{{ route('order.show', $order->id) }}" data-toggle="tooltip"
+                                    class=" float-left btn btn-sm btn-outline-success" title="download"><i
+                                        class="fa fa-download"></i></a>
+                                <form class="float-left ml-2 " action="{{ route('order.destroy', $order->id) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <a href="" data-toggle="tooltip" class="dltBtn btn btn-sm btn-outline-danger"
+                                        title="delete" data-id="{{ $order->id }}"><i class="fa fa-trash"></i></a>
+                                </form>
+                            </td>
+                        </tr>
+
 
                     </tbody>
                 </table>
                 <br>
-                <br> 
+                <br>
                 <h3>Order Details</h3>
-                <table  class="table table-hover m-b-0 c_list">
+                <table class="table table-hover m-b-0 c_list">
                     <thead>
                         <tr>
                             <th>S.N</th>
@@ -92,26 +92,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach ($order->products as $item)
-                      
-                       @php
-                           $image= explode(',', $item->photo);
-                       @endphp
-                       <tr>
-                           <td></td>
-                        <td><img src="{{ $image[0] }}" alt="product img" style="max-width: 100px"></td>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->pivot->quantity }}</td>
-                        <td>{{ number_format($item->price,2) }}</td>
-                       
-                    </tr>
-              
-                       @endforeach
-                           
+                        @foreach ($order->products as $item)
+
+                            @php
+                                $image = explode(',', $item->photo);
+                            @endphp
+                            <tr>
+                                <td></td>
+                                <td><img src="{{ $image[0] }}" alt="product img" style="max-width: 100px"></td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->pivot->quantity }}</td>
+                                <td>{{ number_format($item->price, 2) }}</td>
+
+                            </tr>
+
+                        @endforeach
+
 
                     </tbody>
                 </table>
-               
+
             </div>
         </div>
         <div class="row">
@@ -119,33 +119,39 @@
 
             </div>
             <div class="col-5 border py-3">
-               <p><strong>SubTotal</strong>:${{ number_format($order->sub_total,2) }}</p> 
-               <p><strong>Shipping Cost</strong>:${{ number_format($order->delivery_charge,2) }}</p> 
-               @if ($order->coupon>0)
-               <p><strong>Coupon</strong>:${{ number_format($order->coupon,2) }}</p> 
-               @else
-               <p class="badge badge-danger">No coupon applied</p>
-               @endif
-               
-               <p><strong>Total</strong>:${{ number_format($order->total_amount,2) }}</p> 
+                <p><strong>SubTotal</strong>:${{ number_format($order->sub_total, 2) }}</p>
+                <p><strong>Shipping Cost</strong>:${{ number_format($order->delivery_charge, 2) }}</p>
+                @if ($order->coupon > 0)
+                    <p><strong>Coupon</strong>:${{ number_format($order->coupon, 2) }}</p>
+                @else
+                    <p class="badge badge-danger">No coupon applied</p>
+                @endif
 
-               <form action="{{ route('order.status',$order->id) }}" method="POST">
-                @csrf 
-                <input type="hidden" name="order_id" value="{{ $order->id }}">
-                   <strong>Status:</strong>
+                <p><strong>Total</strong>:${{ number_format($order->total_amount, 2) }}</p>
+
+                <form action="{{ route('order.status', $order->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                    <strong>Status:</strong>
                     <select name="condition" class="form-control" id="">
-                        <option value="pending" {{ $order->condition=='delivered' || $order->condition=='cancelled' ? 'disabled' : '' }} {{ $order->condition=='pending'? 'selected' : ''}}>Pending</option>
+                        <option value="pending"
+                            {{ $order->condition == 'delivered' || $order->condition == 'cancelled' ? 'disabled' : '' }}
+                            {{ $order->condition == 'pending' ? 'selected' : '' }}>Pending</option>
 
-                        <option value="processing" {{ $order->condition=='delivered' || $order->condition=='cancelled' ? 'disabled' : '' }} {{ $order->condition=='processing'? 'selected' : ''}}>Processing</option>
+                        <option value="processing"
+                            {{ $order->condition == 'delivered' || $order->condition == 'cancelled' ? 'disabled' : '' }}
+                            {{ $order->condition == 'processing' ? 'selected' : '' }}>Processing</option>
 
-                        <option value="delivered" {{ $order->condition=='cancelled' ? 'disabled' : '' }} {{ $order->condition=='delivered'? 'selected' : ''}}>Delivered</option>
-                       
-                        <option value="cancelled" {{ $order->condition=='delivered' ? 'disabled' : '' }} {{ $order->condition=='cancelled'? 'selected' : ''}}>Cancelled</option>
-                       
-                        
+                        <option value="delivered" {{ $order->condition == 'cancelled' ? 'disabled' : '' }}
+                            {{ $order->condition == 'delivered' ? 'selected' : '' }}>Delivered</option>
+
+                        <option value="cancelled" {{ $order->condition == 'delivered' ? 'disabled' : '' }}
+                            {{ $order->condition == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+
+
                     </select>
-                    <button  type="submit" class=" btn btn-sm btn-success">Update</button>
-               </form>
+                    <button type="submit" class=" btn btn-sm btn-success">Update</button>
+                </form>
             </div>
             <div class="col-1"></div>
         </div>

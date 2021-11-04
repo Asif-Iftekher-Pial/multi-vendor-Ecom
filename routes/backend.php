@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Coupon\CouponController;
 use App\Http\Controllers\Backend\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\Category\CategoryController;
+use App\Http\Controllers\Backend\Settings\SettingsController;
 use App\Http\Controllers\Backend\shipping\ShippingController;
 // Backend routes
 
@@ -49,6 +50,7 @@ Route::prefix('app')->group(function () {
 
         // admin and employee access
 
+       
          //banner section
          Route::resource('/banner', BannerController::class);
          Route::post('banner_status', [BannerController::class, 'bannerStatus'])->name('banner.status');
@@ -62,6 +64,9 @@ Route::prefix('app')->group(function () {
           //shipping section
           Route::resource('/shipping', ShippingController::class);
           Route::post('shipping_status', [ShippingController::class, 'shippingStatus'])->name('shipping.status');
+
+          Route::get('settings',[SettingsController::class, 'settings'])->name('settings');
+          Route::put('settings',[SettingsController::class, 'settingsUpdate'])->name('setting.update');
         // admin and employee access End
     });
 
@@ -108,9 +113,7 @@ Route::prefix('app')->group(function () {
         Route::post('order-status/{id}',[OrderController::class,'orderStatus'])->name('order.status');
    
 });
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'admin']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web','seller']], function () {
+
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web','auth:admin,seller']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });

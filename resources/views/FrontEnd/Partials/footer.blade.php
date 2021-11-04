@@ -8,15 +8,15 @@
                         <h6>Contact Us</h6>
                     </div>
                     <ul class="footer_content">
-                        <li><span>Address:</span> Lords, London, UK - 1259</li>
-                        <li><span>Phone:</span> 002 63695 24624</li>
-                        <li><span>FAX:</span> 002 78965 369552</li>
-                        <li><span>Email:</span> support@example.com</li>
+                        <li><span>Address:</span>{{App\Models\Settings::value('address') }}</li>
+                        <li><span>Phone:</span> {{App\Models\Settings::value('phone') }}</li>
+                        <li><span>FAX:</span> {{App\Models\Settings::value('fax') }}</li>
+                        <li><span>Email:</span> {{App\Models\Settings::value('email') }}</li>
                     </ul>
                     <div class="footer_social_area mt-15">
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="{{App\Models\Settings::value('facebook_url') }}"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="{{App\Models\Settings::value('twitter_url') }}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="{{App\Models\Settings::value('linkedin_url') }}"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
@@ -108,7 +108,7 @@
                 <!-- Copywrite -->
                 <div class="col-12 col-md-6">
                     <div class="copywrite_text">
-                        <p>Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#">Designing World</a></p>
+                        <p>Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://facebook.com/ipial7425" target="_blank">{{ get_setting('footer') }}</a></p>
                     </div>
                 </div>
                 <!-- Payment Method -->

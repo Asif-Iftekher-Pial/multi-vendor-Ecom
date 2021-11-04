@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\Settings;
 
 class Helper{
     public static function userDefaultImage(){
@@ -12,5 +13,12 @@ class Helper{
     }
     public static function maxPrice(){
         return floor(Product::max('offer_price'));
+    }
+}
+
+//Settings info
+if(!function_exists(('get_setting'))){
+    function get_setting($key){
+        return Settings::value($key);
     }
 }

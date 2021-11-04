@@ -6,7 +6,8 @@
                 <div class="welcome-note">
                     <span class="popover--text" data-toggle="popover"
                         data-content="Welcome to Bigshop ecommerce template."><i class="icofont-info-square"></i></span>
-                    <span class="text">Welcome to E-Buy</span>
+                    <span class="text">Welcome to {{ get_setting('title') }}</span> 
+                    {{-- get_setting is from helper function --}}
                 </div>
             </div>
             <div class="col-6">
@@ -19,8 +20,8 @@
                                 English
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                <a class="dropdown-item" href="#">Bangla</a>
-                                <a class="dropdown-item" href="#">Arabic</a>
+                                <a class="dropdown-item" href="#">English</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -30,11 +31,11 @@
                         <div class="dropdown">
                             <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenu2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                $ USD
+                                $ TK
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                                 <a class="dropdown-item" href="#">৳ BDT</a>
-                                <a class="dropdown-item" href="#">€ Euro</a>
+                                
                             </div>
                         </div>
                     </div>
