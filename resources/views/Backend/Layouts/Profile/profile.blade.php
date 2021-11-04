@@ -15,7 +15,6 @@
                         <div>
                             <h4 class="m-b-0"><strong>{{ auth('seller')->user()->full_name }}</strong></h4>
                             <span>{{ auth('seller')->user()->username }}</span> <br>
-                            <span> <b>Position:</b><p class="badge badge-primary">{{ auth('seller')->user()->role }}</p> </span>
                         </div>
                     </div>
                 </div>

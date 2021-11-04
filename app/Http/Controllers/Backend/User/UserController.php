@@ -92,7 +92,7 @@ class UserController extends Controller
         // $data=User::find(auth()->user()->id);
         // //dd($data);
 
-        $selectprofile = auth()->user();
+        $selectprofile = auth('seller')->user();
 
         $status=$selectprofile;
         
@@ -102,11 +102,13 @@ class UserController extends Controller
             // 'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
+        $selectprofile->photo=$request->input('photo');
+        $status=$selectprofile->save();
 
-        $status=$selectprofile->update([
-            'photo'=>$request->photo,
+        // $status=$selectprofile->update([
+        //     'photo'=>$request->photo,
 
-        ]);
+        // ]);
 
         if($status){
             return redirect()->route('profile')->with('success','Profile Picture updated successfully');
@@ -117,9 +119,12 @@ class UserController extends Controller
 
     public function changepassword(Request $request)
     {
-        
-        if (!Hash::check($request->input('OldPassword'), auth('seller')->user()->password)) {
-            return redirect()->back()->with('error', 'Current Password does not match.');
+        //return $request->all();
+        $info=auth('seller')->user();
+        //return $info->password;
+        if (!Hash::check($request->input('OldPassword'), $info->password)) {
+            //dd('not matching');
+            return back()->withErrors('Current Password does not match.');
         }
 
 
@@ -131,12 +136,13 @@ class UserController extends Controller
         ]);
 
 
-        if (Hash::check($request->input('NewPassword'), auth('seller')->user()->password)) {
-            return redirect()->back()->with('error', 'New password can not be the old password.');
+        if (Hash::check($request->input('NewPassword'), $info->password)) {
+            //dd('checked');
+            return back()->withErrors('New password can not be the old password.');
         }
 
         
-        $users = Seller::find(auth('seller')->user()->id);
+        $users = Seller::find($info->id);
         // dd($users);
         $users->update([
             'password' => bcrypt($request->NewPassword)
@@ -144,7 +150,7 @@ class UserController extends Controller
 
         // $users->password = $request->bcrypt($request->password);
         // $users->save();
-        return redirect()->back()->with('success', 'Password updated successfully.');
+        return back()->with('success', 'Password updated successfully.');
 
     }
 
