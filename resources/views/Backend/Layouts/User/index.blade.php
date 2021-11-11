@@ -5,7 +5,7 @@
 
 
         <div class="header">
-            <h2>All users</h2>
+            <h2>All Sellers/Vendors</h2>
             <br>
             <a href="{{ route('user.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus">Create new
                     users</i> </a>
@@ -41,8 +41,7 @@
                             <th>Full Name</th>
                             <th>User Name</th>
                             <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th>Login Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,7 +72,7 @@
                                     {{ $item->email }}
                                 </td>
 
-                                <td>
+                                {{-- <td>
 
                                     @if ($item->role == 'admin')
 
@@ -89,13 +88,24 @@
 
                                     @endif
 
-                                </td>
+                                </td> --}}
 
                                 <td>
-                                    <input type="checkbox" name="toogle" value="{{ $item->id }}"
+
+                                    <div
+                                        class="badge 
+                                    @if ($item->status == 'active') 
+                                        badge-success
+                                        @elseif ($item->status == 'inactive')
+                                        badge-danger
+                                        @endif
+                                        ">
+                                        {{ $item->status }}</div>
+
+                                    {{-- <input type="checkbox" name="toogle" value="{{ $item->id }}"
                                         data-toggle="switchbutton" {{ $item->status == 'active' ? 'checked' : '' }}
                                         data-onlabel="active" data-offlabel="inactive" data-size="sm" data-onstyle="success"
-                                        data-offstyle="danger">
+                                        data-offstyle="danger"> --}}
                                 </td>
                                 <td>
                                     <div style="display: flex; jusity-content:space-between; ">
@@ -108,13 +118,13 @@
 
 
                                         </div>
-                                        <div>
+                                        {{-- <div>
 
                                             <a href="{{ route('user.edit', $item->id) }}" data-toggle="tooltip"
                                                 class=" float-right ml-2 btn btn-sm btn-outline-warning" title="edit"><i
                                                     class="fa fa-edit"></i></a>
 
-                                        </div>
+                                        </div> --}}
 
                                         <div>
                                             <form class="float-left ml-2 "
@@ -138,7 +148,7 @@
                                         @php
                                             $user = \App\Models\Seller::where('id', $item->id)->first();
                                         @endphp
-                                        
+
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <div style="text-center">
@@ -164,11 +174,6 @@
                                             </div>
                                             <div class="modal-body">
 
-
-                                               
-
-
-
                                                 <div class="row">
 
                                                     <div class="col-md-4">
@@ -186,9 +191,9 @@
                                                 <div class="row">
 
                                                     <div class="col-md-4">
-                                                        <strong>Role:</strong>
+                                                        {{-- <strong>Role:</strong>
                                                         <p class="badge badge-success">
-                                                            {{ $item->role }}</p>
+                                                            {{ $item->role }}</p> --}}
                                                     </div>
 
                                                 </div>

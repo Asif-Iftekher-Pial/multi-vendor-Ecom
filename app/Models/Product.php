@@ -22,15 +22,16 @@ class Product extends Model
         'discount',
         'size',
         'conditions',
-        'vendor_id',
+        'seller_id',
         'status',
         'brand_id',
         'cat_id',
         'child_cat_id',
-        'vendor_id',
+        
         'additional_info',
         'return_cancellation',
         'size_guide',
+        'added_by'
     ];
 
     public function brand()
@@ -52,6 +53,5 @@ class Product extends Model
     {
         return $this->belongsToMany(Orders::class,'product_orders')->withPivot('quantity');
     }
-  
-
+   
 }

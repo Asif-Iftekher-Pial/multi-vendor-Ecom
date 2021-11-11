@@ -1,34 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Seller\Auth;
 
-use App\Models\User;
-use App\Models\Admin;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Categorie;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Orders;
-use App\Models\Seller;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class SellerLoginController extends Controller
 {
-    public function dashboard()
-    {
-        $total_products=Product::count();
-        $total_categories=Categorie::count();
-        $total_brands=Brand::count();
-        $orders=Orders::orderBy('id', 'DESC')->limit(10)->get();
-        
-        //dd($orders);
-        return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands','orders'));
-    }
+    
 
     public function login()
     {
-        return view('Backend.Layouts.Authentication.Login');
+       // dd('ok');
+        return view('Backend.Layouts.Seller.Auth.Login');
     }
 
     public function dologin(Request $request)
@@ -51,7 +37,7 @@ class LoginController extends Controller
                     'status'=> 'active'
                 ]);
             //dd($request->all());
-            return redirect()->intended(route('dashboard'))->with('success','You are logged in as Seller!');
+            return redirect()->intended(route('seller.home'))->with('success','You are logged in as Seller!');
         }
         return back()->withErrors([
             'email' => 'Seller credentials does not match our records.',

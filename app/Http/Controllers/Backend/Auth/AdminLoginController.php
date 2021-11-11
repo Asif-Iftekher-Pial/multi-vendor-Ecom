@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
+use App\Models\Admin;
+use App\Models\Brand;
+use App\Models\Orders;
+use App\Models\Product;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
+    public function dashboard()
+    {
+        $total_products=Product::count();
+        $total_categories=Categorie::count();
+        $total_brands=Brand::count();
+        $orders=Orders::orderBy('id', 'DESC')->limit(10)->get();
+        
+        //dd($orders);
+        return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands','orders'));
+    }
     //
     public function showloginForm()
     {

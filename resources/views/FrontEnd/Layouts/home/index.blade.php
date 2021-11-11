@@ -248,8 +248,7 @@
 
                                         <p class="brand_name">
                                             {{ App\Models\Brand::where('id', $item->brand_id)->value('title') }}</p>
-                                        <a
-                                            href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
+                                        <a href="{{ route('product.detail', $item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
                                         <h6 class="product-price">${{ number_format($item->offer_price, 2) }} <br>
                                             <small><del class="text-danger">${{ number_format($item->price, 2) }}
                                                 </del></small>
@@ -288,21 +287,26 @@
                 <!-- Featured Product Area -->
                 <div class="col-12 col-lg-6">
                     <div class="section_heading featured">
-                        <h5>Featured Products</h5>
+                        <h5>Winter Products</h5>
                     </div>
 
                     <!-- Featured Product Slides -->
                     <div class="featured_product_slides owl-carousel">
                         <!-- Single Product -->
+                        @if(count($winterProducts) > 0)
+                        @foreach ( $winterProducts as $item )
                         <div class="single-product-area">
                             <div class="product_image">
                                 <!-- Product Image -->
-                                <img class="normal_img" src="frontend/img/product-img/new-2.png" alt="">
-                                <img class="hover_img" src="frontend/img/product-img/new-2-back.png" alt="">
+                                @php
+                                    $photo= explode(',', $item->photo); // its because theres multiple photo
+                                @endphp
+                                <img class="normal_img" src="{{ $photo[0] }}" alt="product photo">
+                                <img class="hover_img" src="{{ $photo[1] }}" alt="product photo">
 
                                 <!-- Product Badge -->
                                 <div class="product_badge">
-                                    <span>Sale</span>
+                                    <span>{{ $item->conditions }}</span>
                                 </div>
 
                                 <!-- Wishlist -->
@@ -329,113 +333,17 @@
                                             class="icofont-eye-alt"></i> Quick View</a>
                                 </div>
 
-                                <a href="#">Flower Textured Dress</a>
-                                <h6 class="product-price">$17 <span>$26</span></h6>
-                                <div class="product_rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
+                                <a href="{{ route('product.detail',$item->slug) }}">{{ Str::ucfirst($item->title) }}</a>
+                                <h6 class="product-price">${{ number_format($item->offer_price, 2) }} <span>${{ number_format($item->price, 2) }}</span></h6>
+                               
                             </div>
                         </div>
 
-                        <!-- Single Product -->
-                        <div class="single-product-area">
-                            <div class="product_image">
-                                <!-- Product Image -->
-                                <img class="normal_img" src="frontend/img/product-img/new-4.png" alt="">
-                                <img class="hover_img" src="frontend/img/product-img/new-4-back.png" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product_badge">
-                                    <span>Sale</span>
-                                </div>
-
-                                <!-- Wishlist -->
-                                <div class="product_wishlist">
-                                    <a href="wishlist.html"><i class="icofont-heart"></i></a>
-                                </div>
-
-                                <!-- Compare -->
-                                <div class="product_compare">
-                                    <a href="compare.html"><i class="icofont-exchange"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product_description">
-                                <!-- Add to cart -->
-                                <div class="product_add_to_cart">
-                                    <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                                </div>
-
-                                <!-- Quick View -->
-                                <div class="product_quick_view">
-                                    <a href="#" data-toggle="modal" data-target="#quickview"><i
-                                            class="icofont-eye-alt"></i> Quick View</a>
-                                </div>
-
-                                <a href="#">Box Shape Dress</a>
-                                <h6 class="product-price">$21.25</h6>
-                                <div class="product_rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-area">
-                            <div class="product_image">
-                                <!-- Product Image -->
-                                <img class="normal_img" src="frontend/img/product-img/new-7.png" alt="">
-                                <img class="hover_img" src="frontend/img/product-img/new-7-back.png" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product_badge">
-                                    <span>Sale</span>
-                                </div>
-
-                                <!-- Wishlist -->
-                                <div class="product_wishlist">
-                                    <a href="wishlist.html"><i class="icofont-heart"></i></a>
-                                </div>
-
-                                <!-- Compare -->
-                                <div class="product_compare">
-                                    <a href="compare.html"><i class="icofont-exchange"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product_description">
-                                <!-- Add to cart -->
-                                <div class="product_add_to_cart">
-                                    <a href="#"><i class="icofont-shopping-cart"></i> Add to Cart</a>
-                                </div>
-
-                                <!-- Quick View -->
-                                <div class="product_quick_view">
-                                    <a href="#" data-toggle="modal" data-target="#quickview"><i
-                                            class="icofont-eye-alt"></i> Quick View</a>
-                                </div>
-
-                                <a href="#">Black Dress</a>
-                                <h6 class="product-price">$41 <span>$44</span></h6>
-                                <div class="product_rating">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @else
+                        <p class="badge badge-danger">No winter products available</p>
+                        @endif
+                       
                     </div>
                 </div>
             </div>

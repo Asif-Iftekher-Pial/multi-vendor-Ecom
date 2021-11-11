@@ -23,7 +23,7 @@ class Admin
 
             return $next($request);
         } else {
-            dd('admin check from middleware');
+            dd('admin check from middleware ,This seller or employee account will be log out');
             $status = Seller::where('id', '=', Auth::guard('seller')->user()->id); //this will find query will authorized logged in user by his ID 
             //dd($status);
             $status->update([

@@ -71,6 +71,7 @@ class ProductController extends Controller
             'cat_id'        =>  'required|exists:categories,id',
             'child_cat_id'  =>  'nullable|exists:categories,id',
             'size'          =>  'nullable',
+            
             'status'        =>  'nullable|in:active,inactive',
         ]);
         $data = $request->all();
@@ -81,6 +82,22 @@ class ProductController extends Controller
         }
         $data['slug'] = $slug;
 
+        if (auth('seller')->user()) {
+            # code...
+            $data['added_by']="seller";
+            $data['seller_id']=auth('seller')->user()->id;
+
+        }elseif (auth('admin')->user()) {
+            # code...
+            $data['added_by']=auth('admin')->user()->full_name;
+
+        }
+        else{
+            dd('checke in Product controller');
+            $data['added_by']="employee";
+
+        }
+       
         $data['offer_price'] = ($request->price - (($request->price * $request->discount) / 100)); // 150-((150*10)/100) suppose here, price is 150 , discount is 10, divided by 100 is equal to stored in  offer price 
         //dd($data);
 

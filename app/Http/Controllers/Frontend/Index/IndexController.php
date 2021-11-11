@@ -21,9 +21,11 @@ class IndexController extends Controller
         //dd($newArrivals);
         $allBrands = Brand::where(['status' => 'active'])->orderBy('id', 'DESC')->limit('10')->get();
         //dd($allBrands);
+        $winterProducts=Product::where(['status' => 'active','conditions' =>'winter'])->orderBy('id','DESC')->limit('10')->get();
+        //dd($winterProducts);
 
         //dd($modalProducts);
-        return view('FrontEnd.Layouts.home.index', compact('banners', 'categories', 'newArrivals', 'allBrands'));
+        return view('FrontEnd.Layouts.home.index', compact('banners', 'categories', 'newArrivals', 'allBrands','winterProducts'));
     }
 
     public function shop(Request $request)

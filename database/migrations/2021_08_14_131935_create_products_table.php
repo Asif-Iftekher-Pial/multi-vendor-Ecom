@@ -32,14 +32,15 @@ class CreateProductsTable extends Migration
             $table->float('discount')->default(0);
             $table->string('size');
             $table->enum('conditions',['new','popular','winter'])->default('new');
-            $table->unsignedBigInteger('vendor_id')->nullable();
+            $table->unsignedBigInteger('seller_id')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
+            $table->string('added_by');
 
             
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade'); //cascade means MySQL to delete the rows from the child table automatically, when the rows from the parent table are deleted
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('child_cat_id')->references('id')->on('categories')->onDelete('SET NULL');
-            $table->foreign('vendor_id')->references('id')->on('sellers')->onDelete('SET NULL');
+            $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('SET NULL');
             $table->timestamps();
         });
     }
