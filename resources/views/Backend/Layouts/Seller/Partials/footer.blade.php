@@ -18,7 +18,7 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
 
-@yield('backend_script')
+@yield('sellerbackend_script')
 
 
 
@@ -184,13 +184,13 @@
 {{-- ........................Brand Script..................... --}}
 {{-- status active or inactive button page:Brand/index.blade.php --}}
 
-<script>
+{{-- <script>
     $('input[name=toogle]').change(function() {
         var mode = $(this).prop('checked');
         var id = $(this).val();
         //alert(id); 
         $.ajax({
-            url: "{{ route('brand.status') }}",
+            url: "{{ route('sellerBrand.status') }}",
             type: "POST",
             data: {
                 _token: '{{ csrf_token() }}',
@@ -199,7 +199,7 @@
             },
             success: function(responce) {
 
-                // console.log(responce.status);
+                 console.log(responce.status);
                 if (responce.status) {
                     //alert(responce.msg);
                     swal("Status Updated", {
@@ -212,9 +212,9 @@
             }
         });
     });
-</script>
+</script> --}}
 
-{{-- script for brand IS_parent check box ,checked or not --}}
+{{-- script for  IS_parent check box ,checked or not --}}
 <script>
     $('#is_parent').change(function(e){
         e.preventDefault();

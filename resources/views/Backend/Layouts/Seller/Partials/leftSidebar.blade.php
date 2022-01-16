@@ -35,7 +35,7 @@
                         <li>
                             <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Brand</span></a>
                             <ul>
-                                <li><a href="{{ route('brand.index') }}">All brand</a></li>
+                                <li><a href="{{ route('SellerBrand.index') }}">All brand</a></li>
                                 <li><a href="{{ route('brand.create') }}">Create brand</a></li>
                             </ul>
                         </li>

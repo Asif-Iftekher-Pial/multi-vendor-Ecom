@@ -16,11 +16,11 @@ class CreateProductOrdersTable extends Migration
         Schema::create('product_orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('orders_id');
+            $table->unsignedBigInteger('order_id');
             $table->integer('quantity')->default(0);
 
             $table->foreign('product_id')->on('products')->references('id')->onDelete('CASCADE');
-            $table->foreign('orders_id')->on('orders')->references('id')->onDelete('CASCADE');
+            $table->foreign('order_id')->on('orders')->references('id')->onDelete('CASCADE');
 
             $table->timestamps();
         });

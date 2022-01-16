@@ -34,6 +34,7 @@ return [
     'lifetime' => env('SESSION_LIFETIME', 120),
 
     'expire_on_close' => false,
+    'same_site' => null, // If you later encounter issues with session destroying after redirect,
 
     /*
     |--------------------------------------------------------------------------

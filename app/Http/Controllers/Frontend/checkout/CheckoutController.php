@@ -9,6 +9,7 @@ use App\Models\Shipping;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -121,7 +122,7 @@ class CheckoutController extends Controller
         //dd($subtotalsession);
         //dd($subtotal);
         //dd('ok');
-        $order = new Orders(); //storing in order table by creating instance of Order Model class
+        $order = new Order(); //storing in order table by creating instance of Order Model class
         $order['user_id'] = auth()->user()->id;
         $order['order_number'] = Str::upper('ORD-' . Str::random(6)); //will generate random string for order
         //return Session::get('checkout');
@@ -166,8 +167,13 @@ class CheckoutController extends Controller
 
 
         //saving data in ProductOrder table
+
+
         foreach (Cart::instance('shopping')->content() as $item) {
             $product_id[] = $item->id;
+
+
+            
             $product = Product::find($item->id);
             //dd($product);
             //Update stock when order is placed

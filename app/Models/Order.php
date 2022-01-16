@@ -2,14 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\Product;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Orders extends Model
+class Order extends Model
 {
     use HasFactory;
     protected $fillable=[
+        'name',
+        'email',
+        'phone',
+        'amount',
+        'address',
+        'status',
+        'transaction_id',
+        'currency',
+
         'user_id',
         'order_number',
         'product_id',
@@ -20,10 +28,7 @@ class Orders extends Model
         'quantity',
         'first_name',
         'last_name',
-        'email',
-        'phone',
         'country',
-        'address',
         'city',
         'state',
         'note',
@@ -38,10 +43,16 @@ class Orders extends Model
         'payment_method',
         'payment_status',
         'condition'
-
     ];
     public function products()
     {
         return $this->belongsToMany(Product::class,'product_orders')->withPivot('quantity');
+    }
+
+   
+    public function myorderlist()
+    {
+        return $this->hasMany(ProductOrder::class, 'order_id', 'id');  //order detail_id is from order table column and id is from orderdetail table 
+    
     }
 }

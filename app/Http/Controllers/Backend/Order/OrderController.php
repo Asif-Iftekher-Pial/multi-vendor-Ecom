@@ -6,6 +6,7 @@ use App\Models\Orders;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -16,13 +17,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Orders::orderBy('id', 'DESC')->get();
+        $orders = Order::orderBy('id', 'DESC')->get();
         return view('Backend.Layouts.Order.index', compact('orders'));
     }
     public function orderStatus(Request $request)
     {
         //return $request->input('order_id');
-        $order = Orders::find($request->input('order_id'));
+        $order = Order::find($request->input('order_id'));
         if ($order) {
             if ($request->input('condition') == 'cancelled') {
                 foreach ($order->products as $item) {
@@ -32,10 +33,10 @@ class OrderController extends Controller
                     $stock = $product->stock;
                     $stock += $item->pivot->quantity;
                     $product->update(['stock' => $stock]);
-                    Orders::where('id', $request->input('order_id'))->update(['payment_status' => 'paid']);
+                    Order::where('id', $request->input('order_id'))->update(['payment_status' => 'paid']);
                 }
             }
-            $status = Orders::where('id', $request->input('order_id'))->update(['condition' => $request->input('condition')]);
+            $status = Order::where('id', $request->input('order_id'))->update(['condition' => $request->input('condition')]);
             if ($status) {
                 return back()->with('success', 'Order status successfully updated');
             } else {
@@ -75,7 +76,7 @@ class OrderController extends Controller
     public function show($id)
     {
         //dd('showing here');
-        $order = Orders::find($id);
+        $order = Order::find($id);
         if ($order) {
             return view('Backend.Layouts.Order.show', compact('order'));
         }
@@ -113,7 +114,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $order = Orders::find($id); //find each data by their id
+        $order = Order::find($id); //find each data by their id
         if ($order) {
             $status = $order->delete();
             if ($status) {

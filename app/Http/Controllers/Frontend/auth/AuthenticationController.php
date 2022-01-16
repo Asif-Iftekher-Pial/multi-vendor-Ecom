@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Frontend\auth;
 
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthenticationController extends Controller
 {
@@ -251,4 +252,14 @@ class AuthenticationController extends Controller
             }
         }
     }
+    public function myOrderlist()
+    {
+        // $user = Auth::user();
+        $orderlist=Order::where('user_id',auth()->user()->id)->get();
+       
+        //dd($orderlist);
+
+        return view('FrontEnd.Layouts.auth.orderlist', compact('orderlist'));
+    }
+
 }

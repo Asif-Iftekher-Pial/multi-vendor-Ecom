@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
@@ -18,7 +19,7 @@ class AdminLoginController extends Controller
         $total_products=Product::count();
         $total_categories=Categorie::count();
         $total_brands=Brand::count();
-        $orders=Orders::orderBy('id', 'DESC')->limit(10)->get();
+        $orders=Order::orderBy('id', 'DESC')->limit(10)->get();
         
         //dd($orders);
         return view('Backend.Layouts.home',compact('total_products','total_categories','total_brands','orders'));

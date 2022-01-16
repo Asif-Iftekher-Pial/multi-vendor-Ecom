@@ -20,7 +20,7 @@
                     <div class="my-account-navigation mb-50">
                         <ul>
                             <li class="{{ \Request::is('user/my-account') ? 'active' : '    '}}"><a href="{{ route('my.account') }}">Dashboard</a></li>
-                            <li><a href="order-list.html">Orders</a></li>
+                            <li><a href="{{ route('orderlist') }}">Orders</a></li>
                             <li><a href="downloads.html">Downloads</a></li>
                             <li><a href="{{ route('my.address') }}">Addresses</a></li>
                             <li><a href="{{ route('my.accountdetail') }}">Account Details</a></li>
