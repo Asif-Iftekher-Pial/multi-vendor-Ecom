@@ -31,12 +31,12 @@
 <body class="bg-light">
 <div class="container">
     <div class="py-5 text-center">
-        <h2>Hosted Payment - SSLCommerz</h2>
+        <h2>Hosted Payment - SSLCommerz Modifying</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. We have provided this sample form for understanding Hosted Checkout Payment with SSLCommerz.</p>
     </div>
 
     <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
+        {{-- <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Your cart</span>
                 <span class="badge badge-secondary badge-pill">3</span>
@@ -68,7 +68,7 @@
                     <strong>1200 TK</strong>
                 </li>
             </ul>
-        </div>
+        </div> --}}
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
             <form action="{{ url('/pay') }}" method="POST" class="needs-validation">
@@ -77,7 +77,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="firstName">Full name</label>
                         <input type="text" name="customer_name" class="form-control" id="customer_name" placeholder=""
-                               value="John Doe" required>
+                               value="{{ $payOrder->first_name }} {{ $payOrder->last_name }}" required>
                         <div class="invalid-feedback">
                             Valid customer name is required.
                         </div>
@@ -91,7 +91,7 @@
                             <span class="input-group-text">+88</span>
                         </div>
                         <input type="text" name="customer_mobile" class="form-control" id="mobile" placeholder="Mobile"
-                               value="01711xxxxxx" required>
+                               value="{{ $payOrder->phone }}" required>
                         <div class="invalid-feedback" style="width: 100%;">
                             Your Mobile number is required.
                         </div>
@@ -101,7 +101,7 @@
                 <div class="mb-3">
                     <label for="email">Email <span class="text-muted">(Optional)</span></label>
                     <input type="email" name="customer_email" class="form-control" id="email"
-                           placeholder="you@example.com" value="you@example.com" required>
+                           placeholder="you@example.com" value="{{ $payOrder->email }}" required>
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
@@ -109,8 +109,8 @@
 
                 <div class="mb-3">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                           value="93 B, New Eskaton Road" required>
+                    <input type="text" class="form-control" name="address"  id="address" placeholder="1234 Main St"
+                           value="{{ $payOrder->address }}" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
@@ -124,9 +124,9 @@
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" id="country" required>
+                        <select class="custom-select d-block w-100" name="country" id="country" required>
                             <option value="">Choose...</option>
-                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="{{ $payOrder->country }}">{{ $payOrder->country }}</option>
                         </select>
                         <div class="invalid-feedback">
                             Please select a valid country.
@@ -136,24 +136,19 @@
                         <label for="state">State</label>
                         <select class="custom-select d-block w-100" id="state" required>
                             <option value="">Choose...</option>
-                            <option value="Dhaka">Dhaka</option>
+                            <option value="{{ $payOrder->state }}">{{  $payOrder->state  }}</option>
                         </select>
                         <div class="invalid-feedback">
                             Please provide a valid state.
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
-                    </div>
+                   
                 </div>
                 <hr class="mb-4">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="same-address">
-                    <input type="hidden" value="1200" name="amount" id="total_amount" required/>
+                    <input type="hidden" value="{{ $payOrder->total_amount }}" name="amount" id="total_amount" required/>
+                    <input type="hidden" value="{{ $payOrder->order_number }}" name="order_number" id="order_number" required/>
                     <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
                         address</label>
                 </div>

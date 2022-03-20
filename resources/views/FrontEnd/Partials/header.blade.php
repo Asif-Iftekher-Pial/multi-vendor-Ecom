@@ -292,8 +292,8 @@
                                 @endphp
                                 <li class="user-title"><span>Hello, </span>{{ $first_name[0] }}!</li>
                                 <li><a href="{{ route('my.account') }}">My Account</a></li>
-                                <li><a href="order-list.html">Orders List</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="{{ route('orderlist') }}">Orders List</a></li>
+                                <li><a href="{{ route('wishlist') }}">Wishlist</a></li>
                                 <li><a href="{{ route('customer.logout') }}"><i class="icofont-logout"></i>Logout</a>
                                 </li>
                             </ul>

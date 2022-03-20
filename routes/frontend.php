@@ -17,7 +17,7 @@ route::get('/', [IndexController::class, 'home'])->name('home');
 
 // SSLCOMMERZ Start
 Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout'])->name('hosted.payment');
+Route::get('/order-list/hosted-payment/{order_number}', [SslCommerzPaymentController::class, 'exampleHostedCheckout'])->name('hosted.payment');
 
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);

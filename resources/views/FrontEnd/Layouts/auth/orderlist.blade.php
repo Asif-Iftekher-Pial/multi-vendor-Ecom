@@ -53,6 +53,7 @@
                         <div class="my-account-content mb-50">
                             <div class="cart-table">
                                 <div class="table-responsive">
+                                    @if (count($orderlist) > 0)
                                     <table class="table table-bordered mb-0">
                                         <thead>
                                             <tr>
@@ -73,15 +74,17 @@
                                                 {{ $item->created_at }}
                                             </td>
                                             <td>
-                                                {{ $item->payment_status }}
+                                                <p class="badge
+                                                @if ($item->payment_status == 'unpaid')
+                                                badge-danger
+                                                @endif " style="padding:10px"> {{ $item->payment_status }} </p>
+                                            
                                             </td>
                                             <td>${{ $item->total_amount }}</td>
                                             @if ($item->payment_status=='unpaid')
                                             <td>
-                                                <a href="{{ route('hosted.payment') }}" class="btn btn-primary btn-sm m-2">Pay</a>
+                                                <a href="{{ route('hosted.payment', $item->order_number) }}" class="btn btn-primary btn-sm m-2">Pay</a>
                                             </td>
-                                            @else
-                                                
                                             @endif
                                           
                                         </tr>
@@ -90,6 +93,67 @@
                                            
                                         </tbody>
                                     </table>
+                                    @else
+                                    <p class="badge badge-danger">You havent placed any new order yet...</p>
+                                    @endif
+
+                                    <br>
+                                    <br>
+                                    <h2>Your Orders</h2>
+                                    @if (count($PaidOrderList) > 0)
+                                    <table class="table table-bordered mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Order</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Payment Status</th>
+                                                <th scope="col">Order Condition</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($PaidOrderList as $item)
+                                           <tr>
+                                            <th scope="row">
+                                                {{ $item->order_number }}
+                                            </th>
+                                            <td>
+                                                {{ $item->created_at }}
+                                            </td>
+                                            
+                                            <td>${{ $item->total_amount }}</td>
+
+                                            <td >
+                                                <p class="badge
+                                                @if ($item->payment_status == 'paid')
+                                                badge-success
+                                                @endif " style="padding:10px"> {{ $item->payment_status }} </p>
+                                            </td>
+
+                                            <td>
+                                               <p class="badge 
+                                               @if ($item->condition == 'pending')
+                                               badge-info
+                                               @elseif ($item->condition == 'processing')
+                                               badge-primary
+                                               @elseif ($item->condition == 'delivered')
+                                               badge-success
+                                               @else
+                                               badge-danger
+                                               @endif
+                                               " style="padding:10px">{{ $item->condition }}</p> 
+                                            </td>
+                                        </tr>
+                                           @endforeach
+                                           
+                                           
+                                        </tbody>
+                                    </table>
+                                    @else
+                                    <p class="badge badge-danger">You havent any paid order</p>
+                                     
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

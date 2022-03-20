@@ -255,11 +255,12 @@ class AuthenticationController extends Controller
     public function myOrderlist()
     {
         // $user = Auth::user();
-        $orderlist=Order::where('user_id',auth()->user()->id)->get();
+        $orderlist=Order::where('user_id',auth()->user()->id)->where('payment_status','unpaid')->get();
+        $PaidOrderList=Order::where('user_id',auth()->user()->id)->where('payment_status','paid')->get();
        
-        //dd($orderlist);
+        //dd($PaidOrderList);
 
-        return view('FrontEnd.Layouts.auth.orderlist', compact('orderlist'));
+        return view('FrontEnd.Layouts.auth.orderlist', compact('orderlist','PaidOrderList'));
     }
 
 }

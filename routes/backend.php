@@ -24,7 +24,7 @@ Route::prefix('app')->group(function () {
         Route::get('/adminLogout', [AdminLoginController::class, 'adminlogout'])->name('admin.logout');
     });
 
-    // admin and employee access
+    // admin  access
 
     Route::group(['middleware' => 'admin'], function () {
         route::prefix('admin')->group(function () {
@@ -62,7 +62,7 @@ Route::prefix('app')->group(function () {
             Route::post('brand_status', [BrandController::class, 'brandStatus'])->name('brand.status');
         });
     });
-    // admin and employee access End
+    // admin access End
 
 
 

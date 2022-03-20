@@ -56,6 +56,7 @@
                                             <th scope="col">Total</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
 
                                         @foreach (Cart::instance('shopping')->content() as $item)
@@ -63,7 +64,7 @@
                                                 @php
                                                     $photo = explode(',', $item->model->photo); // its because theres multiple photo
                                                 @endphp
-
+                                                {{-- here model is the associated model. which is Products model--}}
                                                 <td>
                                                     <img src="{{ $photo[0] }}" alt="Product">
                                                 </td>
