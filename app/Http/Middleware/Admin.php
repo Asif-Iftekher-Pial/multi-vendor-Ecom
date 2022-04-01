@@ -20,7 +20,6 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('admin')->check() ) {
-
             return $next($request);
         } else {
             dd('admin check from middleware ,This seller or employee account will be log out');

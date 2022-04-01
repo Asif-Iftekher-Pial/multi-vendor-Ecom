@@ -227,4 +227,24 @@ class IndexController extends Controller
             return view('FrontEnd.Layouts.errors.404');
         }
     }
+
+
+    // quick view modalProducts
+    public function viewProduct($product_id){
+        // dd($product_id);
+        $modalProduct= Product::where('id',$product_id)->first();
+        // dd($modalProduct); 
+        if($modalProduct){
+            
+            return response()->json([
+                'status' =>200,
+                'modalProduct'=>$modalProduct
+            ]);
+        }else{
+            return response()->json([
+                'status'=>404,
+                'message' =>'Product not found'
+            ]);
+        }
+    }
 }

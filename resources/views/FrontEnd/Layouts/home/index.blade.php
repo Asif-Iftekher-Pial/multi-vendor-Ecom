@@ -74,7 +74,7 @@
     @endif
     <!-- Top Catagory Area -->
 
-
+     
     <!-- Quick View Modal Area -->
     <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-12 col-lg-7">
                                     <div class="quickview_pro_des">
-                                        <h4 class="title">Boutique Silk Dress</h4>
+                                        <h4 id="QviewTitle" class="title"></h4>
                                         <div class="top_seller_product_rating mb-15">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -106,14 +106,11 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
-                                        <h5 class="price">$120.99 <span>$130</span></h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia expedita
-                                            quibusdam aspernatur, sapiente consectetur accusantium perspiciatis praesentium
-                                            eligendi, in fugiat?</p>
-                                        <a href="#">View Full Product Details</a>
+                                        <h5 id="offer_price" class="price">$120.99</h5>
+                                        <p id="description"></p>
                                     </div>
                                     <!-- Add to Cart Form -->
-                                    <form class="cart" method="post">
+                                    {{-- <form class="cart" method="post">
                                         <div class="quantity">
                                             <input type="number" class="qty-text" id="qty" step="1" min="1" max="12"
                                                 name="quantity" value="1">
@@ -128,7 +125,7 @@
                                         <div class="modal_pro_compare">
                                             <a href="compare.html"><i class="icofont-exchange"></i></a>
                                         </div>
-                                    </form>
+                                    </form> --}}
                                     <!-- Share -->
                                     <div class="share_wf mt-30">
                                         <p>Share with friends</p>
@@ -241,9 +238,8 @@
 
                                         <!-- Quick View -->
                                         <div class="product_quick_view">
-                                            <a href="{{ $item->id }}" data-toggle="modal" data-target="#quickview"><i
-                                                    class="icofont-eye-alt"></i>
-                                                Quick View</a>
+                                            <a href="#" data-product-id="{{ $item->id }}" class="quickviewClass" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i>
+                                            Quick View</a>
                                         </div>
 
                                         <p class="brand_name">
@@ -1442,6 +1438,32 @@
 
 @endsection
 @section('front_end_script')
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click','.quickviewClass', function () {
+               // alert('ok')
+               var product_id = $(this).data('product-id');
+               //alert(product_id);
+               $.ajax({
+                   type: "get",
+                   url: "/viewProduct/"+product_id,
+                   success: function (response) {
+                            // console.log(response);
+                    if(response.status == 400){
+                        alert('product detail not available')
+                    }else{
+                      var text=  $('#QviewTitle').html(response.modalProduct.title);
+                      var text=  $('#description').html(response.modalProduct.description);
+                      var text=  $('#offer_price').html(response.modalProduct.offer_price);
+                      var text=  $('#actual_price').html(response.modalProduct.price);
+                    //   console.log(text);
+                    }
+                   }
+               });
+            });
+        });
+    </script>
     {{-- Add to cart,
          and 
         
@@ -1471,7 +1493,7 @@
                 },
                 beforeSend: function() {
                     $('#add_to_cart' + product_id).html(
-                        '<i class="fa fa-spinner fa-spin"></i> Loading....');
+                        '<i class="fa fa-spinner fa-spin"></i> Loading...');
                 },
                 complete: function() {
                     $('#add_to_cart' + product_id).html('<i class="fa fa-cart-plus"></i> Add to Cart');

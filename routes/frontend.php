@@ -122,4 +122,8 @@ Route::get('/product-detail/{slug}/', [IndexController::class, 'productDetail'])
 Route::get('/autosearch', [IndexController::class, 'autoSearch'])->name('autosearch');
 Route::get('/search', [IndexController::class, 'search'])->name('search');
 
+
+
+Route::get('/viewProduct/{product_id}',[IndexController::class,'viewProduct']);
+
 // Frontend routes end
