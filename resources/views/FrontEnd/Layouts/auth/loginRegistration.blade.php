@@ -60,6 +60,21 @@
                         <div class="forget_pass mt-15">
                             <a href="#">Forget Password?</a>
                         </div>
+
+                        <br>
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-3">
+                                <strong>Login with social media</strong>
+                               <p>for facebook login <a href="http://localhost:8000/">Click here...</a></p> 
+                                <br>
+                                <a href="{{ route('login.google') }}" class="btn btn-danger btn-sm">Google</a>
+                                <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-sm">Facebook</a>
+                                <a href="{{ route('login.github') }}" class="btn btn-dark btn-sm">Github</a>
+                            </div>
+                        </div>
+                       
+                       
                     </div>
                 </div>
 
@@ -145,4 +160,6 @@
             $('#alert').slideUp();
         }, 4000);
     </script>
+
+    
 @endsection

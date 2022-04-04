@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticationController extends Controller
 {
@@ -62,21 +63,19 @@ class AuthenticationController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        if(Auth::attempt($credentials)){
-            Session::put('user',$request->email);
+        if (Auth::attempt($credentials)) {
+            Session::put('user', $request->email);
             $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
-                $status->update([
-                     'status' => 'active'
-                 ]);
-            if(Session::get('url.intended')){
+            $status->update([
+                'status' => 'active'
+            ]);
+            if (Session::get('url.intended')) {
                 return Redirect::to(Session::get('url.intended'))->with('success', 'Successfully logged in');
-            }
-            else{
+            } else {
                 return redirect()->route('home')->with('success', 'Successfully logged in');
             }
-        }
-        else{
-            return back()->with('error','Wrong email or password'); 
+        } else {
+            return back()->with('error', 'Wrong email or password');
         }
 
         // $credentials = $request->only('email', 'password');  //only email and passoword are now stored in credentials variable
@@ -95,7 +94,7 @@ class AuthenticationController extends Controller
         //     // if(session()->has('url.intended')) {
         //     //    //dd('okey');
         //     //     session()->put('url.intended', URL::previous());
-            
+
         //     // } else {
         //     //     return redirect()->route('home');
         //     // }
@@ -255,12 +254,150 @@ class AuthenticationController extends Controller
     public function myOrderlist()
     {
         // $user = Auth::user();
-        $orderlist=Order::where('user_id',auth()->user()->id)->where('payment_status','unpaid')->get();
-        $PaidOrderList=Order::where('user_id',auth()->user()->id)->where('payment_status','paid')->get();
-       
+        $orderlist = Order::where('user_id', auth()->user()->id)->where('payment_status', 'unpaid')->get();
+        $PaidOrderList = Order::where('user_id', auth()->user()->id)->where('payment_status', 'paid')->get();
+
         //dd($PaidOrderList);
 
-        return view('FrontEnd.Layouts.auth.orderlist', compact('orderlist','PaidOrderList'));
+        return view('FrontEnd.Layouts.auth.orderlist', compact('orderlist', 'PaidOrderList'));
     }
 
+
+
+    // login with google 
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        $userData = Socialite::driver('google')->user();
+
+        // $user->token
+        // dd($userData);
+
+        $exisUser =  User::where(['email' => $userData->email, 'authSite' => 'google'])->first();
+        if ($exisUser) {
+            // dd('ok');
+            Auth::login($exisUser);
+            $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+            $status->update([
+                'status' => 'active'
+            ]);
+            return redirect()->route('home');
+        } else {
+            //check if email exist or not 
+            $existEmailUser =  User::where(['email' => $userData->email])->first();
+
+            if ($existEmailUser) {
+                echo "email is already exist in our database";
+            } else {
+                //do register..
+                $user = new User();
+                $user->full_name = $userData->name;
+                $user->email = $userData->email;
+                $user->photo = $userData->avatar;
+                $user->authSite = 'google';
+                $user->save();
+
+                Auth::login($user);
+                $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+                $status->update([
+                    'status' => 'active'
+                ]);
+                return redirect()->route('home');
+            }
+        }
+    }
+
+
+    // login with facebook 
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback()
+    {
+        $userData = Socialite::driver('facebook')->user();
+
+        //dd($userData);
+        $exisUser =  User::where(['email' => $userData->email, 'authSite' => 'facebook'])->first();
+        if ($exisUser) {
+            // dd('ok');
+            Auth::login($exisUser);
+            $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+            $status->update([
+                'status' => 'active'
+            ]);
+            return redirect()->route('home');
+        } else {
+            # register...
+            //check if email already exits on database 
+            $existEmailUser =  User::where(['email' => $userData->email])->first();
+
+            if ($existEmailUser) {
+                echo "email already exists in our databse";
+            } else {
+                $user = new User();
+                $user->full_name = $userData->name; //ok
+                $user->email = $userData->email; //ok
+                $user->photo = $userData->avatar; //ok
+                $user->authSite = "facebook";
+                $user->save();
+
+                Auth::login($user);
+                $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+                $status->update([
+                    'status' => 'active'
+                ]);
+                return redirect()->route('home');
+            }
+        }
+
+        // $user->token
+    }
+
+    // login with github 
+    public function redirectToGithub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleGithubCallback()
+    {
+        $userData = Socialite::driver('github')->user();
+        //dd($userData);
+        $exisUser =  User::where(['email' => $userData->email, 'authSite' => 'github'])->first();
+        if ($exisUser) {
+            // dd('ok');
+            Auth::login($exisUser);
+            $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+            $status->update([
+                'status' => 'active'
+            ]);
+            return redirect()->route('home');
+        } else {
+            # register...
+            $existEmailUser = User::where(['email' => $userData->email])->first();
+            if ($existEmailUser) {
+                echo "Email already exist in our database";
+            } else {
+                $user = new User();
+                $user->full_name = $userData->nickname; //ok
+                $user->email = $userData->email; //ok
+                $user->photo = $userData->avatar; //ok
+                $user->authSite = "github";
+                $user->save();
+
+                Auth::login($user);
+                $status = User::find(auth()->user()->id); //this will find query will authorized logged in user by his ID 
+                $status->update([
+                    'status' => 'active'
+                ]);
+                return redirect()->route('home');
+            }
+        }
+    }
 }

@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\Frontend\Cart\CartController;
 use App\Http\Controllers\Frontend\Index\IndexController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\Frontend\checkout\CheckoutController;
 use App\Http\Controllers\Frontend\wishlist\WishlistController;
 use App\Http\Controllers\Frontend\auth\AuthenticationController;
 use App\Http\Controllers\Frontend\ProductReview\ProductReviewController;
+
 // Frontend routes start
 
 
@@ -125,5 +129,25 @@ Route::get('/search', [IndexController::class, 'search'])->name('search');
 
 
 Route::get('/viewProduct/{product_id}',[IndexController::class,'viewProduct']);
+
+
+
+// Socialite login
+
+
+// Github login
+
+Route::get('login/github',[AuthenticationController::class,'redirectToGithub'])->name('login.github');
+Route::get('login/github/callback',[AuthenticationController::class,'handleGithubCallback']);
+
+// google login
+
+Route::get('login/google',[AuthenticationController::class,'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback',[AuthenticationController::class,'handleGoogleCallback']);
+
+// Facebook login
+
+Route::get('login/facebook',[AuthenticationController::class,'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback',[AuthenticationController::class,'handleFacebookCallback']);
 
 // Frontend routes end
