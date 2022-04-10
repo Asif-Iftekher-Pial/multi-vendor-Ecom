@@ -71,9 +71,12 @@ class ProductController extends Controller
             'cat_id'        =>  'required|exists:categories,id',
             'child_cat_id'  =>  'nullable|exists:categories,id',
             'size'          =>  'nullable',
-            
+
             'status'        =>  'nullable|in:active,inactive',
         ]);
+
+
+
         $data = $request->all();
         $slug = Str::slug($request->input('title'));
         $slug_count = Product::where('slug', $slug)->count();
@@ -84,20 +87,16 @@ class ProductController extends Controller
 
         if (auth('seller')->user()) {
             # code...
-            $data['added_by']="seller";
-            $data['seller_id']=auth('seller')->user()->id;
-
-        }elseif (auth('admin')->user()) {
+            $data['added_by'] = "seller";
+            $data['seller_id'] = auth('seller')->user()->id;
+        } elseif (auth('admin')->user()) {
             # code...
-            $data['added_by']=auth('admin')->user()->full_name;
-
+            $data['added_by'] = auth('admin')->user()->full_name;
+        } else {
+            // dd('checke in Product controller');
+            $data['added_by'] = "employee";
         }
-        else{
-            dd('checke in Product controller');
-            $data['added_by']="employee";
 
-        }
-       
         $data['offer_price'] = ($request->price - (($request->price * $request->discount) / 100)); // 150-((150*10)/100) suppose here, price is 150 , discount is 10, divided by 100 is equal to stored in  offer price 
         //dd($data);
 
@@ -119,11 +118,11 @@ class ProductController extends Controller
     {
         // 
         $product = Product::find($id);
-        $productattr=ProductAttribute::where('product_id',$id)->orderBy('id', 'DESC')->get();
+        $productattr = ProductAttribute::where('product_id', $id)->orderBy('id', 'DESC')->get();
 
         if ($product) {
 
-            return view('Backend.Layouts.Product.product-attribute', compact('product','productattr'));
+            return view('Backend.Layouts.Product.product-attribute', compact('product', 'productattr'));
         } else {
             return back()->with('error', 'Product not found');
         }
@@ -226,7 +225,7 @@ class ProductController extends Controller
         }
     }
 
-    public function addProductAttribute(Request $request,$id)
+    public function addProductAttribute(Request $request, $id)
     {
         // $request->validate([
         //     'size'=>'nullable|string',
@@ -234,22 +233,19 @@ class ProductController extends Controller
         //     'offer_price'=>'nullable|numeric',
         //     'stock'=>'nullable|numeric',
         // ]);
-        $data= $request->all();
-        foreach ($data['original_price'] as $key=>$val) {
+        $data = $request->all();
+        foreach ($data['original_price'] as $key => $val) {
 
-           if(!empty($val)){
-               $attribute=new ProductAttribute;
-               $attribute['original_price']=$val;
-               $attribute['offer_price']=$data['offer_price'][$key];
-               $attribute['stock']=$data['stock'][$key];
-               $attribute['product_id']=$id;
-               $attribute['size']=$data['size'][$key];
-               $attribute->save();
-            
-
-
-           }
+            if (!empty($val)) {
+                $attribute = new ProductAttribute;
+                $attribute['original_price'] = $val;
+                $attribute['offer_price'] = $data['offer_price'][$key];
+                $attribute['stock'] = $data['stock'][$key];
+                $attribute['product_id'] = $id;
+                $attribute['size'] = $data['size'][$key];
+                $attribute->save();
+            }
         }
-        return redirect()->back()->with('success','Product attribute successfully added!');
+        return redirect()->back()->with('success', 'Product attribute successfully added!');
     }
 }

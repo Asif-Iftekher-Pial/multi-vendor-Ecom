@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from demo.designing-world.com/bigshop-2.3.0/index-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Aug 2021 10:41:45 GMT -->
+
 <head>
     @include('FrontEnd.Partials.head')
 </head>
@@ -17,7 +18,7 @@
 
     <!-- Header Area -->
     <header class="header_area" id="header-ajax">
-    @include('FrontEnd.Partials.header')
+        @include('FrontEnd.Partials.header')
     </header>
     <!-- Header Area End -->
 
@@ -26,15 +27,15 @@
 
 
     <!-- Footer Area -->
-   @include('FrontEnd.Partials.footer')
+    @include('FrontEnd.Partials.footer')
     <!-- Footer Area -->
 
-   @include('FrontEnd.Partials.script')
-   
-   {{-- cart delete script --}}
-   
-   <script>
-       $(document).on('click', '.cart_delete', function(e) {
+    @include('FrontEnd.Partials.script')
+
+    {{-- cart delete script --}}
+
+    <script>
+        $(document).on('click', '.cart_delete', function(e) {
             e.preventDefault();
             var cart_id = $(this).data('id');
             var token = "{{ csrf_token() }}";
@@ -47,15 +48,15 @@
                 type: "POST",
                 dataType: "JSON",
                 data: {
-                    cart_id:cart_id,
-                   
+                    cart_id: cart_id,
+
                     _token: token,
 
                 },
-               
+
                 success: function(data) {
                     console.log(data);
-                   
+
                     if (data['status']) {
                         $('body #header-ajax').html(data['header']);
                         $('body #cart-counter').html(data['cart_count']);
@@ -67,39 +68,39 @@
                         });
                     }
                 },
-                error:function (err){
+                error: function(err) {
                     console.log(err);
                 }
             });
 
 
         });
-   </script>
-   {{-- autoComplete and autosearch --}}
-   <script>
-       $(document).ready(function () {
-           var path="{{ route('autosearch') }}";
-           $('#search_text').autocomplete({
-               source:function(request,response){
-                   $.ajax({
-                       url:path,
-                       dataType:"JSON",
-                       data:{
-                           term:request.term
-                       },
-                       success: function(data){
+    </script>
+    {{-- autoComplete and autosearch --}}
+    <script>
+        $(document).ready(function() {
+            var path = "{{ route('autosearch') }}";
+            $('#search_text').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: path,
+                        dataType: "JSON",
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
                             response(data);
-                       }
-                   });
-               },
-               minLength:1,
-           });
-       });
-   </script>
+                        }
+                    });
+                },
+                minLength: 1,
+            });
+        });
+    </script>
 
 </body>
 
 
 <!-- Mirrored from demo.designing-world.com/bigshop-2.3.0/index-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Aug 2021 10:43:02 GMT -->
-</html>
 
+</html>

@@ -123,7 +123,7 @@
                     productQuantity: productQuantity,
                 },
                 success: function(data) {
-                    console.log(data);
+                   // console.log(data);
                     if (data['status']) {
                         $('body #header-ajax').html(data['header']);
                         $('body #cart-counter').html(data['cart_count']);

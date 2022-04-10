@@ -1445,6 +1445,7 @@
                // alert('ok')
                var product_id = $(this).data('product-id');
                //alert(product_id);
+               
                $.ajax({
                    type: "get",
                    url: "/viewProduct/"+product_id,
@@ -1499,7 +1500,7 @@
                     $('#add_to_cart' + product_id).html('<i class="fa fa-cart-plus"></i> Add to Cart');
                 },
                 success: function(data) {
-                    console.log(data);
+                   // console.log(data);
                     // $('body #header-ajax').html(data['header']);
                     if (data['status']) {
                         $('body #header-ajax').html(data['header']);
