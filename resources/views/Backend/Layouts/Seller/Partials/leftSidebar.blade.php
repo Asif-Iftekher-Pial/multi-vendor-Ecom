@@ -36,7 +36,7 @@
                             <a href="#App" class="has-arrow"><i class="icon-grid"></i> <span>Brand</span></a>
                             <ul>
                                 <li><a href="{{ route('SellerBrand.index') }}">All brand</a></li>
-                                <li><a href="{{ route('brand.create') }}">Create brand</a></li>
+                                <li><a href="{{ route('SellerBrand.create') }}">Create brand</a></li>
                             </ul>
                         </li>
 
@@ -55,9 +55,6 @@
                                 </span></a>
                             <ul>
                                 <li><a href="{{ route('order.index') }}">All Order</a></li>
-                                <li><a href="file-documents.html">Documents</a></li>
-                                <li><a href="file-media.html">Media</a></li>
-                                <li><a href="file-images.html">Images</a></li>
                             </ul>
                         </li>
                         <li>

@@ -4,7 +4,7 @@
         <div class="header">
             <h2 class="badge badge-success">All Orders</h2>
             <h2>
-                <p class="float-right ">Tottal orders : {{ app\models\Orders::count() }} </p>
+                <p class="float-right ">Tottal orders : {{ app\models\Order::count() }} </p>
             </h2>
         </div>
 
